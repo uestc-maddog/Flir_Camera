@@ -1,7 +1,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx.h"                    // Device header
-#include "stm32f4xx.h"                    // Device header
 
 /* USER CODE BEGIN Includes */
 #include "lepton.h"
@@ -24,6 +23,7 @@ I2C_HandleTypeDef hi2c1;
 ADC_HandleTypeDef hadc1;
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
+IWDG_HandleTypeDef hiwdg;
 DMA_HandleTypeDef hdma_i2c1_rx;
 DMA_HandleTypeDef hdma_i2c1_tx;
 DMA_HandleTypeDef hdma_spi1_tx;
@@ -45,13 +45,12 @@ static void MX_DMA_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SPI2_Init(void);
 static void MX_SPI1_Init(void);
-static void MX_TIM9_Init(void);
-
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-                
+static void MX_TIM9_Init(void);                
 static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_IWDG_Init(void);
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 volatile uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
 uint8_t Charge_Flag = 0;                           // 0:表示已经退出过一次充电状态,充电线已拔出
@@ -94,7 +93,10 @@ int main(void)
   HAL_Delay(500);
   enable_lepton_agc();
 	temprature = Get_Temprate();	    // 得到温度值 
-	while (1)
+	
+	MX_IWDG_Init();                   // 初始化并启动看门狗     3s
+	
+	while(1)
   {
 		// 显示Flir界面
 		Flir_Display();	  
@@ -108,6 +110,9 @@ int main(void)
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
+#ifdef enable_iwdg
+			HAL_IWDG_Refresh(&hiwdg);
+#endif
 			if(Key_Value == Key_Short)           // 短按切换display mode
 			{
 				if(flir_conf.flir_sys_DisMode == color) 
@@ -128,7 +133,7 @@ int main(void)
 		// Sleep Time倒计时到
 		if(Time_Sleep >= SleepTime_Setting)    
 		{
-			flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
+			flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换到Stop Mode
 			setSandby();
 		}
   }
@@ -522,28 +527,56 @@ static void MX_ADC1_Init(void)
 //  {
 //    Error_Handler();
 //  }
+}
+
+/* IWDG init function */
+static void MX_IWDG_Init(void)
+{
+  hiwdg.Instance = IWDG;
+  hiwdg.Init.Prescaler = IWDG_PRESCALER_64;
+  hiwdg.Init.Reload = 1500;
+  if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
 }
+
 void Menu_Display(void)
 {
 	uint8_t timer = 0;
 	KeyStatus Key_Value = Key_None;
 	menuCont_sta Menu_Value = Brightness;
 	
+#ifdef enable_iwdg
+  HAL_IWDG_Refresh(&hiwdg);
+#endif	
+	
 	HAL_Delay(300);
 	display_menu(Menu_Value);
+	
+#ifdef enable_iwdg
+  HAL_IWDG_Refresh(&hiwdg);
+#endif
+	
 	while(1)
 	{
 		HAL_Delay(50);
 		Key_Value = Key_Scan();   
 		if(Key_Value)
 		{
+#ifdef enable_iwdg
+      HAL_IWDG_Refresh(&hiwdg);
+#endif
 			timer = 0;
 			if(Key_Value == Key_Short)        // 短按切换菜单栏
 			{
 				if(++Menu_Value == empty) Menu_Value = Brightness;
 				if(Menu_Value == Compass) Menu_Value = Exit;
 				display_menu(Menu_Value);
+#ifdef enable_iwdg
+        HAL_IWDG_Refresh(&hiwdg);
+#endif
 			}
 			if(Key_Value == Key_Long)
 			{
@@ -572,6 +605,9 @@ void Menu_Display(void)
 					case (int)Reset:
 						sysConf_Reset();
 						Save_Parameter();  
+#ifdef enable_iwdg
+						HAL_IWDG_Refresh(&hiwdg);
+#endif
 						display_menu(Menu_Value);
 						timer = 200;                          // timer=200时，退出菜单界面
 						break;
@@ -593,6 +629,9 @@ void Menu_Display(void)
 				}
 			}									
 		}
+#ifdef enable_iwdg
+		HAL_IWDG_Refresh(&hiwdg);
+#endif
 		if(timer++ == 200)                            // 超过10s无按键响应，则退出菜单界面
 		{
 			timer = 0;
@@ -611,7 +650,10 @@ void Flir_Display(void)
 			for(i = 0; i < 2; i++) 
 			{
 				LCD_WR_Frame(rgbbuf);
-				HAL_Delay(13);
+#ifdef enable_iwdg
+        HAL_IWDG_Refresh(&hiwdg);
+#endif				
+				HAL_Delay(10);
 			}
 			HAL_Delay(2);
 		}
@@ -624,7 +666,7 @@ void Flir_Display(void)
 				HAL_Delay(1250);
 			}
 			else
-			{
+			{        
 				HAL_Delay(5);
 			}
 		}
@@ -634,7 +676,7 @@ void Flir_Display(void)
 		if(xfer_state != LEPTON_XFER_STATE_DATA)
 		HAL_Delay(1);
 	}	
-	baterry_test ++ ;	
+	baterry_test++ ;	
 	if(baterry_test == 10) 
 	{
 		baterry_test = 0;

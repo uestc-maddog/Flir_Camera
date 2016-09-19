@@ -24,6 +24,8 @@
 #include "stm32f4xx_hal.h"
 #include "flir_lcd.h"
 
+#define enable_iwdg 1
+
 void Brightnesschosen(void);
 void Sleepchosen(void);
 void Versionchosen(void);

@@ -159,7 +159,7 @@ typedef struct{
 	CompassMode_sta    flir_sys_ComMode;          // 系统Compass模式参数
 	Quan_baterry       flir_sys_Baterry;          // 系统电量参数
 	Baterrymode        file_sys_chargingMode;			// 系统充电状态参数
-	LowPower_sta	     file_sys_LowPower;         // 标记当前系统是否处于Stop模式	
+	LowPower_sta	     file_sys_LowPower;         // 标记当前系统是否处于Stop模式	 
 	PBWakeup_sta       file_sys_PBWakeup;         // 标记PBSTA开机唤醒是否按下
 } sysConf_t;
 /********************************************************************************************************

@@ -20,6 +20,7 @@
  ********************************************************************************************************/
 #include "stm32f4xx_hal.h"
 #include "electricity.h"
+#include "menufounction.h"
 #include "flir_menu.h"
 #include "key.h"
 
@@ -48,7 +49,7 @@
  *                                               EXTERNAL VARIABLES
  ********************************************************************************************************/
 extern ADC_HandleTypeDef hadc1;
-
+extern IWDG_HandleTypeDef hiwdg;
 volatile Quan_baterry temp;
 uint8_t baterrychackcounter=0;    // 电量检测计数器。
 extern 	KeyStatus Key_Value;
@@ -204,24 +205,10 @@ void CLOCK_OFF(void)
  */
 void setSandby( void )
 {
-	//IIC 两脚拉高
-//	GPIO_InitTypeDef GPIO_InitStruct;
-//	
-//	GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-//  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);	
-//	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_8,GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_9,GPIO_PIN_SET);
-//	
-//	GPIO_InitStruct.Pin = GPIO_PIN_6;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-//  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);	
-//	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET);
-	
-	
 	//sleep state changge to enable.
+#ifdef enable_iwdg
+	HAL_IWDG_Refresh(&hiwdg);
+#endif
 	sleep_sta = Sleep_enable;
 	Save_Parameter();                           // 保存8个系统参数到FLASH
 	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
@@ -230,7 +217,18 @@ void setSandby( void )
 		display_Byebye();
 	else
 		display_PowerOff();	
-	HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
+#ifdef enable_iwdg
+	HAL_IWDG_Refresh(&hiwdg);
+#endif
+	HAL_Delay(500);HAL_Delay(500);
+#ifdef enable_iwdg
+	HAL_IWDG_Refresh(&hiwdg);
+#endif
+	HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
+#ifdef enable_iwdg
+	HAL_IWDG_Refresh(&hiwdg);
+#endif
+	HAL_Delay(500);
 	
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	
@@ -241,6 +239,9 @@ void setSandby( void )
 	HAL_PWREx_EnableFlashPowerDown();
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+#ifdef enable_iwdg
+	HAL_IWDG_Refresh(&hiwdg);
+#endif
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 
@@ -259,7 +260,7 @@ void PBsetSandby(void)
 {
 	//sleep state changge to enable.
 	sleep_sta = Sleep_enable;
-	Save_Parameter();                            // 保存8个系统参数到FLASH
+	Save_Parameter();                            // 保存9个系统参数到FLASH
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	
 	/*To minimize the consumption In Stop mode, FLASH can be powered off before 

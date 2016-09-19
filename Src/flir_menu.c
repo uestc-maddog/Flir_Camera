@@ -823,7 +823,7 @@ void sysConf_init(void)
 	uint32_t datatemp[PARA_NUMS];        // 系统参数缓存
 	
 	STMFLASH_Read(PARA_SAVE_ADDR,&temp,1);    // 读出1个数据
-	if(temp != 0x45)     // 参数还未保存到FLASH
+	if(temp != 0x45)     // 参数还未保存到FLASH（第一次运行）
 	{
 		// init system configuration
 		flir_conf.flir_sys_Bright = Level3;         // 默认亮度等级   Level3
@@ -836,10 +836,11 @@ void sysConf_init(void)
 		flir_conf.flir_sys_DisMode = color;         // 默认摄像头数据彩色显示
 		flir_conf.flir_sys_ComMode = disable;       // 默认指南针功能开启
 		flir_conf.file_sys_PBWakeup= PBWakeup_None; // 默认PBSTA开机唤醒未按下
+		flir_conf.file_sys_LowPower= Not_LowPower;  // 第一次开机，非Stop低功耗模式
 	}
 	else
 	{
-		STMFLASH_Read(PARA_SAVE_ADDR+1,(uint32_t*)datatemp,PARA_NUMS-1);   // 读出8个系统参数
+		STMFLASH_Read(PARA_SAVE_ADDR+1,(uint32_t*)datatemp,PARA_NUMS-1);   // 读出9个系统参数
 
 		// init system configuration
 		flir_conf.flir_sys_Bright = (BrightnessCont_sta)(datatemp[0]>>24);    // 亮度等级   
@@ -851,8 +852,22 @@ void sysConf_init(void)
 		
 		flir_conf.flir_sys_DisMode = (DisplayMode_sta)(datatemp[5]>>24);      // 摄像头数据显示模式（彩色/黑白）
 		flir_conf.flir_sys_ComMode = (CompassMode_sta)(datatemp[6]>>24);      // 指南针功能是否开启
-		
 		flir_conf.file_sys_PBWakeup= (PBWakeup_sta)(datatemp[7]>>24);         // 是否为PBSTA开机唤醒
+		flir_conf.file_sys_LowPower= (LowPower_sta)(datatemp[8]>>24);         // 标记IWDG发生于Stop mode 还是程序运行出错 
+	}  
+	
+	if( (RCC->CSR & (0x01 << 29)) )                  // IWDG复位 
+	{
+		__HAL_RCC_CLEAR_RESET_FLAGS();                 // 清除复位标志
+		if(flir_conf.file_sys_LowPower == Is_LowPower) // Stop Mode下发生的IWDG复位      
+		{
+			flir_conf.file_sys_LowPower = Is_LowPower;   // 状态切换
+			PBsetSandby();
+		}
+//		else                                           // 程序运行出错发生的IWDG复位
+//		{
+//			
+//		}
 	}
 	
 	if(flir_conf.file_sys_PBWakeup == PBWakeup_Down)  // PBSTA开机唤醒
@@ -876,6 +891,7 @@ void sysConf_init(void)
 			PBsetSandby();
 		}
 	}
+	flir_conf.file_sys_LowPower= Not_LowPower;  // 开机，非Stop低功耗模式
 	Time_Sleep = 0;                             // 休眠定时计数器归零
 	switch((int)flir_conf.flir_sys_Sleep)
 	{
@@ -902,11 +918,12 @@ void sysConf_init(void)
 		default :
 			break;
 	}
+	Save_Parameter();                            // 保存9个系统参数到FLASH
 }
 
 void Save_Parameter(void)                     // 保存8个系统参数到FLASH
 {
-	uint32_t datatemp[PARA_NUMS];        // 系统参数缓存
+	uint32_t datatemp[PARA_NUMS];               // 系统参数缓存
 	
 	datatemp[0] = (uint32_t)0x45;
 	datatemp[1] = (uint32_t)flir_conf.flir_sys_Bright;
@@ -915,8 +932,9 @@ void Save_Parameter(void)                     // 保存8个系统参数到FLASH
 	datatemp[4] = (uint32_t)(flir_conf.flir_sys_Reticle[0]+50);
 	datatemp[5] = (uint32_t)(flir_conf.flir_sys_Reticle[1]+50);
 	datatemp[6] = (uint32_t)flir_conf.flir_sys_DisMode;
-	datatemp[7] = (uint32_t)disable;           // compass off
+	datatemp[7] = (uint32_t)disable;                       // compass off
 	datatemp[8] = (uint32_t)flir_conf.file_sys_PBWakeup;
+	datatemp[9] = (uint32_t)flir_conf.file_sys_LowPower;   // 标记IWDG发生于Stop mode 还是程序运行出错
 	
 	STMFLASH_Write(PARA_SAVE_ADDR,(uint32_t *)datatemp,PARA_NUMS);                      // 保存参数
 }
@@ -942,6 +960,7 @@ void sysConf_Reset(void)
 	flir_conf.flir_sys_DisMode = color;          // 默认摄像头数据彩色显示
 	flir_conf.flir_sys_ComMode = disable;        // 默认指南针功能开启
 	flir_conf.file_sys_PBWakeup= PBWakeup_None;  // 默认PBSTA开机唤醒未按下
+	flir_conf.file_sys_LowPower= Not_LowPower;   // 默认非Stop低功耗模式
 		
 	SET_BGLight(flir_conf.flir_sys_Bright);     // 设置亮度
 	sleep_sta = Sleep_disable;									// 开机状态
