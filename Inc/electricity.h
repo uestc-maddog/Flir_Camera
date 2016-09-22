@@ -89,7 +89,7 @@ void setSandby(void);
 /*********************************************************************
  * @fn        PBsetSandby()
  *
- * @brief     configure system to standby mode,
+ * @brief     configure system to standby mode,        长按开机时，长按时间不够时运行进入Stop Mode
  *						disable LCD and flir camera.
  *						call this function before sleep.
  *
@@ -111,20 +111,6 @@ void PBsetSandby(void);
  * @return    none
  */
 void CLOCK_OFF(void);
-
-/*********************************************************************
- * @fn        resetStandby()
- *
- * @brief     Disable LTC3553-2 after system reset. Call this function
- *						first thing during init stage 
- *
- * @param     none
- *
- * @return    none
- */
-void resetStandby( void );
-
-void setSandby2( void );
 
  /********************************************************************************************************
  *                                               LOCAL FUNCTIONS

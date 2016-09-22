@@ -36,8 +36,7 @@
 /********************************************************************************************************
  *                                               CONSTANTS
  ********************************************************************************************************/
-const uint8_t temp_number0[] = 
-{ 254, 198, 146, 146, 146, 146, 146, 146, 198, 254};      // 0
+ 
 const uint8_t temp_number[10][10] = 
 {
 	{ 254, 198, 146, 146, 146, 146, 146, 146, 198, 254},       // 0
@@ -46,11 +45,10 @@ const uint8_t temp_number[10][10] =
 	{ 254, 198, 146, 242, 230, 242, 242, 146, 198, 254},       // 3
 	{ 254, 242, 226, 210, 210, 178, 128, 242, 242, 254},       // 4
 	{ 254, 194, 206, 158, 134, 178, 242, 146, 198, 254},       // 5
-	
 	{ 254, 198, 146, 158, 134, 146, 146, 146, 198, 254},       // 6
 	{ 254, 130, 242, 230, 230, 206, 206, 206, 206, 254},       // 7
 	{ 254, 198, 146, 146, 198, 146, 146, 146, 198, 254},       // 8
-	{ 254, 198, 146, 146, 146, 194, 242, 146, 198, 254}       // 9
+	{ 254, 198, 146, 146, 146, 194, 242, 146, 198, 254}        // 9
 };
  
 /********************************************************************************************************
@@ -98,33 +96,19 @@ uint16_t  Get_Adc(uint32_t ch)
 	uint16_t ADC_Temp = 0;
 	ADC_ChannelConfTypeDef ADC1_ChanConf;
 		
-	ADC1_ChanConf.Channel=ch;                                   //通道
-	ADC1_ChanConf.Rank=1;                                       //1个序列
-	ADC1_ChanConf.SamplingTime=ADC_SAMPLETIME_3CYCLES;         //采样时间
+	ADC1_ChanConf.Channel=ch;                                   // 通道
+	ADC1_ChanConf.Rank=1;                                       // 1个序列
+	ADC1_ChanConf.SamplingTime=ADC_SAMPLETIME_3CYCLES;          // 采样时间
 	ADC1_ChanConf.Offset=0;                 
-	HAL_ADC_ConfigChannel(&hadc1,&ADC1_ChanConf);        //通道配置
+	HAL_ADC_ConfigChannel(&hadc1,&ADC1_ChanConf);               // 通道配置
 
-	HAL_ADC_Start(&hadc1);                               //开启ADC
+	HAL_ADC_Start(&hadc1);                                      // 开启ADC
  	if(HAL_ADC_PollForConversion(&hadc1,2) == HAL_OK)
 	{
 		 ADC_Temp = HAL_ADC_GetValue(&hadc1);
 	}
 	HAL_ADC_Stop(&hadc1);
 	return ADC_Temp;	            //返回最近一次ADC1规则组的转换结果
-	
-//	ADC_ChannelConfTypeDef ADC1_ChanConf;
-//    
-//	ADC1_ChanConf.Channel=ch;                                   //通道
-//	ADC1_ChanConf.Rank=1;                                       //1个序列
-//	ADC1_ChanConf.SamplingTime=ADC_SAMPLETIME_480CYCLES;        //采样时间
-//	ADC1_ChanConf.Offset=0;                 
-//	HAL_ADC_ConfigChannel(&hadc1,&ADC1_ChanConf);        //通道配置
-
-//	HAL_ADC_Start(&hadc1);                               //开启ADC
-
-//	HAL_ADC_PollForConversion(&hadc1,10);                //轮询转换
-//   
-//	return (uint16_t)HAL_ADC_GetValue(&hadc1);	            //返回最近一次ADC1规则组的转换结果
 }
 
 /*********************************************************************
@@ -143,10 +127,9 @@ uint16_t Get_Adc_Average(uint32_t ch,uint8_t times)
 	
 	for(t=0;t<times;t++)
 	{
-		temp_val+=Get_Adc(ch);
-		//HAL_Delay(5);
+		temp_val += Get_Adc(ch);
 	}
-	return temp_val/times;
+	return temp_val / times;
 }
 
 /*********************************************************************
@@ -165,7 +148,8 @@ short Get_Temprate(void)
 	
 	adcx=Get_Adc(ADC_CHANNEL_TEMPSENSOR);    //读取内部温度传感器通道
 	temperate=(float)adcx*(3.3/4096);		     //电压值
-	temperate=(temperate-0.76)/0.0025 + 25;  //转换为温度值 			
+	temperate=(temperate-0.76)/0.0025 + 25;  //转换为温度值 		
+	
 	return (float)temperate;
 }
 
@@ -186,7 +170,7 @@ void display_Temperature(float temp)
 	
 	short temprature = (short)(temp * 1.80f + 32);    // 摄氏温度转华氏温度
 	
-	//	// 显示温度  
+	// 显示温度  
 	Temp_Value = temprature / 100;      // 温度值    百位
 	// block sending
 	if(Temp_Value != 0)
@@ -215,7 +199,7 @@ void display_Temperature(float temp)
 	// block sending
 	for(index = 0; index < 10; index++)
 	{
-		for(i = 0; i < 7; i++)          // 数字的分辨率仅为10 x 7
+		for(i = 0; i < 7; i++)             // 数字的分辨率仅为10 x 7
 		{
 			if(((temp_number[Temp_Value][(index * (16/2) + i) >> 3] >> (7 - (index * (16/2) + i)%8)) & 0x01) != 0x01)
 				rowBuf[index+3][15+i]=0xE007;

@@ -21,6 +21,7 @@ uint8_t STMFLASH_GetFlashSector(uint32_t addr)
 	else if(addr<ADDR_FLASH_SECTOR_6) return FLASH_SECTOR_5;
 	else if(addr<ADDR_FLASH_SECTOR_7) return FLASH_SECTOR_6;
 	else if(addr<ADDR_FLASH_SECTOR_8) return FLASH_SECTOR_7;
+	else return 0;
 }
 
 //从指定地址开始写入指定长度的数据

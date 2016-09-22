@@ -100,7 +100,6 @@ const int colormap_ironblack[] = {255, 255, 255, 253, 253, 253, 251, 251, 251,
 
 uint16_t nbuf2[60][82];
 volatile uint16_t rgbbuf[60][80];
-static uint32_t current_buffer_index = 0;
 lepton_xfer_state xfer_state = LEPTON_XFER_STATE_START;
 
 // These replace HAL library functions as they're a lot shorter and more specialized
@@ -258,7 +257,7 @@ uint16_t YUV2RGB422(unsigned char u)
 {
 	uint8_t r,g,b,temp;
 	uint16_t rgb;
-	unsigned int i=0;
+	
 	if(flir_conf.flir_sys_DisMode == color)
 	{
 		r = colormap_ironblack[3*u];

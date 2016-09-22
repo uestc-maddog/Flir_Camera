@@ -52,7 +52,6 @@ extern ADC_HandleTypeDef hadc1;
 extern IWDG_HandleTypeDef hiwdg;
 volatile Quan_baterry temp;
 uint8_t baterrychackcounter=0;    // 电量检测计数器。
-extern 	KeyStatus Key_Value;
 bool low_power = false;
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -135,16 +134,12 @@ void CLOCK_OFF(void)
 {
 	GPIO_InitTypeDef GPIO_InitStruct;
 	
-//	GPIOA->ODR &= 0x0fc8f;
-//	GPIOB->ODR &= 0x0ffbf;
-//	GPIOC->ODR &= 0x1fff;
-	
-	GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7| GPIO_PIN_8| GPIO_PIN_9;
+	GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7| GPIO_PIN_8| GPIO_PIN_9 | GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | SYSTEM_LED_Pin, GPIO_PIN_SET);   
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | SYSTEM_LED_Pin | GPIO_PIN_11, GPIO_PIN_SET);   
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7| GPIO_PIN_8| GPIO_PIN_9, GPIO_PIN_RESET);
 	
@@ -161,16 +156,6 @@ void CLOCK_OFF(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13| GPIO_PIN_14| GPIO_PIN_15, GPIO_PIN_RESET);
-	
-//		/*Configure GPIO pin : PB_STAT_Pin */
-//  GPIO_InitStruct.Pin = PB_STAT_Pin;
-//  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  HAL_GPIO_Init(PB_STAT_GPIO_Port, &GPIO_InitStruct);
-//	/* EXTI interrupt init*/
-//  HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
-//  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-	
 	
 	__HAL_RCC_GPIOB_CLK_DISABLE();
 	__HAL_RCC_GPIOC_CLK_DISABLE();
@@ -271,65 +256,6 @@ void PBsetSandby(void)
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
-}
-
-/*********************************************************************
- * @fn        setSandby()
- *
- * @brief     configure system to standby mode,
- *						disable LCD and flir camera.
- *						call this function before sleep.
- *
- * @param     none
- *
- * @return    none
- */
-void setSandby2( void )
-{
-	GPIO_InitTypeDef GPIO_InitStruct;
-	
-	// configure power standby pin 
-	// driven high this pin to enable low power
-	HAL_GPIO_WritePin(POWER_STANDBY_GPIOX, POWER_STANDBY_PIN, GPIO_PIN_SET);
-	
-
-	
-	// configure LCD back light power
-	// re-config the LCD power pin
-//	GPIO_InitStruct.Pin = LCD_POWER_PIN;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-//	HAL_GPIO_Init(LCD_POWER_GPIOX, &GPIO_InitStruct);
-	
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);   // LDO OFF
-	
-	// set this pin to high to stop LCD back light power
-	HAL_GPIO_WritePin(LCD_POWER_GPIOX, LCD_POWER_PIN, GPIO_PIN_RESET);
-	
-	
-	
-	// congifure flir camera sleep
-	// enable flir power down pin to disable flir camera
-	HAL_GPIO_WritePin(FLIR_POWER_DWN_GPIOX, FLIR_POWER_DWN_PIN, GPIO_PIN_RESET);	// logic-low enable, shutdown sequence
-}
-
-
-/*********************************************************************
- * @fn        resetStandby()
- *
- * @brief     Disable LTC3553-2 after system reset. Call this function
- *						first thing during init stage 
- *
- * @param     none
- *
- * @return    none
- */
-void resetStandby( void )
-{
-	// configure power standby pin 
-	// driven high this pin to enable low power
-	HAL_GPIO_WritePin(POWER_STANDBY_GPIOX, GPIO_PIN_11, GPIO_PIN_RESET);
 }
 
  /********************************************************************************************************

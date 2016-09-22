@@ -38,8 +38,8 @@ extern HAL_StatusTypeDef status2;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
 void Error_Handler(void);
+void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_I2C1_Init(void);
@@ -52,49 +52,46 @@ static void MX_ADC1_Init(void);
 static void MX_IWDG_Init(void);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
-volatile uint8_t SleepTime_Setting = Time_Minu15;  // 默认Sleep Time
+float temprature = 0;                              // 温度值
 uint8_t Charge_Flag = 0;                           // 0:表示已经退出过一次充电状态,充电线已拔出
+uint8_t baterry_test = 0;                          // 测试电子罗盘
+volatile uint8_t SleepTime_Setting = Time_Minu15;  // 设置的Sleep Time
 
-uint8_t baterry_test = 0;                 // 测试电子罗盘
-float temprature = 0;                     // 温度值
-
-void Flir_Display(void);                  // Flir界面
-void Menu_Display(void);                  // Menu界面
+void Flir_Display(void);                           // Flir界面显示程序
+void Menu_Display(void);                           // Menu界面显示程序
 
 int main(void)
 {
-	uint16_t timer = 0;
-  /* USER CODE BEGIN 1 */
+	uint16_t timer = 0;           // 粗略计时
+
  	KeyStatus Key_Value = Key_None;
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
   /* Configure the system clock */ 
-  SystemClock_Config();        // 外部+PLL  26MHz
-  /* Initialize all configured peripherals */
-	//setSandby2();
+  SystemClock_Config();         // 外部+PLL  26MHz
 	
   MX_GPIO_Init();
   MX_DMA_Init();
 	MX_ADC1_Init();
   MX_SPI2_Init();
   MX_SPI1_Init();
-	MX_TIM2_Init();           // 按键时间捕获
-	MX_TIM3_Init();           // Sleep Time      定时器TIM3已开启
+	MX_TIM2_Init();               // 按键时间捕获
+	MX_TIM3_Init();               // Sleep Time      定时器TIM3已开启
 	
 	lepton_init();
 	MX_I2C1_Init();
 	
-	sysConf_init();              // 系统参数初始化
-	MX_TIM9_Init();              // LCD_PWM
+	sysConf_init();               // 系统参数初始化
+	MX_TIM9_Init();               // LCD_PWM
 	LCD_Init();
-	display_Animation();         // 显示开机界面
+	display_Animation();          // 显示开机界面
 
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
 	temprature = Get_Temprate();	    // 得到温度值 
 	
-	MX_IWDG_Init();                   // 初始化并启动看门狗     3s
+	MX_IWDG_Init();                   // 初始化并启动看门狗     约2s
 	
 	while(1)
   {
@@ -300,9 +297,16 @@ static void MX_GPIO_Init(void)
 	GPIO_InitStruct.Pin = GPIO_PIN_2;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);     // 关闭LCD灯光
+	
+	GPIO_InitStruct.Pin = GPIO_PIN_11;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);  // LTC3553退出Standby
 	
 	/*Configure GPIO pins : SYSTEM_LED_Pin LEPTON_PW_DWN_L_Pin LEPTON_RESET_L_Pin */
   GPIO_InitStruct.Pin = SYSTEM_LED_Pin|LEPTON_PW_DWN_L_Pin|LEPTON_RESET_L_Pin;
@@ -488,9 +492,6 @@ static void MX_TIM9_Init(void)
 /* ADC1 init function */
 static void MX_ADC1_Init(void)
 {
-
-  ADC_ChannelConfTypeDef sConfig;
-
     /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
     */
   hadc1.Instance = ADC1;
@@ -508,25 +509,6 @@ static void MX_ADC1_Init(void)
   {
     Error_Handler();
   }
-
-//    /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
-//    */
-//  sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
-//  sConfig.Rank = 1;
-//  sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
-//  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
-
-//    /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
-//    */
-//  sConfig.Channel = ADC_CHANNEL_9;
-//  sConfig.Rank = 2;
-//  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
 }
 
 /* IWDG init function */
@@ -534,7 +516,7 @@ static void MX_IWDG_Init(void)
 {
   hiwdg.Instance = IWDG;
   hiwdg.Init.Prescaler = IWDG_PRESCALER_64;
-  hiwdg.Init.Reload = 1500;
+  hiwdg.Init.Reload = 1100;
   if (HAL_IWDG_Init(&hiwdg) != HAL_OK)
   {
     Error_Handler();

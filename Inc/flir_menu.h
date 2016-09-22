@@ -197,16 +197,6 @@ extern Sleep_sta sleep_sta;
 /********************************************************************************************************
  *                                               PUBLIC FUNCTIONS
  ********************************************************************************************************/
- /*********************************************************************
- * @fn      display_Boot_UI
- *
- * @brief   display Boot_Interface
- *
- * @param   none
- *
- * @return  
- */
-bool display_Boot_UI(void);
 	
 /*********************************************************************
  * @fn      display_menu
@@ -217,7 +207,7 @@ bool display_Boot_UI(void);
  *
  * @return  
  */
-bool display_menu(menuCont_sta Current_Sta);
+void display_menu(menuCont_sta Current_Sta);
 /*********************************************************************
  * @fn      display_Brightness_menu
  *
@@ -227,7 +217,7 @@ bool display_menu(menuCont_sta Current_Sta);
  *
  * @return  
  */
-bool display_Brightnessmenu(BrightnessCont_sta Current_Sta);
+void display_Brightnessmenu(BrightnessCont_sta Current_Sta);
 
 /*********************************************************************
  * @fn      display_Sleepmenu
@@ -238,7 +228,7 @@ bool display_Brightnessmenu(BrightnessCont_sta Current_Sta);
  *
  * @return  
  */
-bool display_Sleepmenu(SleepCont_sta Current_Sta);
+void display_Sleepmenu(SleepCont_sta Current_Sta);
 
 /*********************************************************************
  * @fn      display_Versionmenu
@@ -249,7 +239,7 @@ bool display_Sleepmenu(SleepCont_sta Current_Sta);
  *
  * @return  
  */
-bool display_Versionmenu(void);
+void display_Versionmenu(void);
 
 /*********************************************************************
  * @fn      display Check
@@ -260,7 +250,7 @@ bool display_Versionmenu(void);
  *
  * @return  
  */
-bool display_Check(uint8_t Offset);
+void display_Check(uint8_t Offset);
 
 /*********************************************************************
  * @fn      display_PowerOff
@@ -271,7 +261,7 @@ bool display_Check(uint8_t Offset);
  *
  * @return  
  */
-bool display_PowerOff(void);
+void display_PowerOff(void);
 
 /*********************************************************************
  * @fn      display_Byebye
@@ -282,7 +272,7 @@ bool display_PowerOff(void);
  *
  * @return  
  */
-bool display_Byebye(void);
+void display_Byebye(void);
 
 /*********************************************************************
  * @fn      sysConf_init
@@ -307,14 +297,10 @@ void sysConf_Reset(void);
 void Save_Parameter(void);                           // 保存8个系统参数到FLASH
 void Addbaterry_menu(Baterrymode mode,Quan_baterry value);
 
-bool display_charging(Quan_baterry value);
-
+void display_charging(Quan_baterry value);
 void display_normal_baterry(Quan_baterry value);
-
-bool display_Boot_Animation(uint8_t x);
-
+void display_Boot_Animation(uint8_t x);
 void display_Animation(void);
-
 void display_sleep_charging(Quan_baterry value);
 
 

@@ -69,10 +69,6 @@ extern float temprature;                     // 温度值
 /********************************************************************************************************
  *                                               LOCAL VARIABLES
  ********************************************************************************************************/
-// Point color
-static uint16_t POINT_COLOR=0x0000;	
-// Background color
-static uint16_t BACK_COLOR=0xFFFF;  
 
 // buffer used to clear screen
 static uint16_t screenClear[LCD_CLEAR_BUF_SIZ];
@@ -88,7 +84,6 @@ uint16_t rowBuf[FLIR_LCD_RAW][FLIR_LCD_COLUMNUM];
 static void LCD_WR_REG(uint16_t);
 static void LCD_WR_DATA(uint16_t);
 static void LCD_WR_DATA8(uint8_t );
-static void LCD_WR_REG_DATA(uint8_t , uint16_t );
 void LCD_WriteRAM_Prepare(void);
 static void LCD_startDisplay( uint16_t Xpos, uint16_t Ypos );
 extern TIM_HandleTypeDef htim9;
@@ -622,22 +617,6 @@ static void LCD_WR_DATA8(uint8_t da)
 	SPILCD_CS_SET;   			 
 #endif
 }	
-
-/*********************************************************************
- * @fn      LCD_WR_DATA8
- *
- * @brief   Write two bytes data to an register address, blocking send.
- *
- * @param   uint16_t LCD_RegValue - the data
- *	        uint8_t LCD_Reg - the address
- *
- * @return  none
- */
-static void LCD_WR_REG_DATA(uint8_t LCD_Reg, uint16_t LCD_RegValue)
-{
-	LCD_WR_REG(LCD_Reg);
-	LCD_WR_DATA(LCD_RegValue);
-}
 
 /*********************************************************************
  * @fn      LCD_WriteRAM_Prepare

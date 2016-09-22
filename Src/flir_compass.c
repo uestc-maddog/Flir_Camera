@@ -29,7 +29,6 @@
 #include "flir_compass.h"
 #include "flir_lcd.h"
 #include "lepton.h"
-//#include "font.h"  
 
 #define	HMC5883L_Addr   0x3C	//磁场传感器器件地址
 #define COMM_TIMEOUT_MS             (1)
@@ -122,16 +121,12 @@ void Add_compass(uint16_t Compass_Angle)
 		for(j = 0; j < 8; j++)                     // 前八列
 		{
 				temp = Compass_Data[(i+Compass_Offset)*2] << j;
-				rowBuf[i][j] = (temp & 0x80)?(~rowBuf[i][j]):rowBuf[i][j];
-//				if(temp & 0x80) rowBuf[i][j] = ~rowBuf[i][j];  //0x0ffff;
-//				else            rowBuf[i][j] = rowBuf[i][j];					
+				rowBuf[i][j] = (temp & 0x80)?(~rowBuf[i][j]):rowBuf[i][j];			
 		}
 		for(j = 8; j < Compass_COLUMNUM; j++)      // 后八列
 		{
 				temp = Compass_Data[(i+Compass_Offset)*2+1] << (j-8);
 				rowBuf[i][j] = (temp & 0x80)?(~rowBuf[i][j]):rowBuf[i][j];
-//				if(temp & 0x80) rowBuf[i][j] = ~rowBuf[i][j];  //0x0ffff;
-//				else            rowBuf[i][j] = rowBuf[i][j];
 		}
 	}
 }
@@ -178,7 +173,7 @@ void read_hmc5883l(void)
 
   /*
 ********************************************************************************
-** 函数名称 ： main(void)
+** 函数名称 ： hmc_measure()
 ** 函数功能 ： 主函数
 ** 输    入	： 无
 ** 输    出	： 无
@@ -186,10 +181,10 @@ void read_hmc5883l(void)
 ********************************************************************************
 */
 
-float hmc_measure()
+float hmc_measure(void)
 {
 	float a=0;
-  uint8_t k;
+
 	read_hmc5883l();
 	a=angle;
 	return a;

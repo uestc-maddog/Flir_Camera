@@ -23,7 +23,6 @@ bool set_reticle_mark=false;
 **/
 void Brightnesschosen(void)
 {
-	//static BrightnessCont_sta Brightness_Old_sta = Level1;
 	BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;
 	
 	KeyStatus Key_Value = Key_None;
@@ -56,35 +55,23 @@ void Brightnesschosen(void)
 				switch((int)BGL_value)         // 菜单栏二级功能
 				{
 					case (int)Level1:
-						// 添加用户代码
 						SET_BGLight(Level1);
-						flir_conf.flir_sys_Bright = Level1;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-						//Brightness_Old_sta = Level1;
+						flir_conf.flir_sys_Bright = Level1;					
 						display_Check(OP1_2_TH);
 						break;
 					case (int)Level2:
-						// 添加用户代码
 						SET_BGLight(Level2);
 						flir_conf.flir_sys_Bright = Level2;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
-						//Brightness_Old_sta = Level2;
 						display_Check(OP2_2_TH);
 						break;
 					case (int)Level3:
-						// 添加用户代码
 						SET_BGLight(Level3);
-						//Brightness_Old_sta = Level3;
 						flir_conf.flir_sys_Bright = Level3;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						display_Check(OP3_2_TH);
 						break;
 					case (int)Level4:
-						// 添加用户代码
 						SET_BGLight(Level4);
-						//Brightness_Old_sta = Level4;
 						flir_conf.flir_sys_Bright = Level4;
-						//Save_Parameter();                           // ±￡′?8???μí32?êyμ?FLASH
 						display_Check(OP4_2_TH);
 						break;
 
@@ -92,7 +79,6 @@ void Brightnesschosen(void)
 						timer = 200;                          // timer=200时，退出菜单界面
 						break;
 				}
-				//HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);   // 添加 长按按键代码
 			}									
 		}
 #ifdef enable_iwdg
@@ -113,8 +99,6 @@ void Brightnesschosen(void)
 **/
 void Sleepchosen(void)
 {
-	//static SleepCont_sta Sleep_Old_sta = Minutes_3;
-	
 	SleepCont_sta SLP_value = flir_conf.flir_sys_Sleep;
 	KeyStatus Key_Value = Key_None;
 	uint8_t timer = 0;
@@ -146,7 +130,6 @@ void Sleepchosen(void)
 				switch((int)SLP_value)         // 菜单栏二级功能
 				{
 					case (int)Minutes_3:
-						// 添加用户代码
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
 						SleepTime_Setting = Time_Minu3;
@@ -154,7 +137,6 @@ void Sleepchosen(void)
 						display_Check(OP1_2_TH);
 						break;
 					case (int)Minutes_5:
-						// 添加用户代码
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
 						SleepTime_Setting = Time_Minu5;
@@ -162,7 +144,6 @@ void Sleepchosen(void)
 						display_Check(OP2_2_TH);
 						break;
 					case (int)Minutes_10:
-						// 添加用户代码
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
 						SleepTime_Setting = Time_Minu10;
@@ -170,7 +151,6 @@ void Sleepchosen(void)
 						display_Check(OP3_2_TH);
 						break;
 					case (int)Minutes_15:
-						// 添加用户代码
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
 						SleepTime_Setting = Time_Minu15;
@@ -178,7 +158,6 @@ void Sleepchosen(void)
 						display_Check(OP4_2_TH);
 						break;
 					case (int)Minutes_NA:
-						// 添加用户代码
 						HAL_TIM_Base_Stop_IT(&htim3);         // 关闭定时器TIM3中断  Time_Sleep一直为0
 						Time_Sleep = 0;
 						SleepTime_Setting = Time_Minu15;      // Time_Sleep != Time_Sleep,则系统永不关机

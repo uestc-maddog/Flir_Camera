@@ -83,7 +83,6 @@ KeyStatus Key_Scan(void)
 		if(Time_1ms > Long_Thre && return_mark == false)       
 		{
 			return_mark = true;
-			//Time_1ms = 0;          // 启动定时器前已清零
 			return Key_Long;         // 按键按下时间大于2s      长按
 		}
 	}
@@ -91,26 +90,18 @@ KeyStatus Key_Scan(void)
 	{
 		Key_Up = 0;
 		Key_Down = 0;
-//		if(Time_1ms > Long_Thre)       
-//		{
-//			//Time_1ms = 0;          // 启动定时器前已清零
-//			return Key_Long;         // 按键按下时间大于2s      长按
-//		}
-//		else 
+
 		if(Time_1ms > Short_Thre && return_mark == false) 
 		{
-			//Time_1ms = 0;
 			return Key_Short;        // 按键按下时间小于2s      短按 
 		}		
 		else if(Time_1ms > Long_Thre && return_mark == false) 
 		{
-			//Time_1ms = 0;
 			return Key_Long;        // 按键按下时间da于2s        长按 
 		}		
 		else                           
 		{
 			return_mark = false;
-			//Time_1ms = 0;
 			return Key_None;         // 视作按键抖动
 		}
 	}
@@ -133,11 +124,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             the __HAL_TIM_PeriodElapsedCallback could be implemented in the user file
    */
 	if(htim->Instance == TIM2) Time_1ms++; 
-	if(htim->Instance == TIM3) 
-	{
-		Time_Sleep++;
-		//HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-	}
+	if(htim->Instance == TIM3) Time_Sleep++;
 }
 /*********************************************************************
  * @fn        HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)()
@@ -151,8 +138,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   static uint8_t CAPTURE_STA = 0;	   // 捕获状态
-	static uint8_t Temp = 0;	       
-	uint32_t timer = 36000000;
+      
 	/* Prevent unused argument(s) compilation warning */
 	UNUSED(GPIO_Pin);
 		/* NOTE: This function Should not be modified, when the callback is needed,
@@ -160,10 +146,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		 */
 	if(GPIO_Pin == GPIO_PIN_0)           // PBSTAT中断
 	{
-//		HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
 		if(!(GPIOB->IDR&0x0001))           // PB0下降沿    
 		{
-			//Temp++;
 			if(flir_conf.file_sys_LowPower == Not_LowPower) 
 			{
 				HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
@@ -173,10 +157,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				}
 			}
 			else
-			{
-//				HAL_Delay(500);HAL_Delay(500);
-//				while(--timer)   ;
-//				if(!(GPIOB->IDR&0x0001))           // PB0下降沿 			
+			{			
 				flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
 				flir_conf.file_sys_PBWakeup = PBWakeup_Down;      // 标记PBSTA开机唤醒键按下
 				Save_Parameter();                                 // 保存9个系统参数到FLASH

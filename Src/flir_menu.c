@@ -978,16 +978,13 @@ void sysConf_Reset(void)
  *
  * @return  
  */
-bool display_menu(menuCont_sta Current_Sta)
+void display_menu(menuCont_sta Current_Sta)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
 	uint8_t menuTHstart, menuTHend;
 	
-	bmp_size = sizeof(menuScreen);
-	
+  	
 	// get ready to start
 	LCD_SetCursor(0,0);
 	// start writing command
@@ -1053,49 +1050,6 @@ bool display_menu(menuCont_sta Current_Sta)
 	}
 }	
 
-/*********************************************************************
- * @fn      display_Boot_UI
- *
- * @brief   display Boot_Interface
- *
- * @param   none
- *
- * @return  
- */
-bool display_Boot_UI(void)
-{
-	uint16_t index;
-	uint16_t i;
-	uint8_t color;
-		
-	// get ready to start
-	LCD_SetCursor(0,0);
-	// start writing command
-	LCD_WriteRAM_Prepare();	
-
-	// set cousor
-	LCD_SetCursor(0,0);
-	
-	// prepare to write
-	LCD_WriteRAM_Prepare();     
-  SPILCD_RS_SET;	
-
-
-	// block sending
-	for(index = 0; index < LCD_CLEAR_ROUND; index ++)
-	{
-		for(i = 0; i < (SCREEN_SET_BUFSIZE/2); i++)
-		{
-			// get clear buffer ready
-			screenSet[2 * i] = (uint8_t)(((Boot_Interface[(index * (SCREEN_SET_BUFSIZE/2) + i) >> 3] >> (7 - (index * (SCREEN_SET_BUFSIZE/2) + i)%8)) & 0x01)? BLACK:WHITE); 	
-			screenSet[2 * i + 1] = screenSet[2 * i];
-		}
-		HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)screenSet, SCREEN_SET_BUFSIZE);
-		// polling for 10ms by defaul
-		HAL_DMA_PollForTransfer(&LCD_DMA_PORT,HAL_DMA_FULL_TRANSFER,1);		
-	}
-}	
-
 void display_Animation(void)
 {
 	uint8_t x, timer = 0;
@@ -1152,11 +1106,10 @@ void display_Animation(void)
  *
  * @return  
  */
-bool display_Boot_Animation(uint8_t x)
+void display_Boot_Animation(uint8_t x)
 {
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
 		
 	// get ready to start
 	LCD_SetCursor(0,0);
@@ -1202,16 +1155,12 @@ bool display_Boot_Animation(uint8_t x)
  *
  * @return  
  */
-bool display_Brightnessmenu(BrightnessCont_sta Current_Sta)
+void display_Brightnessmenu(BrightnessCont_sta Current_Sta)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
 	uint8_t menuTHstart, menuTHend;
-	
-	bmp_size = sizeof(BrightnessScreen);
-	
+		
 	// get ready to start
 	LCD_SetCursor(0,0);
 	// start writing command
@@ -1286,15 +1235,11 @@ bool display_Brightnessmenu(BrightnessCont_sta Current_Sta)
  *
  * @return  
  */
-bool display_Sleepmenu(SleepCont_sta Current_Sta)
+void display_Sleepmenu(SleepCont_sta Current_Sta)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
 	uint8_t menuTHstart, menuTHend;
-	
-	bmp_size = sizeof(SleepScreen);
 	
 	// get ready to start
 	LCD_SetCursor(0,0);
@@ -1370,15 +1315,11 @@ bool display_Sleepmenu(SleepCont_sta Current_Sta)
  *
  * @return  
  */
-bool display_Versionmenu(void)
+void display_Versionmenu(void)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
-	uint8_t menuTHstart, menuTHend;
 	
-	bmp_size = sizeof(VersionScreen);
 	// get ready to start
 	LCD_SetCursor(0,0);
 	// start writing command
@@ -1419,15 +1360,11 @@ bool display_Versionmenu(void)
  *
  * @return  
  */
-bool display_Byebye(void)
+void display_Byebye(void)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
-	uint8_t menuTHstart, menuTHend;
 	
-	bmp_size = sizeof(VersionScreen);
 	// get ready to start
 	LCD_SetCursor(0,0);
 	// start writing command
@@ -1468,15 +1405,11 @@ bool display_Byebye(void)
  *
  * @return  
  */
-bool display_PowerOff(void)
+void display_PowerOff(void)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
-	uint8_t menuTHstart, menuTHend;
 	
-	bmp_size = sizeof(VersionScreen);
 	// get ready to start
 	LCD_SetCursor(0,0);
 	// start writing command
@@ -1517,15 +1450,11 @@ bool display_PowerOff(void)
  *
  * @return  
  */
-bool display_Check(uint8_t Offset)
+void display_Check(uint8_t Offset)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
-	uint8_t menuTHstart, menuTHend;
 	
-	bmp_size = sizeof(Sleep_Check);
 	// get ready to start
 	LCD_SetCursor(0,0);
 	// start writing command
@@ -1572,8 +1501,6 @@ uint8_t mk;  //baterry flash counter
  */
 void Addbaterry_menu(Baterrymode mode,Quan_baterry value)
 {
-	uint8_t i,index;
-	
 	//batery flash counter add by themself
 	mk++;
 	//juge the counter 
@@ -1615,9 +1542,9 @@ void Addbaterry_menu(Baterrymode mode,Quan_baterry value)
 		else
 		{
 			if(mk > 15)
-			display_normal_baterry(value+1);
+			display_normal_baterry( (Quan_baterry)(value+1) );
 			else
-			display_normal_baterry(value);
+			display_normal_baterry( (Quan_baterry)value );
 		}
 	}
 }
@@ -1650,7 +1577,7 @@ void display_sleep_charging(Quan_baterry value)
 	}
 	else
 	{
-		display_charging(value+1);
+		display_charging( (Quan_baterry)(value+1) );
 		HAL_Delay(400);
 		display_charging(value);
 		HAL_Delay(400);
@@ -1719,15 +1646,13 @@ void display_normal_baterry(Quan_baterry value)
  *
  * @return  
  */
-bool display_charging(Quan_baterry value)
+void display_charging(Quan_baterry value)
 {
-	uint32_t bmp_size;
 	uint16_t index;
 	uint16_t i;
-	uint8_t color;
+
 	uint8_t menuTHstart, menuTHend;
-	
-	bmp_size = sizeof(chargebattery);
+
 	
 	// get ready to start
 	LCD_SetCursor(0,0);
@@ -1812,3 +1737,4 @@ bool display_charging(Quan_baterry value)
 
 /*********************************************************************
  */
+
