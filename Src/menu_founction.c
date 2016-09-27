@@ -38,6 +38,7 @@ void Brightnesschosen(void)
 		Key_Value = Key_Scan();   
 		if(Key_Value)
 		{
+			Time_Sleep = 0;                  // Sleep Time counterπÈ¡„
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
@@ -113,6 +114,7 @@ void Sleepchosen(void)
 		Key_Value = Key_Scan();   
 		if(Key_Value)
 		{
+			Time_Sleep = 0;                  // Sleep Time counterπÈ¡„
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
@@ -226,6 +228,7 @@ void set_reticle(void)
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
+			Time_Sleep = 0;                  // Sleep Time counterπÈ¡„
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
