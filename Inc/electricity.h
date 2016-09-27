@@ -26,11 +26,11 @@
  *                                                 MACROS
  ********************************************************************************************************/
 
-#define Elec_Thre1 2.10f    // 区分4个电量等级的3个电压阈值 （V）          
+#define Elec_Thre1 2.100f    // 区分6个电量等级的5个电压阈值 （V）          
 #define Elec_Thre2 2.025f                
-#define Elec_Thre3 1.95f 
-#define Elec_Thre4 1.875f 
-#define Elec_Thre5 1.8f
+#define Elec_Thre3 1.950f 
+#define Elec_Thre4 1.880f 
+#define Elec_Thre5 1.840f
 
 /********************************************************************************************************
  *                                               CONSTANTS

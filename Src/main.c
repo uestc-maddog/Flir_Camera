@@ -629,13 +629,13 @@ void Flir_Display(void)
 	{
 		if(status2==HAL_OK)
 		{		
-			for(i = 0; i < 2; i++) 
+			for(i = 0; i < 1; i++) 
 			{
 				LCD_WR_Frame(rgbbuf);
 #ifdef enable_iwdg
         HAL_IWDG_Refresh(&hiwdg);
 #endif				
-				HAL_Delay(10);
+				HAL_Delay(12);
 			}
 			HAL_Delay(2);
 		}
