@@ -218,13 +218,16 @@ void Versionchosen(void)
 flir_reticle_sta reticle_sta=reticle_able;
 void set_reticle(void)
 {
-	reticle_sta=reticle_able;
+	reticle_sta = reticle_able;
 	uint16_t timer = 0;
+	KeyStatus Key_Value = Key_None;
+	
 	while(1)
 	{
 		set_reticle_mark=true;    // 二级菜单标志量设为true
 		Flir_Display();	          // Flir界面
-		KeyStatus Key_Value = Key_None;
+		
+		Key_Value = Key_None;
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
@@ -269,7 +272,16 @@ void set_reticle(void)
 			}
 			if(Key_Value == Key_Long)            // 短按切换选项
 			{
-				if(++reticle_sta == reticle_empty) reticle_sta = reticle_able;
+				if(flir_conf.flir_sys_Focus == focus_enable) 
+				{
+					if(++reticle_sta == reticle_empty) reticle_sta = reticle_able;
+				}
+				else                                         
+				{
+					if(reticle_sta == reticle_able) reticle_sta = reticle_back;
+					else if(reticle_sta == reticle_back) reticle_sta = reticle_able;
+					else reticle_sta = reticle_able;
+				}				
 			}
 		}
 #ifdef enable_iwdg
@@ -280,7 +292,6 @@ void set_reticle(void)
 			timer = 0;
 			break;                      
 		}
-		
 	}
 	set_reticle_mark=false;
 }
