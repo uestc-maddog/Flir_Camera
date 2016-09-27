@@ -35,7 +35,7 @@
 ###Brightness子菜单
 * 从主菜单进入Brightness子菜单，如图：
 
- ![content_brightness.bmp](.\picture\content_brightness.bmp)
+    ![content_brightness.bmp](.\picture\content_brightness.bmp)
 
 * 当前选择项会用黄色标识（进入主菜单默认选择项为当前的系统设置）。
 * 短按mode键可以切换选择项，长按mode键可以修改系统设置为当前选择项（如果为Back则返回主菜单），修改成功后选择项后面会出现一个红色的勾。如果十秒钟内mode按键无任何操作，则回到主菜单。
@@ -44,7 +44,7 @@
 ###Sleep子菜单
 * 从主菜单进入Sleep子菜单，如图：
 
- ![content_sleep.bmp](.\picture\content_sleep.bmp)
+    ![content_sleep.bmp](.\picture\content_sleep.bmp)
 
 * 当前选择项会用黄色标识（进入主菜单默认选择项为当前的系统设置）。
 * 短按mode键可以切换选择项，长按mode键可以修改系统设置为当前选择项（如果为Back则返回主菜单），修改成功后选择项后面会出现一个红色的勾。如果十秒钟内mode按键无任何操作，则回到主菜单。
@@ -53,7 +53,7 @@
 ###Reticle子菜单
 * 从主菜单进入Reticle子菜单，如图：
 
- ![oumu.jpg](.\picture\oumu.jpg)
+    ![oumu.jpg](.\picture\oumu.jpg)
 
 * Reticle子菜单的背景为摄像头当前拍摄到的图像，其中有Enable/Disable、Hor、Ver、back四个选项。进入此子菜单时默认选中项为Enable/Disable。当前选择项会用黄色标识。
 * 长按mode键可以切换选择项（warning：there is different from other sub-menu!）,短按mode键可以修改当前系统选择项（如果为Back则返回主菜单）。如果修改选择项为Hor，则修改的是准心的水平位置，短按一下坐标加1，到+9之后再短按一下则为-9。如果修改选择项为Ver，则修改准心垂直位置。如果十秒钟内mode按键无任何操作，则回到主菜单。
@@ -61,12 +61,12 @@
 ###Version子菜单
 * 从主菜单选中Version子菜单，如图：
 
- ![version.png](.\picture\version.png)
+    ![version.png](.\picture\version.png)
 
 * 屏幕上面将显示出设备版本号，4秒后自动回到主菜单。
 
 ###Reset选项
-* 当在主菜单选中这个选项之后，设备的所有设置都会恢复为出厂设置。其中睡眠时间为N/A，reticle开启位置在正中央，亮度为Level-3，彩色显示模式。
+* 当在主菜单选中这个选项之后，设备的所有设置都会恢复为出厂设置，并立即退出主菜单。出厂设置的睡眠时间为N/A，reticle开启位置在正中央，亮度为Level-3，彩色显示模式。
 
 
 
