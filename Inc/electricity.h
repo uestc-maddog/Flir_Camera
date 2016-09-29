@@ -27,10 +27,10 @@
  ********************************************************************************************************/
 
 #define Elec_Thre1 2.100f    // 区分6个电量等级的5个电压阈值 （V）          
-#define Elec_Thre2 2.025f                
-#define Elec_Thre3 1.950f 
-#define Elec_Thre4 1.880f 
-#define Elec_Thre5 1.840f
+#define Elec_Thre2 1.945f                
+#define Elec_Thre3 1.895f 
+#define Elec_Thre4 1.845f 
+#define Elec_Thre5 1.825f
 
 /********************************************************************************************************
  *                                               CONSTANTS

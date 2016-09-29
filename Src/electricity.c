@@ -104,7 +104,7 @@ Quan_baterry Get_Elec(void)
 		}
 		HAL_ADC_Stop(&hadc1);
 	}
-	ADC_Temp = (float)(ADC_Temp * 3.44f / 0x0FFF / Sample_Times);
+	ADC_Temp = (float)(ADC_Temp * 3.40f / 0x0FFF / Sample_Times);   // 参考电压理论值3.37V   1.8MΩ
 
 	if(ADC_Temp > Elec_Thre1)      return Baterry_full;
 	else if(ADC_Temp > Elec_Thre2) return Baterry_high;

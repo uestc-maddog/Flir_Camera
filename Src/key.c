@@ -151,9 +151,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			if(flir_conf.file_sys_LowPower == Not_LowPower) 
 			{
 				HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
-				if(!(GPIOB->IDR&0x0001)) {
-				flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
-				setSandby();                     // 进入低功耗模式
+				if(!(GPIOB->IDR&0x0001)) 
+				{
+					flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
+					setSandby();                     // 进入低功耗模式
 				}
 			}
 			else
