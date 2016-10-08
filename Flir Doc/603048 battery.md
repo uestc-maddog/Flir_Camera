@@ -49,8 +49,8 @@ Test Environment: Keep device functional till battery level too low and switch o
 High	|  (3.89, 4.20)	| 三格 3 bar| 4.5~8.5
 Middle	|  (3.79, 3.89]	| 两格 2 bar| 2.0~4.5
 Low	    |  (3.69, 3.79]	| 一格 1 bar| 1.0~2.0
-Empty	|  (3.65, 3.69]	| 空格、闪烁 empty| 1.0<
-Shutdown|   (-∞, 3.65]  | 自动关机 auto switch-off| -
+Empty	|  (3.65, 3.69]	| 空格 empty| 1.0<
+Auto Shutdown|   (-∞, 3.65]  | 自动关机 auto switch-off| -
 
 <div id='id-section7'/>
 ### 1.5 过充过放 Overcharge and Overdischarge
