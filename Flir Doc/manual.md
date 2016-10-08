@@ -48,7 +48,7 @@ To keep the battery under best performance, un-plug charging cable after chargin
 
 ### 2.4 CONFIGURE DEVICE
 Press MODE button under image view to enter configuration menu.
-[](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content.bmp)
+![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content.bmp)
 
 #### 2.4.1 Brightness
 
