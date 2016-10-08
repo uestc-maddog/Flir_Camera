@@ -20,12 +20,13 @@
 ### 1.1 电池参数 Specifications
 |参数 Parameter|标准值 Typ|单位 Unit|
 |---|---|---|
-|电池型号 PN:|603048||
-|电池容量 Capacity:|900|mAh|
-|电芯重量 Weight:|17 |g|
-|充电限制电压	Charge Limit Voltge:|4.2|V|
-|工作温度 Temperature Limit:|Charging：0～45 Discharging：-20～60| °C|
-|工作湿度 Humidity:|≤90%|RH|
+|电池型号 PN|603048||
+|电池容量 Capacity|900|mAh|
+|充电电流 Charge Current|400|mA|
+|电芯重量 Weight|17 |g|
+|充电限制电压	Charge Limit Voltge|4.2|V|
+|工作温度 Temperature Limit|Charging：0～45 Discharging：-20～60| °C|
+|工作湿度 Humidity|≤90%|RH|
 
 <div id='id-section4'/>
 ### 1.2 充电曲线 Charging Characteristics
