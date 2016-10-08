@@ -72,3 +72,5 @@ Shutdown|   (-∞, 3.70]
 
 <div id='id-section9'/>
 ## 3 参考 Reference 
+ 1. [充、放电测试原始数据 Charge/Discharge Test Raw Data](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/data/battery-test.xlsx)
+ 2. [电池数据手册 Battery Datasheet](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/data/603048%EF%BC%88900mAh%EF%BC%89%E6%99%AE%E9%80%9A%E7%89%88%E5%8A%A0%E7%BA%BF%E8%A7%84%E6%A0%BC%E4%B9%A6.pdf)
