@@ -44,14 +44,14 @@ Test Environment: Keep device functional till battery level too low and switch o
 <div id='id-section6'/>
 ### 1.4 电池剩余电量标记阈值 Battery Level Display Threshold
 
-电量状态 Battery Status |电池电压范围 Voltage Range (V)|电量显示及使用时长
-------- |---------------|-------
-Full	|  [4.20, +∞ )	| 三格      
-High	|  (3.89, 4.20)	| 三格      3.0H
-Middle	|  (3.79, 3.89]	| 两格      2.5H
-Low	    |  (3.69, 3.79]	| 一格      2.0H
-Empty	|  (3.65, 3.69]	| 空格、闪烁 1.0H
-Shutdown|   (-∞, 3.65]  | 自动关机   
+电量状态 Battery Status |电池电压范围 Voltage Range (V)|电量显示 Battery Display|剩余使用时长 Remain Battery Life
+------- |---------------|-------|---
+Full	|  [4.20, +∞ )	| 三格 3 bar| 8.5H       
+High	|  (3.89, 4.20)	| 三格 3 bar| 4.5~8.5H
+Middle	|  (3.79, 3.89]	| 两格 2 bar| 2~4.5H
+Low	    |  (3.69, 3.79]	| 一格 1 bar| 1~2.0H
+Empty	|  (3.65, 3.69]	| 空格、闪烁 empty| 0~1.0H
+Shutdown|   (-∞, 3.65]  | 自动关机 auto switch-off| -
 
 <div id='id-section7'/>
 ### 1.5 过充过放 Overcharge and Overdischarge
