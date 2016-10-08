@@ -665,7 +665,6 @@ void Flir_Display(void)
 	{
 		baterry_test = 0;
 		flir_conf.flir_sys_Baterry = Get_Elec();
-		//flir_conf.flir_sys_Baterry = Baterry_high;
 	}
 }
 /* USER CODE END 4 */

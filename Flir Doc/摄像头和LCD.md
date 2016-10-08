@@ -3,7 +3,7 @@
 ###camera
 |||
 |--------|--------|
-|**Overiew **| **LEPTON**|
+|**Overiew**| **LEPTON**|
 |Sensor technology 	|Uncooled VOx microbolometer|
 |Spectral range 	|Longwave infrared, 8 μm to 14 μm|
 |Array format 	|80 × 60, progressive scan|
