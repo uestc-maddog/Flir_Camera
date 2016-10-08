@@ -10,6 +10,7 @@
   * 1.4 [电池剩余电量标记阈值 Battery Level Display Threshold](#id-section6)
   * 1.5 [过充过放Overcharge and Overdischarge](#id-section7)
 * 2 [故障情况 Trouble Shotting](#id-section8)
+* 3 [参考 Reference](#id-section9)
 
 <div id='id-section2'/>
 ## 1 锂电池性能 Battery Performance
@@ -68,3 +69,6 @@ Shutdown|   (-∞, 3.70]
 ------- |---------------|-------
 设备无法开机，检测电池电压为0，屏幕不亮。Unable to turn on device, battery voltage meassured as 0 volt.|电池连接线断裂; 电池损坏。Broken battery cable; broken battery pack|电池连接线相对易坏。检查电池包连接线与电池在PCB上接头。若问题仍然存在，更换电池能够解决问题。The battery cable is relatively vulnerable. Check wires connected battery pack etc. If problem still exist, replace battery pack should solve the issue.
 电池正常，无法充电，充电发热严重。Not able to charge battery, temperature raise dramatically while charging	|电源管理部分电路损坏。Battery management IC broke| 更换PCB。 Replace PCB.
+
+<div id='id-section9'/>
+## 3 参考 Reference 
