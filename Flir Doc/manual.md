@@ -47,12 +47,20 @@ To keep the battery under best performance, un-plug charging cable after chargin
 **PICTURE FOR COLORED MODE**
 
 ### 2.4 CONFIGURE DEVICE
-Press MODE button under image view to enter configuration menu.
+Press MODE button under image view to enter configuration menu. User can use MODE button to navigate through different configurations. Use short press to switch options and long press to select. `product` will exist to image view 30s after user's last operation on MODE button.
+
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content.bmp)
 
+
 #### 2.4.1 Brightness
+`product` provides 4 brightness level. User can easily switch from different level by short press MODE button to move cursor and long press MODE button to select.
+
+![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content_brightness.bmp)
 
 #### 2.4.2 Sleep Mode
+Sleep is disabled by default. User can select different sleep count down time under this menu. By selecting N/A, this feature is disabled.
+
+![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content_sleep.bmp)
 
 #### 2.4.3 Reticle
 
