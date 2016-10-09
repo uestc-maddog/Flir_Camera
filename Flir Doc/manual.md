@@ -48,9 +48,11 @@ To keep the battery under best performance, un-plug charging cable after chargin
 `product` supports two color mode. Gray Scale mode and Colored mode. User can toggle between two display mode under image view by press MODE button. Pictures below demostrate two different color modes.
 
 Gray scale mode
+
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/scale.bmp)
 
 Colo mode
+
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/color.bmp)
 
 
