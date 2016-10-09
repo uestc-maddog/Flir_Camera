@@ -51,7 +51,7 @@ Gray scale mode
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/scale.bmp)
 
-Colo mode
+Color mode
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/color.bmp)
 
