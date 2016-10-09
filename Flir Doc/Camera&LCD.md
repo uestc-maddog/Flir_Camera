@@ -111,7 +111,10 @@
 |--------|--------|
 |I/O Voltage (VDDI to DGND)	|1.65v~3.7v (VDDI ≤ VDD)|
 |Analog Voltage (VDD to AGND)	|2.5V~4.8V|
-|Operating current	|On brightness high level 1/2/3/4 |
+|Operating current	(brightness lv1)|94 mA|
+|Operating current	(brightness lv1)| 96 mA|
+|Operating current	(brightness lv1)| 99 mA|
+|Operating current	(brightness lv1)| 103 mA|
 
 ## 3.3 特殊情况 Trouble Shotting
 ### 排线接触问题 Cable contact problems

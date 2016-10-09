@@ -44,9 +44,9 @@ To keep the battery under best performance, un-plug charging cable after chargin
 ### 2.3 COLOR MODE
 `product` supports two color mode. Gray Scale mode and Colored mode. User can toggle between two display mode under image view by press MODE button. Pictures below demostrate two different color modes.
 
-**PICTURE FOR GRAY SCALE MODE**
+![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/scale.bmp)
 
-**PICTURE FOR COLORED MODE**
+[Pic](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/color.bmp)
 
 ### 2.4 CONFIGURE DEVICE
 Press MODE button under image view to enter configuration menu. User can use MODE button to navigate through different configurations. Use short press to switch options and long press to select. `product` will exist to image view 30s after user's last operation on MODE button.
