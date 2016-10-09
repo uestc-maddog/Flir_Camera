@@ -23,7 +23,7 @@ ver 1.0
 ## 1 INTRODUCTION
 
 ## 2 USER MANUAL
-The `product` is designed to be easy to use and
+The `product` is designed to be easy to use and friendly to user. All the configurations is saved and will remain after power cycle. 
 
 ### 2.1 POWER ON/OFF
 **Power on**
@@ -57,19 +57,55 @@ Press MODE button under image view to enter configuration menu. User can use MOD
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content_brightness.bmp)
 
+|Options|Desc|
+|---|---|
+|Level-1|25% of full brightness|
+|Level-2|50% of full brightness|
+|Level-3|75% of full brightness|
+|Level-4|full brightness|
+|back|back to previous menu|
+
+
 #### 2.4.2 Sleep Mode
-Sleep is disabled by default. User can select different sleep count down time under this menu. By selecting N/A, this feature is disabled.
+User can enable Sleep features to allow device sleep after inactivate for a period of time. Sleep is disabled by default. User can select different sleep count down time under this menu. By selecting N/A, this feature is disabled.
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content_sleep.bmp)
 
+|Options|Desc|
+|---|---|
+|3 min|Sleep after 3 minutes inactivate|
+|5 min|Sleep after 5 minutes inactivate|
+|10 min|Sleep after 10 minutes inactivate|
+|15 min|Sleep after 15 minutes inactivate|
+|N/A|disabled|
+|back|back to previous menu|
+
+
 #### 2.4.3 Reticle
+Reticle can be configured under this sub-menu. Four options was listed in this menu, which is Enable/Disable, Hor, Ver, back. To navigate through this menu, user need to use long press MODE button to move cursor and short press MODE button to select. Be aware that this operation is different from other menus.
+
+![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/oumu.jpg)
+
+|Options|Desc|
+|---|---|
+|Enable/Disable|Toggle to enable the reticle display|
+|Hor|Adjust the horizon location of the reticle|
+|Ver|Adjust the vertical location of the reticle|
+|back|back to previous menu|
 
 #### 2.4.4 Version
+Version information will displayed by selecting this options. 
+
+![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/version.png)
 
 #### 2.4.5 Reset
+User can reset all configurations to factory mode by selecting this option.
 
 ### 2.5 STORAGE
 
+
 ## 3 SPECIFICATIONS
 
+
 ## 4 TROUBLE SHOTTING
+
