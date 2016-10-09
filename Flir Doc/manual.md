@@ -5,26 +5,28 @@ ver 1.0
 
 ## Contents
 * [1 INTRODUCTION](#id-section1)
-* [2 USER MANUAL]()
-	* [2.1 POWER ON/OFF]()
-	* [2.2 CHARGING]()
-	* [2.3 COLOR MODE]()
-	* [2.4 CONFIGURE DEVICE]()
+* [2 USER MANUAL](#id-section2)
+	* [2.1 POWER ON/OFF](#id-section21)
+	* [2.2 CHARGING](#id-section22)
+	* [2.3 COLOR MODE](#id-section23)
+	* [2.4 CONFIGURE DEVICE](#id-section24)
 		* [2.4.1 Brightness]()
 		* [2.4.2 Sleep Mode]()
 		* [2.4.3 Reticle]()
 		* [2.4.4 Version]()
 		* [2.4.5 Reset]()
-	* [2.5 STORAGE]()
-* [3 SPECIFICATIONS]()
-* [4 TROUBLE SHOTTING]()
+	* [2.5 STORAGE](#id-section25)
+* [3 SPECIFICATIONS](#id-section3)
+* [4 TROUBLE SHOTTING](#id-section4)
 
 <div id='id-section1'/>
 ## 1 INTRODUCTION
 
+<div id='id-section2'/>
 ## 2 USER MANUAL
 The `product` is designed to be easy to use and friendly to user. All the configurations is saved and will remain after power cycle. 
 
+<div id='id-section21'/>
 ### 2.1 POWER ON/OFF
 **Power on**
 When device power is off, simply press ON button for at least 4 second to power on the device. Booting animation will display while system initialize and then everything is ready to go.
@@ -34,20 +36,25 @@ User can easily power off device by press ON button for 4 second. And the device
 * Battery is below critical level
 * Sleep is enabled and power on configuring sleep time achieved
 
+<div id='id-section22'/>
 ### 2.2 CHARGING
 Plug-in the micro-USB charging cable with power adaptor to charge the device, and charging status will display on screen. Charging takes 2-3 hours and the battery can supprot up to 9 hours work.
 
 To keep the battery under best performance, un-plug charging cable after charging, do not charge for a long time. Do not power up device when it's battery level is too low and automatically power off.
 
 
-
+<div id='id-section23'/>
 ### 2.3 COLOR MODE
 `product` supports two color mode. Gray Scale mode and Colored mode. User can toggle between two display mode under image view by press MODE button. Pictures below demostrate two different color modes.
 
+Gray scale mode
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/scale.bmp)
 
+Colo mode
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/color.bmp)
 
+
+<div id='id-section24'/>
 ### 2.4 CONFIGURE DEVICE
 Press MODE button under image view to enter configuration menu. User can use MODE button to navigate through different configurations. Use short press to switch options and long press to select. `product` will exist to image view 30s after user's last operation on MODE button.
 
@@ -103,9 +110,12 @@ Version information will displayed by selecting this options.
 #### 2.4.5 Reset
 User can reset all configurations to factory mode by selecting this option.
 
+
+<div id='id-section25'/>
 ### 2.5 STORAGE
 To keep battery in best performance, `product` needs to be full charge bofore storage. If the storage is longer than one month, user needs to pree ON button for at least 15s to enable HARD RESET mode which allow the system goes into deeper sleep mode.
 
+<div id='id-section3'/>
 ## 3 SPECIFICATIONS
 
 ### 3.1 Camera Specifications
@@ -182,5 +192,6 @@ To keep battery in best performance, `product` needs to be full charge bofore st
 | Temperature Limit|Charging：0～45 Discharging：-20～60| °C|
 | Humidity|≤90%|RH|
 
+<div id='id-section4'/>
 ## 4 TROUBLE SHOTTING
 
