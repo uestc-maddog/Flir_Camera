@@ -196,4 +196,15 @@ To keep battery in best performance, `product` needs to be full charge bofore st
 
 <div id='id-section4'/>
 ## 4 TROUBLE SHOTTING
+|Apperance|Posible Reason|Measure|Solution|
+|---|---|---|---|
+|Not able to power up device|Battery failure|Battery volatege measured as 0v or low voltage|Recharge battery, if not work, replace battery pack|
+||Battery cable broken|Battery cable broken and not connected with board|Re-solder the cable|
+||ON putton broken |ON press button cannot trigger low-voltage level|Replace ON button|
+|No image comes out after booting|Broken flir sensor/socket||Replace Flir Lepton camera|
+|Screen flashing|Screen cable broken|Flex cable contact problem|Replace screen|
+|||||
+|||||
+|||||
+|||||
 
