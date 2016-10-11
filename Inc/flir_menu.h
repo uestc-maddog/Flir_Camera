@@ -30,7 +30,7 @@
 /********************************************************************************************************
  *                                                 MACROS
  ********************************************************************************************************/
- #define SCREEN_SET_BUFSIZE	320
+#define SCREEN_SET_BUFSIZE	320
 #define FLIR_VERSION 1
 
 // menu color display related
@@ -299,7 +299,7 @@ void Addbaterry_menu(Baterrymode mode,Quan_baterry value);
 
 void display_charging(Quan_baterry value);
 void display_normal_baterry(Quan_baterry value);
-void display_Boot_Animation(uint8_t x);
+void display_Boot_Animation(void);
 void display_Animation(void);
 void display_sleep_charging(Quan_baterry value);
 

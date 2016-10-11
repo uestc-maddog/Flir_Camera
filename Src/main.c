@@ -90,9 +90,10 @@ int main(void)
   HAL_Delay(500);
   enable_lepton_agc();
 	temprature = Get_Temprate();	    // 得到温度值 
-	
+#ifdef enable_iwdg
 	MX_IWDG_Init();                   // 初始化并启动看门狗     约2s
-	
+#endif
+	LCD_Clear(BLACK);                 // 清除开机界面的边界
 	while(1)
   {
 		// 显示Flir界面
