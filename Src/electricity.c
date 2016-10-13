@@ -53,6 +53,8 @@ extern IWDG_HandleTypeDef hiwdg;
 volatile Quan_baterry temp;
 uint8_t baterrychackcounter=0;    // 电量检测计数器。
 bool low_power = false;
+extern const float Vref;                 // 新版  ADC参考电压
+//extern const float Vref;               // 旧版  ADC参考电压
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
  ********************************************************************************************************/
@@ -104,7 +106,7 @@ Quan_baterry Get_Elec(void)
 		}
 		HAL_ADC_Stop(&hadc1);
 	}
-	ADC_Temp = (float)(ADC_Temp * 3.40f / 0x0FFF / Sample_Times);   // 参考电压理论值3.37V   1.8MΩ
+	ADC_Temp = (float)(ADC_Temp * Vref / 0x0FFF / Sample_Times);   
 
 	if(ADC_Temp > Elec_Thre1)      return Baterry_full;
 	else if(ADC_Temp > Elec_Thre2) return Baterry_high;

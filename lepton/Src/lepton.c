@@ -252,7 +252,6 @@ static inline HAL_StatusTypeDef setup_lepton_spi_rx(SPI_HandleTypeDef *hspi, uin
 
 }
 
-
 uint16_t YUV2RGB422(unsigned char u)
 {
 	uint8_t r,g,b,temp;
@@ -260,9 +259,12 @@ uint16_t YUV2RGB422(unsigned char u)
 	
 	if(flir_conf.flir_sys_DisMode == color)
 	{
-		r = colormap_ironblack[3*u];
+//		r = colormap_ironblack[3*u];
+//		g = colormap_ironblack[3*u+1];
+//		b = colormap_ironblack[3*u + 2];
+		r = colormap_ironblack[3*u + 2];
 		g = colormap_ironblack[3*u+1];
-		b = colormap_ironblack[3*u + 2];
+		b = colormap_ironblack[3*u];  
 	}
 	else
 	{

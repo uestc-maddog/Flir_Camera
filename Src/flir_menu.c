@@ -1789,7 +1789,12 @@ void display_Animation(void)
 			}
 		}	
 	}
-	
+//	// 开机测试
+//	while(1)
+//	{
+//		display_Boot_Animation();
+//		HAL_Delay(10);
+//	}
 	// 显示开机画面3s
 	display_Boot_Animation();
 	HAL_Delay(1000);
