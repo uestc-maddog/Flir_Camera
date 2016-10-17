@@ -249,7 +249,6 @@ static inline HAL_StatusTypeDef setup_lepton_spi_rx(SPI_HandleTypeDef *hspi, uin
  // hspi->Instance->CR2 |= SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN;
 
   return HAL_OK;
-
 }
 
 uint16_t YUV2RGB422(unsigned char u)
@@ -264,7 +263,7 @@ uint16_t YUV2RGB422(unsigned char u)
 //		b = colormap_ironblack[3*u + 2];
 		r = colormap_ironblack[3*u + 2];
 		g = colormap_ironblack[3*u+1];
-		b = colormap_ironblack[3*u];  
+		b = colormap_ironblack[3*u];
 	}
 	else
 	{

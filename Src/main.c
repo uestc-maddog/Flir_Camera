@@ -52,7 +52,7 @@ static void MX_ADC1_Init(void);
 static void MX_IWDG_Init(void);
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
-float temprature = 0;                              // 温度值
+volatile float temprature = 0;                     // 温度值
 uint8_t Charge_Flag = 0;                           // 0:表示已经退出过一次充电状态,充电线已拔出
 uint8_t baterry_test = 0;                          // 测试电子罗盘
 volatile uint8_t SleepTime_Setting = Time_Minu15;  // 设置的Sleep Time
@@ -98,7 +98,7 @@ int main(void)
   {
 		// 显示Flir界面
 		Flir_Display();	  
-		if(++timer == 300)        // 刷新温度值
+		if(++timer == 350)             // 刷新温度值
 		{
 			temprature = Get_Temprate();	    // 得到温度值 
 			timer = 0;
@@ -626,27 +626,24 @@ void Menu_Display(void)
 }
 void Flir_Display(void)
 {
-	int x = 0, i = 0;
+	int x = 0;
 	current_buffer=lepton_transfer();
 	if(current_buffer->status != LEPTON_STATUS_TRANSFERRING)
 	{
 		if(status2==HAL_OK)
 		{		
-			for(i = 0; i < 1; i++) 
-			{
-				LCD_WR_Frame(rgbbuf);
+			LCD_WR_Frame(rgbbuf);
 #ifdef enable_iwdg
-        HAL_IWDG_Refresh(&hiwdg);
+			HAL_IWDG_Refresh(&hiwdg);
 #endif				
-				HAL_Delay(12);
-			}
-			HAL_Delay(2);
+			HAL_Delay(13);
 		}
 		else
 		{
 			if(++x==50)
 			{
 				x=0;
+				LCD_Clear(BLACK);                             // 清屏
 				lepton_init();
 				HAL_Delay(1250);
 			}
