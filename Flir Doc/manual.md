@@ -10,13 +10,20 @@ ver 1.0
 	* [2.2 CHARGING](#id-section22)
 	* [2.3 COLOR MODE](#id-section23)
 	* [2.4 CONFIGURE DEVICE](#id-section24)
-		* [2.4.1 Brightness]()
-		* [2.4.2 Sleep Mode]()
-		* [2.4.3 Reticle]()
-		* [2.4.4 Version]()
-		* [2.4.5 Reset]()
+		* [2.4.1 Brightness](#id-section241)
+		* [2.4.2 Sleep Mode](#id-section242)
+		* [2.4.3 Reticle](#id-section243)
+		* [2.4.4 Version](#id-section244)
+		* [2.4.5 Reset](#id-section245)
 	* [2.5 STORAGE](#id-section25)
 * [3 SPECIFICATIONS](#id-section3)
+	* [3.1 CAMERA SPECIFICATIONS](#id-section31)
+		* [3.1.1 Basic Specifications](#id-section311)
+		* [3.1.2 Electrical Specifications](#id-section312)
+	* [3.2 TFT Screen Specifications](#id-section32)
+		* [3.2.1 Basic Specifications](#id-section321)
+		* [3.2.2 Electrical Specifications](#id-section322)
+	* [3.3 Battery](#id-section33)
 * [4 TROUBLE SHOTTING](#id-section4)
 
 <div id='id-section1'/>
@@ -64,7 +71,7 @@ Press MODE button under image view to enter configuration menu. User can use MOD
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content.bmp)
 
-
+<div id='id-section241'/>
 #### 2.4.1 Brightness
 Viper provides 4 brightness level. User can easily switch from different level by short press MODE button to move cursor and long press MODE button to select.
 
@@ -78,7 +85,7 @@ Viper provides 4 brightness level. User can easily switch from different level b
 |Level-4|full brightness|
 |back|back to previous menu|
 
-
+<div id='id-section242'/>
 #### 2.4.2 Sleep Mode
 User can enable Sleep features to allow device sleep after inactivate for a period of time. Sleep is disabled by default. User can select different sleep count down time under this menu. By selecting N/A, this feature is disabled.
 
@@ -93,7 +100,7 @@ User can enable Sleep features to allow device sleep after inactivate for a peri
 |N/A|disabled|
 |back|back to previous menu|
 
-
+<div id='id-section243'/>
 #### 2.4.3 Reticle
 Reticle can be configured under this sub-menu. Four options was listed in this menu, which is Enable/Disable, Hor, Ver, back. To navigate through this menu, user need to use long press MODE button to move cursor and short press MODE button to select. Be aware that this operation is different from other menus.
 
@@ -106,11 +113,13 @@ Reticle can be configured under this sub-menu. Four options was listed in this m
 |Ver|Adjust the vertical location of the reticle|
 |back|back to previous menu|
 
+<div id='id-section244'/>
 #### 2.4.4 Version
 Version information will displayed by selecting this options. 
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/version.png)
 
+<div id='id-section245'/>
 #### 2.4.5 Reset
 User can reset all configurations to factory mode by selecting this option.
 
@@ -122,8 +131,10 @@ To keep battery in best performance, Viper needs to be full charge bofore storag
 <div id='id-section3'/>
 ## 3 SPECIFICATIONS
 
+<div id='id-section31'/>
 ### 3.1 Camera Specifications
 
+<div id='id-section311'/>
 #### 3.1.1 Basic Specifications
 |Parameters|Detail|
 |--------|--------|
@@ -147,6 +158,8 @@ To keep battery in best performance, Viper needs to be full charge bofore storag
 |Non-operating temperature range|	-40 °C to +80 °C|
 |Shock 	|1500 G @ 0.4 ms|
 
+
+<div id='id-section312'/>
 #### 3.1.2 Electrical Specifications
 |Parameters|Detail|
 |--------|--------|
@@ -156,8 +169,10 @@ To keep battery in best performance, Viper needs to be full charge bofore storag
 |Input supply voltage (nominal) |	2.8 V, 1.2 V, 2.5 V to 3.1 V IO|
 |Power dissipation |	Nominally 150 mW at room temperature (operating), 4 mW (standby)|
 
+<div id='id-section32'/>
 ### 3.2 TFT Screen Specifications
 
+<div id='id-section321'/>
 #### 3.2.1 Basic Specifications
 | Parameters|Detail  |
 |--------|--------|
@@ -171,6 +186,7 @@ To keep battery in best performance, Viper needs to be full charge bofore storag
 |Pitch		|0.18*0.18（mm）|
 |Response time	|10(ms)|
 
+<div id='id-section322'/>
 #### 3.2.2 Electrical Specifications
 | Parameters|Detail  |
 |--------|--------|
@@ -181,7 +197,7 @@ To keep battery in best performance, Viper needs to be full charge bofore storag
 |Operating current	(brightness lv1)| 99 mA|
 |Operating current	(brightness lv1)| 103 mA|
 
-
+<div id='id-section33'/>
 ### 3.3 Battery
 
 | Parameter| Typ| Unit|
