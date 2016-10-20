@@ -28,6 +28,8 @@ ver 1.0
 
 <div id='id-section1'/>
 ## 1 INTRODUCTION
+(BACKGROUND INFO)
+
 
 <div id='id-section2'/>
 ## 2 USER MANUAL
