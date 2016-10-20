@@ -1,4 +1,4 @@
-# FLIR TECHNICAL MANUAL
+# VIPER CAMERA MANUAL
 09/10/2016
 ver 1.0
 
@@ -24,7 +24,9 @@ ver 1.0
 
 <div id='id-section2'/>
 ## 2 USER MANUAL
-The `product` is designed to be easy to use and friendly to user. All the configurations is saved and will remain after power cycle. 
+The Viper Camera is designed to be easy to use and friendly to user. Connect the device to USB power socket before first use to fully charge and activate the device.
+
+All the configurations is saved and will remain after power cycle. 
 
 <div id='id-section21'/>
 ### 2.1 POWER ON/OFF
@@ -45,7 +47,7 @@ To keep the battery under best performance, un-plug charging cable after chargin
 
 <div id='id-section23'/>
 ### 2.3 COLOR MODE
-`product` supports two color mode. Gray Scale mode and Colored mode. User can toggle between two display mode under image view by press MODE button. Pictures below demostrate two different color modes.
+Viper Camera supports two color mode. Gray Scale mode and Colored mode. User can toggle between two display mode under image view by press MODE button. Pictures below demostrate two different color modes.
 
 Gray scale mode
 
@@ -58,13 +60,13 @@ Color mode
 
 <div id='id-section24'/>
 ### 2.4 CONFIGURE DEVICE
-Press MODE button under image view to enter configuration menu. User can use MODE button to navigate through different configurations. Use short press to switch options and long press to select. `product` will exist to image view 30s after user's last operation on MODE button.
+Press MODE button under image view to enter configuration menu. User can use MODE button to navigate through different configurations. Use short press to switch options and long press to select. Viper will exist to image view 30s after user's last operation on MODE button.
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content.bmp)
 
 
 #### 2.4.1 Brightness
-`product` provides 4 brightness level. User can easily switch from different level by short press MODE button to move cursor and long press MODE button to select.
+Viper provides 4 brightness level. User can easily switch from different level by short press MODE button to move cursor and long press MODE button to select.
 
 ![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content_brightness.bmp)
 
@@ -115,7 +117,7 @@ User can reset all configurations to factory mode by selecting this option.
 
 <div id='id-section25'/>
 ### 2.5 STORAGE
-To keep battery in best performance, `product` needs to be full charge bofore storage. If the storage is longer than one month, user needs to pree ON button for at least 15s to enable HARD RESET mode which allow the system goes into deeper sleep mode.
+To keep battery in best performance, Viper needs to be full charge bofore storage. If the storage is longer than one month, user needs to pree ON button for at least 15s to enable HARD RESET mode which allow the system goes into deeper sleep mode.
 
 <div id='id-section3'/>
 ## 3 SPECIFICATIONS
