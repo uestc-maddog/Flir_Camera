@@ -1797,6 +1797,7 @@ void display_Animation(void)
 //	}
 	// 显示开机画面3s
 	display_Boot_Animation();
+	SET_BGLight(flir_conf.flir_sys_Bright);  
 	HAL_Delay(1000);
 	HAL_Delay(1000);
 	HAL_Delay(1000);

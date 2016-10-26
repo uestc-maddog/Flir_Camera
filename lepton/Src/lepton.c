@@ -271,7 +271,7 @@ uint16_t YUV2RGB422(unsigned char u)
 		g = u;
 		b = u;
 	}
-		rgb=((r&0xF8)<<8)+((g&0xFC)<<3)+((b&0xF8)>>3);
+		rgb=((b&0xF8)<<8)+((g&0xFC)<<3)+((r&0xF8)>>3);
 		temp = (rgb & 0xff00) >> 8;
 	  rgb = ((rgb & 0x00ff) << 8);
 		rgb = rgb + temp;

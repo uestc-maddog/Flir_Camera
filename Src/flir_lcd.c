@@ -259,7 +259,7 @@ void LCD_Init(void)
 	LCD_WR_REG(0x29); //Display on
 
 	// reset to white screen
-	LCD_Clear(WHITE); 
+	LCD_Clear(BLACK); 
 	
 #ifdef FLIR_PROJ
 	// print the black area in the top and bottom
@@ -308,8 +308,8 @@ void LCD_Init(void)
 	HAL_DMA_PollForTransfer(&LCD_DMA_PORT,HAL_DMA_FULL_TRANSFER,10);	
 #endif
 
-	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
-	SET_BGLight(flir_conf.flir_sys_Bright);     // ÉèÖÃÁÁ¶È
+//	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
+//	SET_BGLight(10);    
 }  
 
 
@@ -686,7 +686,7 @@ void SET_BGLight(BrightnessCont_sta levels)
 					sConfigOC.Pulse = 0;
 					break;
 				default : 
-					sConfigOC.Pulse = 0;
+					sConfigOC.Pulse = 1000;
 					break;
 	}
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;

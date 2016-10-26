@@ -503,9 +503,8 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* htim)
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = GPIO_AF3_TIM9;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
+			
   /* USER CODE BEGIN TIM10_MspPostInit 1 */
-
   /* USER CODE END TIM10_MspPostInit 1 */
   }
 

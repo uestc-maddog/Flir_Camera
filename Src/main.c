@@ -81,9 +81,9 @@ int main(void)
 	lepton_init();
 	MX_I2C1_Init();
 	
+	LCD_Init();
 	sysConf_init();               // 系统参数初始化
 	MX_TIM9_Init();               // LCD_PWM
-	LCD_Init();
 	display_Animation();          // 显示开机界面
 
   init_lepton_command_interface();
@@ -488,7 +488,8 @@ static void MX_TIM9_Init(void)
 
   HAL_TIM_MspPostInit(&htim9);
 	HAL_TIM_Base_Start(&htim9);
-	//HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
+	SET_BGLight(10); 
 }
 
 /* ADC1 init function */

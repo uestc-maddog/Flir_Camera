@@ -21,6 +21,7 @@
 #include "stm32f4xx_hal.h"
 #include "key.h"
 #include "electricity.h"
+#include "menufounction.h"
 #include "flir_lcd.h"
 /********************************************************************************************************
  *                                                 MACROS
@@ -46,6 +47,7 @@ volatile uint8_t Time_Sleep = 0;      // Sleep Time counter
  ********************************************************************************************************/
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
+extern IWDG_HandleTypeDef hiwdg;
 extern uint8_t Charge_Flag;
  
 /********************************************************************************************************
@@ -150,7 +152,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		{
 			if(flir_conf.file_sys_LowPower == Not_LowPower) 
 			{
-				HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
+				HAL_Delay(500);
+#ifdef enable_iwdg
+				HAL_IWDG_Refresh(&hiwdg);
+#endif
+				HAL_Delay(500);HAL_Delay(500);     // 关机长按 
+#ifdef enable_iwdg
+				HAL_IWDG_Refresh(&hiwdg);
+#endif
 				if(!(GPIOB->IDR&0x0001)) 
 				{
 					flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
