@@ -122,6 +122,7 @@ int main(void)
 				{
 					flir_conf.flir_sys_DisMode = color;	
 				}
+				HAL_Delay(50);
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
 			{
@@ -489,7 +490,7 @@ static void MX_TIM9_Init(void)
   HAL_TIM_MspPostInit(&htim9);
 	HAL_TIM_Base_Start(&htim9);
 	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
-	SET_BGLight(10); 
+	SET_BGLight(Level3); 
 }
 
 /* ADC1 init function */

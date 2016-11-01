@@ -258,12 +258,12 @@ uint16_t YUV2RGB422(unsigned char u)
 	
 	if(flir_conf.flir_sys_DisMode == color)
 	{
-//		r = colormap_ironblack[3*u];
-//		g = colormap_ironblack[3*u+1];
-//		b = colormap_ironblack[3*u + 2];
-		r = colormap_ironblack[3*u + 2];
+		r = colormap_ironblack[3*u];
 		g = colormap_ironblack[3*u+1];
-		b = colormap_ironblack[3*u];
+		b = colormap_ironblack[3*u + 2];
+//		r = colormap_ironblack[3*u + 2];     // ¿í
+//		g = colormap_ironblack[3*u+1];
+//		b = colormap_ironblack[3*u];
 	}
 	else
 	{

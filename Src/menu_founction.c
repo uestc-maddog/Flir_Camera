@@ -221,7 +221,8 @@ void set_reticle(void)
 	reticle_sta = reticle_able;
 	uint16_t timer = 0;
 	KeyStatus Key_Value = Key_None;
-	
+	Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
+	Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;
 	while(1)
 	{
 		set_reticle_mark=true;    // 二级菜单标志量设为true
