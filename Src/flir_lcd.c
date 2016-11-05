@@ -306,10 +306,7 @@ void LCD_Init(void)
 	HAL_SPI_Transmit_DMA(&hspi1, (uint8_t*)flir_txBuf, 640);
 	// polling for 10ms by defaul
 	HAL_DMA_PollForTransfer(&LCD_DMA_PORT,HAL_DMA_FULL_TRANSFER,10);	
-#endif
-
-//	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
-//	SET_BGLight(10);    
+#endif  
 }  
 
 

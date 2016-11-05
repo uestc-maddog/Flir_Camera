@@ -90,7 +90,8 @@
 /******************************************************************************/
 /** PRIVATE FUNCTION DECLARATIONS                                            **/
 /******************************************************************************/
-static LEP_RESULT _LEP_DelayCounts(LEP_UINT32 counts);
+
+//static LEP_RESULT _LEP_DelayCounts(LEP_UINT32 counts);
 
 /******************************************************************************/
 /** EXPORTED PUBLIC DATA                                                     **/
@@ -529,18 +530,18 @@ LEP_RESULT LEP_GetCameraBootStatus(LEP_CAMERA_PORT_DESC_T_PTR portDescPtr,
 /** PRIVATE MODULE FUNCTIONS                                                 **/
 /******************************************************************************/
 
-LEP_RESULT _LEP_DelayCounts(LEP_UINT32 counts)
-{
-    LEP_UINT32 a;
-    while( counts-- )
-    {
-        a=counts;        
-    }
-    if( a )
-    {
-        return(LEP_TIMEOUT_ERROR) ;
-    }
-    return(LEP_OK);
-}
+//LEP_RESULT _LEP_DelayCounts(LEP_UINT32 counts)
+//{
+//    LEP_UINT32 a;
+//    while( counts-- )
+//    {
+//        a=counts;        
+//    }
+//    if( a )
+//    {
+//        return(LEP_TIMEOUT_ERROR) ;
+//    }
+//    return(LEP_OK);
+//}
 
 

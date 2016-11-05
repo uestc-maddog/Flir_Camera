@@ -113,28 +113,28 @@ static HAL_StatusTypeDef print_aux_temp_celcius()
   return HAL_OK;
 }
 
-static HAL_StatusTypeDef print_radiometry()
-{
-  LEP_RESULT result;
-  LEP_RAD_ENABLE_E temp;
+//static HAL_StatusTypeDef print_radiometry()
+//{
+//  LEP_RESULT result;
+//  LEP_RAD_ENABLE_E temp;
 
-  result = LEP_GetRadEnableState(&hport_desc,&temp);
-  if (result != LEP_OK) {
-    DEBUG_PRINTF("Could not query fpa temp! %d\r\n", result);
-    return HAL_ERROR;
-  }
-	
-	temp = LEP_RAD_ENABLE;
-	result = LEP_SetRadEnableState(&hport_desc,temp);
-	
-	temp = LEP_RAD_DISABLE;
-	result = LEP_GetRadEnableState(&hport_desc,&temp);
+//  result = LEP_GetRadEnableState(&hport_desc,&temp);
+//  if (result != LEP_OK) {
+//    DEBUG_PRINTF("Could not query fpa temp! %d\r\n", result);
+//    return HAL_ERROR;
+//  }
+//	
+//	temp = LEP_RAD_ENABLE;
+//	result = LEP_SetRadEnableState(&hport_desc,temp);
+//	
+//	temp = LEP_RAD_DISABLE;
+//	result = LEP_GetRadEnableState(&hport_desc,&temp);
 
-  DEBUG_PRINTF("SYS aux temp celcius:\r\n");
-  DEBUG_PRINTF("%d.%d\r\n", (int)temp, (int)((temp-(int)temp)*100.0f));
+//  DEBUG_PRINTF("SYS aux temp celcius:\r\n");
+//  DEBUG_PRINTF("%d.%d\r\n", (int)temp, (int)((temp-(int)temp)*100.0f));
 
-  return HAL_OK;
-}
+//  return HAL_OK;
+//}
 
 static HAL_StatusTypeDef print_sdk_version()
 {

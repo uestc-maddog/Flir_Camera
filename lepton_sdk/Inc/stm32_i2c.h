@@ -56,7 +56,7 @@ extern "C"
     extern LEP_RESULT DEV_I2C_MasterInit(LEP_UINT16 portID,
                                          LEP_UINT16 *BaudRate);
 
-    extern LEP_RESULT DEV_I2C_MasterClose();
+    extern LEP_RESULT DEV_I2C_MasterClose(void);
 
     extern LEP_RESULT DEV_I2C_MasterReset(void );
 

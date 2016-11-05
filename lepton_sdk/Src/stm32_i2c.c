@@ -127,7 +127,7 @@ LEP_RESULT DEV_I2C_MasterInit(LEP_UINT16 portID,
  * 
  * @return LEP_RESULT  0 if all goes well, errno otherwise.
  */
-LEP_RESULT DEV_I2C_MasterClose()
+LEP_RESULT DEV_I2C_MasterClose(void)
 {
     LEP_RESULT result = LEP_OK;
 
@@ -173,11 +173,11 @@ LEP_RESULT DEV_I2C_MasterReadData(LEP_UINT16  portID,               // User-defi
     HAL_StatusTypeDef hal_status;
     LEP_UINT16 bytesToRead = wordsToRead << 1;
     LEP_UINT16 wordsRead = wordsToRead;
-    LEP_UINT8 txdata[ADDRESS_SIZE_BYTES];
+    //LEP_UINT8 txdata[ADDRESS_SIZE_BYTES];
     LEP_UINT16 *dataPtr;
     LEP_UINT16 *writePtr;
 
-    *(LEP_UINT16*)txdata = REVERSE_ENDIENESS_UINT16(regAddress);
+    //*(LEP_UINT16*)txdata = REVERSE_ENDIENESS_UINT16(regAddress);
 
     hal_status = HAL_I2C_Mem_Read(&hi2c1, deviceAddress << 1, regAddress, I2C_MEMADD_SIZE_16BIT, txrxdata, bytesToRead,COMM_TIMEOUT_MS);
 	 //b hal_status = HAL_I2C_Mem_Read_DMA(&hi2c1, deviceAddress << 1, regAddress, I2C_MEMADD_SIZE_16BIT, txrxdata, bytesToRead);

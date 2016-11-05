@@ -146,7 +146,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		/* NOTE: This function Should not be modified, when the callback is needed,
 						 the HAL_GPIO_EXTI_Callback could be implemented in the user file
 		 */
-	if(GPIO_Pin == GPIO_PIN_0)           // PBSTAT中断
+	if(GPIO_Pin == GPIO_PIN_0)           // PBSTAT按下（中断）
 	{
 		if(!(GPIOB->IDR&0x0001))           // PB0下降沿    
 		{

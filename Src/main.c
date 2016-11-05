@@ -78,7 +78,7 @@ int main(void)
 	MX_TIM2_Init();               // 按键时间捕获
 	MX_TIM3_Init();               // Sleep Time      定时器TIM3已开启
 	
-	lepton_init();
+	lepton_init();                // Lepton初始化
 	MX_I2C1_Init();
 	
 	LCD_Init();

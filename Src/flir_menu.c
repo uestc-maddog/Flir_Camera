@@ -1527,19 +1527,19 @@ void sysConf_init(void)
 	uint32_t temp = 0; 
 	uint32_t datatemp[PARA_NUMS];        // 系统参数缓存
 	
-	STMFLASH_Read(PARA_SAVE_ADDR,&temp,1);    // 读出1个数据
+	STMFLASH_Read(PARA_SAVE_ADDR,&temp,1);    // 读出1个数据到temp
 	if(temp != 0x45)     // 参数还未保存到FLASH（第一次运行）
 	{
-		// init system configuration
-		flir_conf.flir_sys_Bright = Level3;         // 默认亮度等级   Level3
-		flir_conf.flir_sys_Sleep  = Minutes_NA;     // 默认Sleep Time    Minutes_NA(不开启Sleep功能)
+		// （first time） init system configuration
+		flir_conf.flir_sys_Bright = Level3;         // 默认亮度等级       Level3
+		flir_conf.flir_sys_Sleep  = Minutes_NA;     // 默认Sleep Time     Minutes_NA(不开启Sleep功能)
 		
 		flir_conf.flir_sys_Focus = focus_enable;    // 默认对焦准心开启
-		flir_conf.flir_sys_Reticle[0] = 0;          // Reticle X轴偏移    短轴
+		flir_conf.flir_sys_Reticle[0] = 0;          // Reticle X轴偏移    短轴    (0,0)--将对焦准心放在屏幕的中心位置
 		flir_conf.flir_sys_Reticle[1] = 0;          // Reticle Y轴偏移    长轴
 		
-		flir_conf.flir_sys_DisMode = color;         // 默认摄像头数据彩色显示
-		flir_conf.flir_sys_ComMode = disable;       // 默认指南针功能开启
+		flir_conf.flir_sys_DisMode = color;         // 默认摄像头数据显示模式：彩色
+		flir_conf.flir_sys_ComMode = disable;       // 默认指南针功能关闭
 		flir_conf.file_sys_PBWakeup= PBWakeup_None; // 默认PBSTA开机唤醒未按下
 		flir_conf.file_sys_LowPower= Not_LowPower;  // 第一次开机，非Stop低功耗模式
 	}
@@ -1552,37 +1552,37 @@ void sysConf_init(void)
 		flir_conf.flir_sys_Sleep  = (SleepCont_sta)(datatemp[1]>>24);         // Sleep Time 
 		
 		flir_conf.flir_sys_Focus = (FocusCont_sta)(datatemp[2]>>24);          // 对焦准心是否开启
-		flir_conf.flir_sys_Reticle[0] = (int)((int)((datatemp[3])>>24)-50);   // Reticle X轴偏移    短轴
+		flir_conf.flir_sys_Reticle[0] = (int)((int)((datatemp[3])>>24)-50);   // Reticle X轴偏移    短轴  对焦准心在屏幕上的位置
 		flir_conf.flir_sys_Reticle[1] = (int)((int)((datatemp[4])>>24)-50);   // Reticle Y轴偏移    长轴
 		
 		flir_conf.flir_sys_DisMode = (DisplayMode_sta)(datatemp[5]>>24);      // 摄像头数据显示模式（彩色/黑白）
 		flir_conf.flir_sys_ComMode = (CompassMode_sta)(datatemp[6]>>24);      // 指南针功能是否开启
 		flir_conf.file_sys_PBWakeup= (PBWakeup_sta)(datatemp[7]>>24);         // 是否为PBSTA开机唤醒
-		flir_conf.file_sys_LowPower= (LowPower_sta)(datatemp[8]>>24);         // 标记IWDG发生于Stop mode 还是程序运行出错 
+		flir_conf.file_sys_LowPower= (LowPower_sta)(datatemp[8]>>24);         // 标记系统当前状态：Stop Mode / Running
 	}  
 	
-	if( (RCC->CSR & (0x01 << 29)) )                  // IWDG复位 
+	if( (RCC->CSR & (0x01 << 29)) )                  // 看门狗复位（程序运行出错）
 	{
 		__HAL_RCC_CLEAR_RESET_FLAGS();                 // 清除复位标志
-		if(flir_conf.file_sys_LowPower == Is_LowPower) // Stop Mode下发生的IWDG复位      
+		if(flir_conf.file_sys_LowPower == Is_LowPower) // Stop Mode下发生的IWDG复位，重新进入Stop Mode     
 		{
 			flir_conf.file_sys_LowPower = Is_LowPower;   // 状态切换
 			PBsetSandby();
 		}
-//		else                                           // 程序运行出错发生的IWDG复位
+//		else                                           // 硬件复位（用户开机或上电）
 //		{
 //			
 //		}
 	}
-	
-	if(flir_conf.file_sys_PBWakeup == PBWakeup_Down)  // PBSTA开机唤醒
+	// 硬件复位
+	if(flir_conf.file_sys_PBWakeup == PBWakeup_Down) // PBSTA开机唤醒
 	{
-		flir_conf.file_sys_PBWakeup= PBWakeup_None;   // 清除PBSTA开机唤醒按键
+		flir_conf.file_sys_PBWakeup= PBWakeup_None;    // 清除PBSTA开机唤醒按键
 		
-		if(!(GPIOB->IDR&0x0001))          // PB0按下，不开机   
+		if(!(GPIOB->IDR&0x0001))          // PB0按下  
 		{
-			HAL_Delay(500);
-			HAL_Delay(500);
+//			HAL_Delay(500);
+//			HAL_Delay(500);
 			HAL_Delay(300);
 			if(GPIOB->IDR&0x0001)           // PB0短按，不开机   
 			{
@@ -1596,6 +1596,7 @@ void sysConf_init(void)
 			PBsetSandby();
 		}
 	}
+	 // PB0长按或断电情况下上电，开机 
 	flir_conf.file_sys_LowPower= Not_LowPower;  // 开机，非Stop低功耗模式
 	Time_Sleep = 0;                             // 休眠定时计数器归零
 	switch((int)flir_conf.flir_sys_Sleep)

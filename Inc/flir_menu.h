@@ -141,14 +141,16 @@ typedef enum {
 
 typedef enum {
 	normal = 0,
-	charging,}Baterrymode; 
+	charging,
+}Baterrymode; 
 // quantity of betarry
 typedef enum {
 	Baterry_high = 0,
 	Baterry_middle,
 	Baterry_low,
 	Baterry_empty,
-	Baterry_full,}Quan_baterry;
+	Baterry_full,
+}Quan_baterry;
 
 typedef struct{
 	BrightnessCont_sta flir_sys_Bright;           // 系统亮度参数

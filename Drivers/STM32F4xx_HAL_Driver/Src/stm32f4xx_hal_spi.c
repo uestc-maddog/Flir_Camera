@@ -180,8 +180,8 @@
   * @{
   */
 static void SPI_DMATransmitCplt(DMA_HandleTypeDef *hdma);
-static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma);
-static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma);
+//static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma);
+//static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma);
 static void SPI_DMAHalfTransmitCplt(DMA_HandleTypeDef *hdma);
 static void SPI_DMAHalfReceiveCplt(DMA_HandleTypeDef *hdma);
 static void SPI_DMAHalfTransmitReceiveCplt(DMA_HandleTypeDef *hdma);
@@ -1936,65 +1936,65 @@ static void SPI_DMATransmitCplt(DMA_HandleTypeDef *hdma)
   *               the configuration information for the specified DMA module.
   * @retval None
   */
-static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
-{
-  SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-#if (USE_SPI_CRC != 0U)
-  uint32_t tickstart = 0U;
-  __IO uint16_t tmpreg = 0U;
+//static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
+//{
+//  SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
+//#if (USE_SPI_CRC != 0U)
+//  uint32_t tickstart = 0U;
+//  __IO uint16_t tmpreg = 0U;
 
-  /* Init tickstart for timeout management*/
-  tickstart = HAL_GetTick();
-#endif /* USE_SPI_CRC */
+//  /* Init tickstart for timeout management*/
+//  tickstart = HAL_GetTick();
+//#endif /* USE_SPI_CRC */
 
-  if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0U)
-  {
-#if (USE_SPI_CRC != 0U)
-    /* CRC handling */
-    if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-    {
-      /* Wait until RXNE flag */
-      if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, SPI_DEFAULT_TIMEOUT, tickstart) != HAL_OK)
-      {
-        /* Error on the CRC reception */
-        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
-      }
-      /* Read CRC */
-      tmpreg = hspi->Instance->DR;
-      /* To avoid GCC warning */
-      UNUSED(tmpreg);
-    }
-#endif /* USE_SPI_CRC */
+//  if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0U)
+//  {
+//#if (USE_SPI_CRC != 0U)
+//    /* CRC handling */
+//    if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
+//    {
+//      /* Wait until RXNE flag */
+//      if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SPI_FLAG_RXNE, SPI_DEFAULT_TIMEOUT, tickstart) != HAL_OK)
+//      {
+//        /* Error on the CRC reception */
+//        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
+//      }
+//      /* Read CRC */
+//      tmpreg = hspi->Instance->DR;
+//      /* To avoid GCC warning */
+//      UNUSED(tmpreg);
+//    }
+//#endif /* USE_SPI_CRC */
 
-    /* Disable Rx/Tx DMA Request (done by default to handle the case master rx direction 2 lines) */
-    CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
+//    /* Disable Rx/Tx DMA Request (done by default to handle the case master rx direction 2 lines) */
+//    CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
-    if((hspi->Init.Mode == SPI_MODE_MASTER)&&((hspi->Init.Direction == SPI_DIRECTION_1LINE)||(hspi->Init.Direction == SPI_DIRECTION_2LINES_RXONLY)))
-    {
-      /* Disable SPI peripheral */
-      __HAL_SPI_DISABLE(hspi);
-    }
+//    if((hspi->Init.Mode == SPI_MODE_MASTER)&&((hspi->Init.Direction == SPI_DIRECTION_1LINE)||(hspi->Init.Direction == SPI_DIRECTION_2LINES_RXONLY)))
+//    {
+//      /* Disable SPI peripheral */
+//      __HAL_SPI_DISABLE(hspi);
+//    }
 
-    hspi->RxXferCount = 0U;
-    hspi->State = HAL_SPI_STATE_READY;
+//    hspi->RxXferCount = 0U;
+//    hspi->State = HAL_SPI_STATE_READY;
 
-#if (USE_SPI_CRC != 0U)
-    /* Check if CRC error occurred */
-    if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR))
-    {
-      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
-      __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
-    }
-#endif /* USE_SPI_CRC */
+//#if (USE_SPI_CRC != 0U)
+//    /* Check if CRC error occurred */
+//    if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR))
+//    {
+//      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
+//      __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
+//    }
+//#endif /* USE_SPI_CRC */
 
-    if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
-    {
-      HAL_SPI_ErrorCallback(hspi);
-      return;
-    }
-  }
-  HAL_SPI_RxCpltCallback(hspi);
-}
+//    if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
+//    {
+//      HAL_SPI_ErrorCallback(hspi);
+//      return;
+//    }
+//  }
+//  HAL_SPI_RxCpltCallback(hspi);
+//}
 
 /**
   * @brief  DMA SPI transmit receive process complete callback.
@@ -2002,63 +2002,63 @@ static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
   *               the configuration information for the specified DMA module.
   * @retval None
   */
-static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
-{
-  SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-  uint32_t tickstart = 0U;
-#if (USE_SPI_CRC != 0U)
-  __IO int16_t tmpreg = 0U;
-#endif /* USE_SPI_CRC */
-  /* Init tickstart for timeout management*/
-  tickstart = HAL_GetTick();
+//static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
+//{
+//  SPI_HandleTypeDef* hspi = ( SPI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
+//  uint32_t tickstart = 0U;
+//#if (USE_SPI_CRC != 0U)
+//  __IO int16_t tmpreg = 0U;
+//#endif /* USE_SPI_CRC */
+//  /* Init tickstart for timeout management*/
+//  tickstart = HAL_GetTick();
 
-  if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0U)
-  {
-#if (USE_SPI_CRC != 0U)
-    /* CRC handling */
-    if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
-    {
-      /* Wait the CRC data */
-      if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SET, SPI_DEFAULT_TIMEOUT, tickstart) != HAL_OK)
-      {
-        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
-      }
-      /* Read CRC to Flush DR and RXNE flag */
-      tmpreg = hspi->Instance->DR;
-      /* To avoid GCC warning */
-      UNUSED(tmpreg);
-    }
-#endif /* USE_SPI_CRC */
-    /* Check the end of the transaction */
-    if(SPI_CheckFlag_BSY(hspi, SPI_DEFAULT_TIMEOUT, tickstart) != HAL_OK)
-    {
-      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
-    }
+//  if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0U)
+//  {
+//#if (USE_SPI_CRC != 0U)
+//    /* CRC handling */
+//    if(hspi->Init.CRCCalculation == SPI_CRCCALCULATION_ENABLE)
+//    {
+//      /* Wait the CRC data */
+//      if(SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, SET, SPI_DEFAULT_TIMEOUT, tickstart) != HAL_OK)
+//      {
+//        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
+//      }
+//      /* Read CRC to Flush DR and RXNE flag */
+//      tmpreg = hspi->Instance->DR;
+//      /* To avoid GCC warning */
+//      UNUSED(tmpreg);
+//    }
+//#endif /* USE_SPI_CRC */
+//    /* Check the end of the transaction */
+//    if(SPI_CheckFlag_BSY(hspi, SPI_DEFAULT_TIMEOUT, tickstart) != HAL_OK)
+//    {
+//      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
+//    }
 
-    /* Disable Rx/Tx DMA Request */
-    CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
+//    /* Disable Rx/Tx DMA Request */
+//    CLEAR_BIT(hspi->Instance->CR2, SPI_CR2_TXDMAEN | SPI_CR2_RXDMAEN);
 
-    hspi->TxXferCount = 0U;
-    hspi->RxXferCount = 0U;
-    hspi->State = HAL_SPI_STATE_READY;
+//    hspi->TxXferCount = 0U;
+//    hspi->RxXferCount = 0U;
+//    hspi->State = HAL_SPI_STATE_READY;
 
-#if (USE_SPI_CRC != 0U)
-    /* Check if CRC error occurred */
-    if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR))
-    {
-      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
-      __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
-    }
-#endif /* USE_SPI_CRC */
+//#if (USE_SPI_CRC != 0U)
+//    /* Check if CRC error occurred */
+//    if(__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_CRCERR))
+//    {
+//      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
+//      __HAL_SPI_CLEAR_CRCERRFLAG(hspi);
+//    }
+//#endif /* USE_SPI_CRC */
 
-    if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
-    {
-      HAL_SPI_ErrorCallback(hspi);
-      return;
-    }
-  }
-  HAL_SPI_TxRxCpltCallback(hspi);
-}
+//    if(hspi->ErrorCode != HAL_SPI_ERROR_NONE)
+//    {
+//      HAL_SPI_ErrorCallback(hspi);
+//      return;
+//    }
+//  }
+//  HAL_SPI_TxRxCpltCallback(hspi);
+//}
 
 /**
   * @brief  DMA SPI half transmit process complete callback.

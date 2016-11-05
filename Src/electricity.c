@@ -115,10 +115,18 @@ Quan_baterry Get_Elec(void)
 	else if(ADC_Temp > Elec_Thre5) return Baterry_empty;
 	else  																
 	{
-		low_power = true;
-		flir_conf.file_sys_LowPower = Is_LowPower;        // ×´Ì¬ÇÐ»»
-		setSandby();
+		if(GPIOA->IDR&0x8000)           // Î´´¦ÓÚ³äµç×´Ì¬ÖÐ
+		{
+			low_power = true;
+			flir_conf.file_sys_LowPower = Is_LowPower;        // ×´Ì¬ÇÐ»»
+			setSandby();
+		}
+		else                            // ´¦ÓÚ³äµç×´Ì¬ÖÐ
+		{
+			return Baterry_empty;
+		}
 	}
+	return Baterry_empty;
 }
 
 /*********************************************************************
