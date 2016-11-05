@@ -50,11 +50,10 @@ static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_IWDG_Init(void);
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+extern void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 volatile float temprature = 0;                     // 温度值
-uint8_t Charge_Flag = 0;                           // 0:表示已经退出过一次充电状态,充电线已拔出
-uint8_t baterry_test = 0;                          // 测试电子罗盘
+uint8_t baterry_timer = 0;                         // 获取电池电量计数器
 volatile uint8_t SleepTime_Setting = Time_Minu15;  // 设置的Sleep Time
 
 void Flir_Display(void);                           // Flir界面显示程序
@@ -81,9 +80,9 @@ int main(void)
 	lepton_init();                // Lepton初始化
 	MX_I2C1_Init();
 	
-	LCD_Init();
 	sysConf_init();               // 系统参数初始化
-	MX_TIM9_Init();               // LCD_PWM
+	LCD_Init();
+	MX_TIM9_Init();               // 按照系统参数开启LCD背光
 	display_Animation();          // 显示开机界面
 
   init_lepton_command_interface();
@@ -490,7 +489,7 @@ static void MX_TIM9_Init(void)
   HAL_TIM_MspPostInit(&htim9);
 	HAL_TIM_Base_Start(&htim9);
 	HAL_TIM_PWM_Start(&htim9,TIM_CHANNEL_1);
-	SET_BGLight(Level3); 
+	SET_BGLight(flir_conf.flir_sys_Bright); 
 }
 
 /* ADC1 init function */
@@ -629,7 +628,7 @@ void Menu_Display(void)
 void Flir_Display(void)
 {
 	int x = 0;
-	current_buffer=lepton_transfer();
+	current_buffer = lepton_transfer();
 	if(current_buffer->status != LEPTON_STATUS_TRANSFERRING)
 	{
 		if(status2==HAL_OK)
@@ -660,10 +659,10 @@ void Flir_Display(void)
 		if(xfer_state != LEPTON_XFER_STATE_DATA)
 		HAL_Delay(1);
 	}	
-	baterry_test++ ;	
-	if(baterry_test == 10) 
+	baterry_timer++ ;	
+	if(baterry_timer == 10) 
 	{
-		baterry_test = 0;
+		baterry_timer = 0;
 		flir_conf.flir_sys_Baterry = Get_Elec();
 	}
 }

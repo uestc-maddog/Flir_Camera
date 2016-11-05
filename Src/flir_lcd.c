@@ -59,7 +59,6 @@ extern TIM_HandleTypeDef htim3;
 extern SPI_HandleTypeDef LCD_SPI_PORT;
 extern DMA_HandleTypeDef LCD_DMA_PORT;
 extern bool Compass_Swit;        // 0---compass on   1---compass off
-extern uint8_t Charge_Flag ;
 extern float temprature;                     // 温度值
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -369,7 +368,7 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 	uint16_t i,j;
 	static uint16_t Angle = 0;
 	
-	if (lcdTXcpl)
+	if(lcdTXcpl)
 	{
 		// set complete flag invalid
 		lcdTXcpl = false;
@@ -398,12 +397,10 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 		if((GPIOA->IDR&0x8000))                     // jugge the charging mark
 		{
 			flir_conf.file_sys_chargingMode = normal;
-			Charge_Flag = 0;          
 		}
 		else
 		{
 			flir_conf.file_sys_chargingMode = charging;
-			Charge_Flag = 1;  		
 		}
 		Addbaterry_menu(flir_conf.file_sys_chargingMode,flir_conf.flir_sys_Baterry);          // 添加电池图标显示
 		

@@ -48,7 +48,6 @@ volatile uint8_t Time_Sleep = 0;      // Sleep Time counter
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern IWDG_HandleTypeDef hiwdg;
-extern uint8_t Charge_Flag;
  
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -226,7 +225,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		else                                // ÉÏ½µÑØ£¬ÍË³ö³äµç
 		{
 			flir_conf.file_sys_chargingMode = normal; 
-			Charge_Flag = 0;
 		}
 	}
 }

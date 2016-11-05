@@ -39,7 +39,6 @@
 /********************************************************************************************************
  *                                               CONSTANTS
  ********************************************************************************************************/
-extern uint8_t Charge_Flag;
 extern uint8_t SleepTime_Setting;  // 默认Sleep Time
 extern TIM_HandleTypeDef htim3;
 extern volatile uint16_t rgbbuf[60][80]; 
@@ -1583,8 +1582,8 @@ void sysConf_init(void)
 		{
 //			HAL_Delay(500);
 //			HAL_Delay(500);
-			HAL_Delay(300);
-			if(GPIOB->IDR&0x0001)           // PB0短按，不开机   
+			HAL_Delay(500);
+			if(GPIOB->IDR&0x0001)           // PB0短按，不开机（重新进入Stop Mode）  
 			{
 				flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
 				PBsetSandby();
@@ -1597,7 +1596,7 @@ void sysConf_init(void)
 		}
 	}
 	 // PB0长按或断电情况下上电，开机 
-	flir_conf.file_sys_LowPower= Not_LowPower;  // 开机，非Stop低功耗模式
+	flir_conf.file_sys_LowPower= Not_LowPower;  // 开机，切换至非Stop低功耗模式
 	Time_Sleep = 0;                             // 休眠定时计数器归零
 	switch((int)flir_conf.flir_sys_Sleep)
 	{
@@ -1764,7 +1763,6 @@ void display_Animation(void)
 	if(!(GPIOA->IDR&0x8000))           // 开机后，如果处于充电状态中
 	{
 		flir_conf.file_sys_chargingMode = charging;
-		Charge_Flag = 1;    // 充电线插入标志
 		while(1)
 		{		
 			flir_conf.flir_sys_Baterry = Get_Elec();               // 获取当前电量 
@@ -1773,7 +1771,6 @@ void display_Animation(void)
 			if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
 			{
 				flir_conf.file_sys_chargingMode = normal;
-				Charge_Flag = 0;	
 				flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换				
 				setSandby();
 				break; 
@@ -1782,7 +1779,6 @@ void display_Animation(void)
 			if(++timer == 30)     
 			{
 				flir_conf.file_sys_chargingMode = normal;
-				Charge_Flag = 0;	
 				flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换				
 				setSandby();
 				break; 
@@ -1798,7 +1794,7 @@ void display_Animation(void)
 //	}
 	// 显示开机画面3s
 	display_Boot_Animation();
-	SET_BGLight(flir_conf.flir_sys_Bright);  
+	//SET_BGLight(flir_conf.flir_sys_Bright);  
 	HAL_Delay(1000);
 	HAL_Delay(1000);
 	HAL_Delay(1000);
@@ -1806,7 +1802,6 @@ void display_Animation(void)
 	if((GPIOA->IDR&0x8000))                     // 拔出充电线，退出充电界面
 	{
 		flir_conf.file_sys_chargingMode = normal;
-		Charge_Flag = 0;          
 	}
 	
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
