@@ -204,21 +204,23 @@ void setSandby( void )
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
-	sleep_sta = Sleep_enable;
-	Save_Parameter();                           // 保存8个系统参数到FLASH
+	
+	Save_Parameter();                           // 保存重要系统参数到FLASH
 	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
-	if(low_power == false)
-		display_Byebye();
-	else
-		display_PowerOff();	
+	if(low_power == false) display_Byebye();
+	else                   display_PowerOff();	
+	
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
+	
 	HAL_Delay(500);HAL_Delay(500);
+	
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
+	
 	HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
@@ -254,7 +256,6 @@ void setSandby( void )
 void PBsetSandby(void)
 {
 	//sleep state changge to enable.
-	sleep_sta = Sleep_enable;
 	Save_Parameter();                            // 保存9个系统参数到FLASH
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	

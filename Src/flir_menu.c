@@ -1492,7 +1492,6 @@ FocusCont_sta      flir_focussta;
  ********************************************************************************************************/
 extern SPI_HandleTypeDef LCD_SPI_PORT;
 extern DMA_HandleTypeDef LCD_DMA_PORT;
-Sleep_sta sleep_sta = Sleep_disable;
 	
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
@@ -1668,7 +1667,6 @@ void sysConf_Reset(void)
 	flir_conf.file_sys_LowPower= Not_LowPower;   // 默认非Stop低功耗模式
 		
 	SET_BGLight(flir_conf.flir_sys_Bright);     // 设置亮度
-	sleep_sta = Sleep_disable;									// 开机状态
 	
 	Time_Sleep = 0;                             // 休眠定时计数器归零
 	SleepTime_Setting = Time_Minu15;            // 默认Sleep Time

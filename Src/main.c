@@ -53,7 +53,7 @@ static void MX_IWDG_Init(void);
 extern void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 volatile float temprature = 0;                     // 温度值
-uint8_t baterry_timer = 0;                         // 获取电池电量计数器
+volatile uint8_t baterry_timer = 0;                // 获取电池电量的计数器
 volatile uint8_t SleepTime_Setting = Time_Minu15;  // 设置的Sleep Time
 
 void Flir_Display(void);                           // Flir界面显示程序
@@ -62,8 +62,8 @@ void Menu_Display(void);                           // Menu界面显示程序
 int main(void)
 {
 	uint16_t timer = 0;           // 粗略计时
-
  	KeyStatus Key_Value = Key_None;
+	
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
   /* Configure the system clock */ 
@@ -89,9 +89,11 @@ int main(void)
   HAL_Delay(500);
   enable_lepton_agc();
 	temprature = Get_Temprate();	    // 得到温度值 
+	
 #ifdef enable_iwdg
 	MX_IWDG_Init();                   // 初始化并启动看门狗     约2s
 #endif
+
 	LCD_Clear(BLACK);                 // 清除开机界面的边界
 	while(1)
   {
@@ -108,9 +110,11 @@ int main(void)
 		if(Key_Value)
 		{
 			Time_Sleep = 0;                  // Sleep Time counter归零
+			
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
+			
 			if(Key_Value == Key_Short)           // 短按切换display mode
 			{
 				if(flir_conf.flir_sys_DisMode == color) 
@@ -529,9 +533,9 @@ static void MX_IWDG_Init(void)
 
 void Menu_Display(void)
 {
-	uint8_t timer = 0;
+	uint8_t timer = 0;                     // 粗略计时
 	KeyStatus Key_Value = Key_None;
-	menuCont_sta Menu_Value = Brightness;
+	menuCont_sta Menu_Value = Brightness;  // 当前选中项
 	
 #ifdef enable_iwdg
   HAL_IWDG_Refresh(&hiwdg);
@@ -550,19 +554,23 @@ void Menu_Display(void)
 		Key_Value = Key_Scan();   
 		if(Key_Value)
 		{
+			timer = 0;
 			Time_Sleep = 0;                  // Sleep Time counter归零
+			
 #ifdef enable_iwdg
       HAL_IWDG_Refresh(&hiwdg);
 #endif
-			timer = 0;
+			
 			if(Key_Value == Key_Short)        // 短按切换菜单栏
 			{
 				if(++Menu_Value == empty) Menu_Value = Brightness;
 				if(Menu_Value == Compass) Menu_Value = Exit;
 				display_menu(Menu_Value);
+				
 #ifdef enable_iwdg
         HAL_IWDG_Refresh(&hiwdg);
 #endif
+				
 			}
 			if(Key_Value == Key_Long)
 			{
@@ -598,14 +606,8 @@ void Menu_Display(void)
 						timer = 200;                          // timer=200时，退出菜单界面
 						break;
 					case (int)Compass:
-						if(flir_conf.flir_sys_ComMode == enable) 
-						{
-							flir_conf.flir_sys_ComMode = disable;  // 切换compass开关状态
-						}
-						else                                     
-						{
-							flir_conf.flir_sys_ComMode = enable;
-						}
+						if(flir_conf.flir_sys_ComMode == enable) flir_conf.flir_sys_ComMode = disable;  // 切换compass开关状态
+						else                                     flir_conf.flir_sys_ComMode = enable;                
 						display_menu(Menu_Value);
 						timer = 200;                          // timer=200时，退出菜单界面
 						break;
@@ -615,14 +617,12 @@ void Menu_Display(void)
 				}
 			}									
 		}
+		
 #ifdef enable_iwdg
 		HAL_IWDG_Refresh(&hiwdg);
 #endif
-		if(timer++ == 200)                            // 超过10s无按键响应，则退出菜单界面
-		{
-			timer = 0;
-			break;                      
-		}
+		
+		if(timer++ == 200) break;                           // 超过10s无按键响应，则退出菜单界面
 	}
 }
 void Flir_Display(void)

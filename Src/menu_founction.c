@@ -24,29 +24,33 @@ bool set_reticle_mark=false;
 void Brightnesschosen(void)
 {
 	BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;
-	
 	KeyStatus Key_Value = Key_None;
-	uint8_t timer = 0;
+	uint8_t timer = 0;                           // 粗略计时
 
 	display_Brightnessmenu(BGL_value);
+	
 #ifdef enable_iwdg
   HAL_IWDG_Refresh(&hiwdg);
 #endif
+	
 	while(1)
 	{
 		HAL_Delay(50);
 		Key_Value = Key_Scan();   
 		if(Key_Value)
 		{
+			timer = 0;
 			Time_Sleep = 0;                  // Sleep Time counter归零
+			
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
-			timer = 0;
+			
 			if(Key_Value == Key_Short)        // 短按切换菜单栏
 			{
 				if(++BGL_value == BGL_empty) BGL_value = Level1;
 				display_Brightnessmenu(BGL_value);
+				
 #ifdef enable_iwdg
 				HAL_IWDG_Refresh(&hiwdg);
 #endif
@@ -82,14 +86,12 @@ void Brightnesschosen(void)
 				}
 			}									
 		}
+		
 #ifdef enable_iwdg
 		HAL_IWDG_Refresh(&hiwdg);
 #endif		
-		if(timer++ == 200)                            // 超过10s无按键响应，则退出菜单界面
-		{
-			timer = 0;
-			break;                      
-		}
+		
+		if(timer++ == 200) break;                           // 超过10s无按键响应，则退出菜单界面
 	}
 }
 
@@ -114,15 +116,18 @@ void Sleepchosen(void)
 		Key_Value = Key_Scan();   
 		if(Key_Value)
 		{
+			timer = 0;
 			Time_Sleep = 0;                  // Sleep Time counter归零
+			
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
-			timer = 0;
+			
 			if(Key_Value == Key_Short)        // 短按切换菜单栏
 			{
 				if(++SLP_value == SLP_empty) SLP_value = Minutes_3;
 				display_Sleepmenu(SLP_value);
+				
 #ifdef enable_iwdg
 				HAL_IWDG_Refresh(&hiwdg);
 #endif
@@ -172,14 +177,12 @@ void Sleepchosen(void)
 				}
 			}									
 		}
+		
 #ifdef enable_iwdg
 		HAL_IWDG_Refresh(&hiwdg);
 #endif
-		if(timer++ == 200)                           // 超过10s无按键响应，则退出菜单界面
-		{
-			timer = 0;
-			break;                      
-		}
+		
+		if(timer++ == 200) break;                           // 超过10s无按键响应，则退出菜单界面
 	}
 }
 
@@ -193,20 +196,20 @@ void Versionchosen(void)
 	uint8_t timer = 0;
 
 	display_Versionmenu();
+	
 #ifdef enable_iwdg
   HAL_IWDG_Refresh(&hiwdg);
 #endif
+	
 	while(1)
 	{
 		HAL_Delay(500);
+		
 #ifdef enable_iwdg
 		HAL_IWDG_Refresh(&hiwdg);
 #endif
-		if(timer++ == 6)                            // 超过3s无按键响应，则退出菜单界面
-		{
-			timer = 0;
-			break;                      
-		}
+		
+		if(timer++ == 8) break;                            // 超过4s无按键响应，则退出菜单界面
 	}
 }
 
@@ -228,46 +231,37 @@ void set_reticle(void)
 		set_reticle_mark=true;    // 二级菜单标志量设为true
 		Flir_Display();	          // Flir界面
 		
-		Key_Value = Key_None;
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
+			timer = 0;
 			Time_Sleep = 0;                  // Sleep Time counter归零
+			
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
-			timer = 0;
+			
 			if(Key_Value == Key_Short)           // 长按改动选项
 			{
 				switch((int)reticle_sta)
 				{
 					case reticle_able:
-						if(flir_conf.flir_sys_Focus == focus_enable) 
-						{
-							flir_conf.flir_sys_Focus = focus_disable;                     // focus开关状态反转
-						}
-						else                                         
-						{
-							flir_conf.flir_sys_Focus = focus_enable;	                    // focus开关状态反转
-						}							
-					break;
+						if(flir_conf.flir_sys_Focus == focus_enable) flir_conf.flir_sys_Focus = focus_disable;                     // focus开关状态反转
+						else                                         flir_conf.flir_sys_Focus = focus_enable;	                     // focus开关状态反转                        						
+						break;
 					case reticle_Hor:
-						Hor++;
-						if(Hor>18)
-							Hor=0;
-						flir_conf.flir_sys_Reticle[0]=Hor*4-36;
-					break;
+						if((Hor++) > 18) Hor = 0;
+						flir_conf.flir_sys_Reticle[0] = Hor*4-36;
+						break;
 					case reticle_Ver:
-						Ver++;
-						if(Ver>18)
-							Ver=0;
-						flir_conf.flir_sys_Reticle[1]=Ver*6-54;
+						if((Ver++) > 18) Ver = 0;
+						flir_conf.flir_sys_Reticle[1] = Ver*6-54;
 					break;
 					case reticle_back:
-						timer=4000;
+						timer = 4000;
 					break;
 					default :
-						timer=4000;
+						timer = 4000;
 					break;
 				}
 			}
@@ -279,9 +273,9 @@ void set_reticle(void)
 				}
 				else                                         
 				{
-					if(reticle_sta == reticle_able) reticle_sta = reticle_back;
+					if(reticle_sta == reticle_able)      reticle_sta = reticle_back;
 					else if(reticle_sta == reticle_back) reticle_sta = reticle_able;
-					else reticle_sta = reticle_able;
+					else                                 reticle_sta = reticle_able;
 				}				
 			}
 		}

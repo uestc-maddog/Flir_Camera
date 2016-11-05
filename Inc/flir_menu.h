@@ -102,14 +102,8 @@ typedef enum {
 	SLP_empty,
 } SleepCont_sta;
 
-// sleepmode conditions
 
-typedef enum {
-	Sleep_enable,       // Sleep
-	Sleep_disable,      // Run
-} Sleep_sta;
-
-//sleep state 
+//reticle  
 typedef enum {
 	reticle_able = 0,
 	reticle_Hor,
@@ -178,8 +172,6 @@ typedef struct{
  *                                               EXTERNAL VARIABLES
  ********************************************************************************************************/
 extern sysConf_t flir_conf;
-
-extern Sleep_sta sleep_sta;
  
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
