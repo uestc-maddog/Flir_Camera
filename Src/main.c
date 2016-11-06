@@ -660,7 +660,7 @@ void Flir_Display(void)
 		HAL_Delay(1);
 	}	
 	baterry_timer++ ;	
-	if(baterry_timer == 10) 
+	if(baterry_timer == 100) 
 	{
 		baterry_timer = 0;
 		flir_conf.flir_sys_Baterry = Get_Elec();

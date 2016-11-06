@@ -1622,7 +1622,7 @@ void sysConf_init(void)
 		default :
 			break;
 	}
-	Save_Parameter();                            // 保存9个系统参数到FLASH
+	//Save_Parameter();                            // 保存9个系统参数到FLASH
 }
 
 void Save_Parameter(void)                     // 保存8个系统参数到FLASH
@@ -1792,7 +1792,8 @@ void display_Animation(void)
 //	}
 	// 显示开机画面3s
 	display_Boot_Animation();
-	//SET_BGLight(flir_conf.flir_sys_Bright);  
+	//SET_BGLight(flir_conf.flir_sys_Bright); 
+	Save_Parameter();                            // 保存9个系统参数到FLASH	
 	HAL_Delay(1000);
 	HAL_Delay(1000);
 	HAL_Delay(1000);
