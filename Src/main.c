@@ -98,7 +98,8 @@ int main(void)
 	while(1)
   {
 		// 显示Flir界面
-		Flir_Display();	  
+		Flir_Display();	 
+		
 		if(++timer == 350)             // 刷新温度值
 		{
 			temprature = Get_Temprate();	    // 得到温度值 
@@ -125,7 +126,7 @@ int main(void)
 				{
 					flir_conf.flir_sys_DisMode = color;	
 				}
-				HAL_Delay(50);
+				HAL_Delay(500);
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
 			{
