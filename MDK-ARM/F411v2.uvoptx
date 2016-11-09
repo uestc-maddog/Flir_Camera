@@ -149,9 +149,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>1799</LineNumber>
+          <LineNumber>1807</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244308</Address>
+          <Address>134244330</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -160,14 +160,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\Src\flir_menu.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/flir_menu.c\1799</Expression>
+          <Expression>\\F411v2\../Src/flir_menu.c\1807</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>1800</LineNumber>
+          <LineNumber>1806</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244312</Address>
+          <Address>134244324</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -176,30 +176,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\Src\flir_menu.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/flir_menu.c\1800</Expression>
+          <Expression>\\F411v2\../Src/flir_menu.c\1806</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>1781</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>134244272</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Src\flir_menu.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/flir_menu.c\1781</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
           <LineNumber>1801</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244320</Address>
+          <Address>134244308</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -211,11 +195,11 @@
           <Expression>\\F411v2\../Src/flir_menu.c\1801</Expression>
         </Bp>
         <Bp>
-          <Number>4</Number>
+          <Number>3</Number>
           <Type>0</Type>
-          <LineNumber>1805</LineNumber>
+          <LineNumber>1799</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244344</Address>
+          <Address>134244300</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -224,76 +208,92 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\Src\flir_menu.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/flir_menu.c\1805</Expression>
+          <Expression>\\F411v2\../Src/flir_menu.c\1799</Expression>
+        </Bp>
+        <Bp>
+          <Number>4</Number>
+          <Type>0</Type>
+          <LineNumber>1798</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>134244292</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\Src\flir_menu.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\F411v2\../Src/flir_menu.c\1798</Expression>
         </Bp>
         <Bp>
           <Number>5</Number>
           <Type>0</Type>
-          <LineNumber>64</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134220888</Address>
+          <LineNumber>1782</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>134244270</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Src\menu_founction.c</Filename>
+          <Filename>..\Src\flir_menu.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/menu_founction.c\64</Expression>
+          <Expression>\\F411v2\../Src/flir_menu.c\1782</Expression>
         </Bp>
         <Bp>
           <Number>6</Number>
           <Type>0</Type>
-          <LineNumber>69</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134220908</Address>
+          <LineNumber>1781</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>134244266</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Src\menu_founction.c</Filename>
+          <Filename>..\Src\flir_menu.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/menu_founction.c\69</Expression>
+          <Expression>\\F411v2\../Src/flir_menu.c\1781</Expression>
         </Bp>
         <Bp>
           <Number>7</Number>
           <Type>0</Type>
-          <LineNumber>59</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134220868</Address>
+          <LineNumber>1778</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>0</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Src\menu_founction.c</Filename>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>..\Src\flir_menu.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/menu_founction.c\59</Expression>
+          <Expression></Expression>
         </Bp>
         <Bp>
           <Number>8</Number>
           <Type>0</Type>
-          <LineNumber>74</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134220928</Address>
+          <LineNumber>1779</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>0</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Src\menu_founction.c</Filename>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>..\Src\flir_menu.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\F411v2\../Src/menu_founction.c\74</Expression>
+          <Expression></Expression>
         </Bp>
         <Bp>
           <Number>9</Number>
           <Type>0</Type>
-          <LineNumber>1075</LineNumber>
+          <LineNumber>1795</LineNumber>
           <EnabledFlag>0</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -309,7 +309,7 @@
         <Bp>
           <Number>10</Number>
           <Type>0</Type>
-          <LineNumber>1076</LineNumber>
+          <LineNumber>1796</LineNumber>
           <EnabledFlag>0</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -325,7 +325,7 @@
         <Bp>
           <Number>11</Number>
           <Type>0</Type>
-          <LineNumber>1091</LineNumber>
+          <LineNumber>1803</LineNumber>
           <EnabledFlag>0</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -341,103 +341,7 @@
         <Bp>
           <Number>12</Number>
           <Type>0</Type>
-          <LineNumber>1092</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Src\flir_menu.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>13</Number>
-          <Type>0</Type>
-          <LineNumber>1782</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Src\flir_menu.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>14</Number>
-          <Type>0</Type>
-          <LineNumber>1798</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Src\flir_menu.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>15</Number>
-          <Type>0</Type>
           <LineNumber>1804</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Src\flir_menu.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>16</Number>
-          <Type>0</Type>
-          <LineNumber>1806</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Src\flir_menu.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>17</Number>
-          <Type>0</Type>
-          <LineNumber>1802</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>0</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Src\flir_menu.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression></Expression>
-        </Bp>
-        <Bp>
-          <Number>18</Number>
-          <Type>0</Type>
-          <LineNumber>1807</LineNumber>
           <EnabledFlag>0</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -460,32 +364,12 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>hi2c1</ItemText>
+          <ItemText>ADC_Temp</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>flir_conf.flir_sys_Baterry</ItemText>
-        </Ww>
-        <Ww>
-          <count>3</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>ADC_Temp</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Time_Sleep</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>flir_conf</ItemText>
-        </Ww>
-        <Ww>
-          <count>6</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>temprature</ItemText>
+          <ItemText>res</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>

@@ -207,6 +207,108 @@ void display_Temperature(float temp)
 	}
 }
 
+/*********************************************************************
+ * @fn      display_Versionmenu
+ *
+ * @brief   display current Countdown Message
+ *
+ * @param   none
+ *
+ * @return  
+ */
+void display_Countdown(void)
+{
+	uint16_t index;
+	uint16_t i;
+	uint8_t Temp_Value = 0;
+	uint8_t hour = 0, minute = 0;
+	uint16_t countdown = 0;
+		
+	if(flir_conf.flir_sys_Sleep != Minutes_NA)
+	{
+		// 计算倒计时  hour  minute
+		switch((int)flir_conf.flir_sys_Sleep)
+		{
+			case (int)Minutes_3:
+				countdown = Time_Minu3 - Time_Sleep;    
+				break;
+			case (int)Minutes_5:
+				countdown = Time_Minu5 - Time_Sleep;
+				break;
+			case (int)Minutes_10:
+				countdown = Time_Minu10 - Time_Sleep;
+				break;
+			case (int)Minutes_15:
+				countdown = Time_Minu15 - Time_Sleep;
+				break;
+			default :
+				break;
+		}
+		hour   = countdown / 60;
+		minute = countdown % 60;
+		
+		// 显示倒计时   Hour
+		Temp_Value = hour / 10;             // Hour    百位
+		for(index = 0; index < 10; index++)
+		{
+			for(i = 0; i < 7; i++)          // 数字的分辨率仅为10 x 7
+			{
+				if(((temp_number[Temp_Value][(index * (16/2) + i) >> 3] >> (7 - (index * (16/2) + i)%8)) & 0x01) != 0x01)
+					rowBuf[index+3][62+i] = 0xE007;
+			}
+		}
+		
+		Temp_Value = hour % 10;             // Hour    个位
+		// block sending
+		for(index = 0; index < 10; index++)
+		{
+			for(i = 0; i < 7; i++)             // 数字的分辨率仅为10 x 7
+			{
+				if(((temp_number[Temp_Value][(index * (16/2) + i) >> 3] >> (7 - (index * (16/2) + i)%8)) & 0x01) != 0x01)
+					rowBuf[index+3][69+i]=0xE007;
+			}
+		}
+		
+		// 显示倒计时 ":"
+		rowBuf[5][78] = 0xE007;
+		rowBuf[5][79] = 0xE007;
+		rowBuf[6][78] = 0xE007;
+		rowBuf[6][79] = 0xE007;
+		rowBuf[10][78] = 0xE007;
+		rowBuf[10][79] = 0xE007;
+		rowBuf[11][78] = 0xE007;
+		rowBuf[11][79] = 0xE007;
+		
+		// 显示倒计时   minute
+		Temp_Value = minute / 10;           // minute    百位
+		for(index = 0; index < 10; index++)
+		{
+			for(i = 0; i < 7; i++)          // 数字的分辨率仅为10 x 7
+			{
+				if(((temp_number[Temp_Value][(index * (16/2) + i) >> 3] >> (7 - (index * (16/2) + i)%8)) & 0x01) != 0x01)
+					rowBuf[index+3][83+i] = 0xE007;
+			}
+		}
+		
+		Temp_Value = minute % 10;             // minute    个位
+		// block sending
+		for(index = 0; index < 10; index++)
+		{
+			for(i = 0; i < 7; i++)             // 数字的分辨率仅为10 x 7
+			{
+				if(((temp_number[Temp_Value][(index * (16/2) + i) >> 3] >> (7 - (index * (16/2) + i)%8)) & 0x01) != 0x01)
+					rowBuf[index+3][90+i]=0xE007;
+			}
+		}
+		
+		// Sleep Time倒计时到
+		if(countdown == 0)    
+		{
+			flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换到Stop Mode
+			setSandby();
+		}
+	}
+}
  /********************************************************************************************************
  *                                               LOCAL FUNCTIONS
  ********************************************************************************************************/

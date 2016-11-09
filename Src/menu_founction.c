@@ -139,35 +139,30 @@ void Sleepchosen(void)
 					case (int)Minutes_3:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu3;
 						flir_conf.flir_sys_Sleep = Minutes_3;
 						display_Check(OP1_2_TH);
 						break;
 					case (int)Minutes_5:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu5;
 						flir_conf.flir_sys_Sleep = Minutes_5;
 						display_Check(OP2_2_TH);
 						break;
 					case (int)Minutes_10:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu10;
 						flir_conf.flir_sys_Sleep = Minutes_10;
 						display_Check(OP3_2_TH);
 						break;
 					case (int)Minutes_15:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu15;
 						flir_conf.flir_sys_Sleep = Minutes_15;
 						display_Check(OP4_2_TH);
 						break;
 					case (int)Minutes_NA:
 						HAL_TIM_Base_Stop_IT(&htim3);         // 关闭定时器TIM3中断  Time_Sleep一直为0
 						Time_Sleep = 0;
-						SleepTime_Setting = Time_Minu15;      // Time_Sleep != Time_Sleep,则系统永不关机
 						flir_conf.flir_sys_Sleep = Minutes_NA;
 						display_Check(OP5_2_TH);
 						break;

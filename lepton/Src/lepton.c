@@ -267,9 +267,12 @@ uint16_t YUV2RGB422(unsigned char u)
 	}
 	else
 	{
-		r = u;
+//		r = u;
+//		g = u;
+//		b = u;
+		r = 0;
+		b = 0;
 		g = u;
-		b = u;
 	}
 		rgb=((b&0xF8)<<8)+((g&0xFC)<<3)+((r&0xF8)>>3);
 		temp = (rgb & 0xff00) >> 8;
