@@ -226,7 +226,7 @@ void display_Countdown(void)
 		
 	if(flir_conf.flir_sys_Sleep != Minutes_NA)
 	{
-		// 计算倒计时   minute second
+		// 计算倒计时  hour  minute
 		switch((int)flir_conf.flir_sys_Sleep)
 		{
 			case (int)Minutes_3:

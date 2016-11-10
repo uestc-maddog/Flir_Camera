@@ -40,7 +40,7 @@ uint8_t  Key_Up = 0;
 uint8_t  Key_Down = 0;
 uint32_t Time_1ms = 0;                 // 按键时间捕获
 bool return_mark = false;              // true: Mode键长按
-volatile int Time_Sleep = 0;      // Sleep Time counter
+volatile int Time_Sleep = 0;           // Sleep Time counter
 
 /********************************************************************************************************
  *                                               EXTERNAL VARIABLES
