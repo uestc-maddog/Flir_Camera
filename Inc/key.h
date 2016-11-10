@@ -27,11 +27,10 @@
 
 #define Long_Thre  18000U                 // 按键长按 时间阈值（0.1ms）
 #define Short_Thre    80U                 // 按键短按 时间阈值（0.1ms）
-
-#define Time_Minu3   30U                  // Sleep_Time（6s）
-#define Time_Minu5   50U                  
-#define Time_Minu10 100U                  
-#define Time_Minu15 150U                
+#define Time_Minu3  180U                  // Sleep_Time（unit:s）
+#define Time_Minu5  300U                
+#define Time_Minu10 600U                 
+#define Time_Minu15 900U               
 /********************************************************************************************************
  *                                               CONSTANTS
  ********************************************************************************************************/
@@ -48,7 +47,7 @@ typedef enum {
  ********************************************************************************************************/
 extern uint8_t  Key_Up;
 extern uint32_t Time_1ms;
-extern volatile uint8_t Time_Sleep;
+extern volatile int Time_Sleep;
  
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS

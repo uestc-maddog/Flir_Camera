@@ -101,6 +101,17 @@ short Get_Temprate(void);
  */
 void display_Temperature(float temp);
 
+/*********************************************************************
+ * @fn      display_Versionmenu
+ *
+ * @brief   display current Countdown Message
+ *
+ * @param   none
+ *
+ * @return  
+ */
+void display_Countdown(void);
+
  /********************************************************************************************************
  *                                               LOCAL FUNCTIONS
  ********************************************************************************************************/

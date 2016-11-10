@@ -405,7 +405,7 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 		Addbaterry_menu(flir_conf.file_sys_chargingMode,flir_conf.flir_sys_Baterry);          // 添加电池图标显示
 		
 		display_Temperature(temprature);                                                      // 添加温度值显示
-	
+		display_Countdown();                                                                  // 添加Sleep倒计时显示
 		// if previous transmit finish, transmit new frame
 		// set the start cursor first
 		LCD_startDisplay(0, 4); // start from the 4th row, skip the black frame

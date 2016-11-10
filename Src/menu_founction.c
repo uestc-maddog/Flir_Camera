@@ -21,79 +21,79 @@ bool set_reticle_mark=false;
 * founction when chosen the brightness seting,display the set menu.
 *
 **/
-void Brightnesschosen(void)
-{
-	BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;
-	KeyStatus Key_Value = Key_None;
-	uint8_t timer = 0;                           // 粗略计时
+//void Brightnesschosen(void)
+//{
+//	BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;
+//	KeyStatus Key_Value = Key_None;
+//	uint8_t timer = 0;                           // 粗略计时
 
-	display_Brightnessmenu(BGL_value);
-	
-#ifdef enable_iwdg
-  HAL_IWDG_Refresh(&hiwdg);
-#endif
-	
-	while(1)
-	{
-		HAL_Delay(50);
-		Key_Value = Key_Scan();   
-		if(Key_Value)
-		{
-			timer = 0;
-			Time_Sleep = 0;                  // Sleep Time counter归零
-			
-#ifdef enable_iwdg
-			HAL_IWDG_Refresh(&hiwdg);
-#endif
-			
-			if(Key_Value == Key_Short)        // 短按切换菜单栏
-			{
-				if(++BGL_value == BGL_empty) BGL_value = Level1;
-				display_Brightnessmenu(BGL_value);
-				
-#ifdef enable_iwdg
-				HAL_IWDG_Refresh(&hiwdg);
-#endif
-			}
-			if(Key_Value == Key_Long)
-			{
-				switch((int)BGL_value)         // 菜单栏二级功能
-				{
-					case (int)Level1:
-						SET_BGLight(Level1);
-						flir_conf.flir_sys_Bright = Level1;					
-						display_Check(OP1_2_TH);
-						break;
-					case (int)Level2:
-						SET_BGLight(Level2);
-						flir_conf.flir_sys_Bright = Level2;
-						display_Check(OP2_2_TH);
-						break;
-					case (int)Level3:
-						SET_BGLight(Level3);
-						flir_conf.flir_sys_Bright = Level3;
-						display_Check(OP3_2_TH);
-						break;
-					case (int)Level4:
-						SET_BGLight(Level4);
-						flir_conf.flir_sys_Bright = Level4;
-						display_Check(OP4_2_TH);
-						break;
+//	display_Brightnessmenu(BGL_value);
+//	
+//#ifdef enable_iwdg
+//  HAL_IWDG_Refresh(&hiwdg);
+//#endif
+//	
+//	while(1)
+//	{
+//		HAL_Delay(50);
+//		Key_Value = Key_Scan();   
+//		if(Key_Value)
+//		{
+//			timer = 0;
+//			Time_Sleep = 0;                  // Sleep Time counter归零
+//			
+//#ifdef enable_iwdg
+//			HAL_IWDG_Refresh(&hiwdg);
+//#endif
+//			
+//			if(Key_Value == Key_Short)        // 短按切换菜单栏
+//			{
+//				if(++BGL_value == BGL_empty) BGL_value = Level1;
+//				display_Brightnessmenu(BGL_value);
+//				
+//#ifdef enable_iwdg
+//				HAL_IWDG_Refresh(&hiwdg);
+//#endif
+//			}
+//			if(Key_Value == Key_Long)
+//			{
+//				switch((int)BGL_value)         // 菜单栏二级功能
+//				{
+//					case (int)Level1:
+//						SET_BGLight(Level1);
+//						flir_conf.flir_sys_Bright = Level1;					
+//						display_Check(OP1_2_TH);
+//						break;
+//					case (int)Level2:
+//						SET_BGLight(Level2);
+//						flir_conf.flir_sys_Bright = Level2;
+//						display_Check(OP2_2_TH);
+//						break;
+//					case (int)Level3:
+//						SET_BGLight(Level3);
+//						flir_conf.flir_sys_Bright = Level3;
+//						display_Check(OP3_2_TH);
+//						break;
+//					case (int)Level4:
+//						SET_BGLight(Level4);
+//						flir_conf.flir_sys_Bright = Level4;
+//						display_Check(OP4_2_TH);
+//						break;
 
-					case (int)BGL_Exit:
-						timer = 200;                          // timer=200时，退出菜单界面
-						break;
-				}
-			}									
-		}
-		
-#ifdef enable_iwdg
-		HAL_IWDG_Refresh(&hiwdg);
-#endif		
-		
-		if(timer++ == 200) break;                           // 超过10s无按键响应，则退出菜单界面
-	}
-}
+//					case (int)BGL_Exit:
+//						timer = 200;                          // timer=200时，退出菜单界面
+//						break;
+//				}
+//			}									
+//		}
+//		
+//#ifdef enable_iwdg
+//		HAL_IWDG_Refresh(&hiwdg);
+//#endif		
+//		
+//		if(timer++ == 200) break;                           // 超过10s无按键响应，则退出菜单界面
+//	}
+//}
 
 /**
 * name Sleepchosen
@@ -139,35 +139,30 @@ void Sleepchosen(void)
 					case (int)Minutes_3:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu3;
 						flir_conf.flir_sys_Sleep = Minutes_3;
 						display_Check(OP1_2_TH);
 						break;
 					case (int)Minutes_5:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu5;
 						flir_conf.flir_sys_Sleep = Minutes_5;
 						display_Check(OP2_2_TH);
 						break;
 					case (int)Minutes_10:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu10;
 						flir_conf.flir_sys_Sleep = Minutes_10;
 						display_Check(OP3_2_TH);
 						break;
 					case (int)Minutes_15:
 						Time_Sleep = 0;
 						HAL_TIM_Base_Start_IT(&htim3);       // 开启定时器TIM3中断
-						SleepTime_Setting = Time_Minu15;
 						flir_conf.flir_sys_Sleep = Minutes_15;
 						display_Check(OP4_2_TH);
 						break;
 					case (int)Minutes_NA:
 						HAL_TIM_Base_Stop_IT(&htim3);         // 关闭定时器TIM3中断  Time_Sleep一直为0
 						Time_Sleep = 0;
-						SleepTime_Setting = Time_Minu15;      // Time_Sleep != Time_Sleep,则系统永不关机
 						flir_conf.flir_sys_Sleep = Minutes_NA;
 						display_Check(OP5_2_TH);
 						break;

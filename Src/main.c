@@ -52,10 +52,11 @@ static void MX_ADC1_Init(void);
 static void MX_IWDG_Init(void);
 extern void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
-volatile float temprature = 0;                     // 温度值
-volatile uint8_t baterry_timer = 0;                // 获取电池电量的计数器
-volatile uint8_t SleepTime_Setting = Time_Minu15;  // 设置的Sleep Time
+volatile float temprature = 0;                      // 温度值
+volatile uint8_t baterry_timer = 0;                 // 获取电池电量的计数器
 
+volatile uint8_t res = 0;
+	
 void Flir_Display(void);                           // Flir界面显示程序
 void Menu_Display(void);                           // Menu界面显示程序
 
@@ -95,12 +96,12 @@ int main(void)
 #endif
 
 	LCD_Clear(BLACK);                 // 清除开机界面的边界
+	Time_Sleep = 0;                             // 休眠定时计数器归零
 	while(1)
   {
-		// 显示Flir界面
-		Flir_Display();	 
-		
-		if(++timer == 350)             // 刷新温度值
+		Flir_Display();                 // 显示Flir界面
+
+		if(++timer == 350)              // 刷新温度值
 		{
 			temprature = Get_Temprate();	    // 得到温度值 
 			timer = 0;
@@ -118,27 +119,13 @@ int main(void)
 			
 			if(Key_Value == Key_Short)           // 短按切换display mode
 			{
-				if(flir_conf.flir_sys_DisMode == color) 
-				{
-					flir_conf.flir_sys_DisMode = greyscale;
-				}
-				else                                    
-				{
-					flir_conf.flir_sys_DisMode = color;	
-				}
-				HAL_Delay(500);
+				if((++flir_conf.flir_sys_DisMode) > green) flir_conf.flir_sys_DisMode = color;
+				HAL_Delay(100);
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
 			{
 				Menu_Display();                    // Menu界面
 			}
-		}
-		
-		// Sleep Time倒计时到
-		if(Time_Sleep >= SleepTime_Setting)    
-		{
-			flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换到Stop Mode
-			setSandby();
 		}
   }
 }
@@ -437,9 +424,9 @@ static void MX_TIM3_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 25999;                   // 6s中断
+  htim3.Init.Prescaler = 25999;                   // 1s中断
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 5999;
+  htim3.Init.Period = 999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
@@ -536,7 +523,7 @@ void Menu_Display(void)
 {
 	uint8_t timer = 0;                     // 粗略计时
 	KeyStatus Key_Value = Key_None;
-	menuCont_sta Menu_Value = Brightness;  // 当前选中项
+	menuCont_sta Menu_Value = Sleep;  // 当前选中项
 	
 #ifdef enable_iwdg
   HAL_IWDG_Refresh(&hiwdg);
@@ -564,24 +551,18 @@ void Menu_Display(void)
 			
 			if(Key_Value == Key_Short)        // 短按切换菜单栏
 			{
-				if(++Menu_Value == empty) Menu_Value = Brightness;
+				if(++Menu_Value == empty) Menu_Value = Sleep;
 				if(Menu_Value == Compass) Menu_Value = Exit;
 				display_menu(Menu_Value);
 				
 #ifdef enable_iwdg
         HAL_IWDG_Refresh(&hiwdg);
-#endif
-				
+#endif	
 			}
 			if(Key_Value == Key_Long)
 			{
 				switch((int)Menu_Value)         // 菜单栏二级功能
 				{
-					case (int)Brightness:
-						// 添加用户代码
-						Brightnesschosen();
-						display_menu(Menu_Value);
-						break;
 					case (int)Sleep:
 						// 添加用户代码
 						Sleepchosen();
@@ -629,6 +610,7 @@ void Menu_Display(void)
 void Flir_Display(void)
 {
 	int x = 0;
+	
 	current_buffer = lepton_transfer();
 	if(current_buffer->status != LEPTON_STATUS_TRANSFERRING)
 	{
