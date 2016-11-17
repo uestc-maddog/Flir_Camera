@@ -244,9 +244,9 @@ void display_Countdown(void)
 			default :
 				break;
 		}
-		if(countdown < 10)              // 9~0倒计时，显示在屏幕中间
+		if(countdown < 21)              // 20~0倒计时，显示在屏幕两侧
 		{
-			Temp_Value = countdown;             // second    个位
+			Temp_Value = countdown / 10;             // second    十位
 			// block sending
 			for(index = 0; index < 10; index++)
 			{
@@ -254,12 +254,32 @@ void display_Countdown(void)
 				{
 					if(((temp_number[Temp_Value][(index * (16/2) + i) >> 3] >> (7 - (index * (16/2) + i)%8)) & 0x01) != 0x01)
 					{
-						for(j = 0; j < 3 ; j++)        // 10 x 7 扩大3倍显示
+						for(j = 0; j < 4 ; j++)        // 10 x 7 扩大4倍显示
 						{
-							for(k = 0; k < 3 ; k++)
+							for(k = 0; k < 4 ; k++)
 							{
-								//rowBuf[40+index*3+j][70+i*3+k]=0xE007;
-								rowBuf[40+index*3+j][70+i*3+k] = 0x0FFFF - rowBuf[40+index*3+j][70+i*3+k];
+								rowBuf[35+index*4+j][20+i*4+k] = 0xE007;  // 显示坐标（40，70）;
+								//rowBuf[35+index*4+j][20+i*4+k] = 0x0FFFF - rowBuf[35+index*4+j][20+i*4+k];  // 显示坐标（40，70）
+							}
+						}
+					}
+				}
+			}			
+			
+			Temp_Value = countdown % 10;             // second    个位
+			// block sending
+			for(index = 0; index < 10; index++)
+			{
+				for(i = 0; i < 7; i++)             // 数字的分辨率仅为10 x 7
+				{
+					if(((temp_number[Temp_Value][(index * (16/2) + i) >> 3] >> (7 - (index * (16/2) + i)%8)) & 0x01) != 0x01)
+					{
+						for(j = 0; j < 4 ; j++)        // 10 x 7 扩大4倍显示
+						{
+							for(k = 0; k < 4 ; k++)
+							{
+								rowBuf[35+index*4+j][120+i*4+k] = 0xE007;
+								//rowBuf[35+index*4+j][120+i*4+k] = 0x0FFFF - rowBuf[35+index*4+j][120+i*4+k]; // 显示坐标（40，110）
 							}
 						}
 					}

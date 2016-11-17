@@ -267,6 +267,18 @@ uint16_t YUV2RGB422(unsigned char u)
 	}
 	else if(flir_conf.flir_sys_DisMode == green)
 	{
+//		if(u > 160)
+//		{
+//			r = 0;
+//			b = 0;
+//			g = u;
+//		}
+//		else
+//		{
+//			r = u;
+//			b = u;
+//			g = u;
+//		}
 		r = 0;
 		b = 0;
 		g = u;

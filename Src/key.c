@@ -166,6 +166,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				}
 				else                        // 短按   切换亮度
 				{
+					Time_Sleep = 0;                  // Sleep Time counter归零
 					BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;  // 当前亮度等级
 					
 					if(++BGL_value >= BGL_empty) BGL_value = Level1;
