@@ -138,20 +138,13 @@ int main(void)
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
-			if(countdown > 30)              //倒计时小于30秒只更新计数器。
+			if(countdown > 20)              //倒计时小于30秒只更新计数器。
 			{
 				if(Key_Value == Key_Short)           // 短按切换display mode
-				{
-					if(flir_conf.flir_sys_DisMode == color) 
-					{
-						flir_conf.flir_sys_DisMode = greyscale;
-					}
-					else                                    
-					{
-						flir_conf.flir_sys_DisMode = color;	
-					}
-					HAL_Delay(80);
-				}
+			{
+				if((++flir_conf.flir_sys_DisMode) > green) flir_conf.flir_sys_DisMode = color;
+				HAL_Delay(100);
+			}
 				if(Key_Value == Key_Long)            // 长按进入菜单界面
 				{
 					Menu_Display();                    // Menu界面
