@@ -62,7 +62,6 @@ void Menu_Display(void);                           // Menu界面显示程序
 
 int main(void)
 {
-	uint8_t  CameraError_timer = 0;
 	uint16_t timer = 0;           // 粗略计时
  	KeyStatus Key_Value = Key_None;
 	uint16_t countdown = 0;    //计算倒计时
@@ -98,6 +97,7 @@ int main(void)
 #endif
 
 	LCD_Clear(BLACK);                 // 清除开机界面的边界
+	Time_Sleep = 0;                             // 休眠定时计数器归零
 	while(1)
   {
 		Flir_Display();                 // 显示Flir界面

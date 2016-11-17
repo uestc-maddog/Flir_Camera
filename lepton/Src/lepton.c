@@ -256,7 +256,7 @@ uint16_t YUV2RGB422(unsigned char u)
 	uint8_t r,g,b,temp;
 	uint16_t rgb;
 	
-	if(flir_conf.flir_sys_DisMode == color)
+	if(flir_conf.flir_sys_DisMode == color)  
 	{
 		r = colormap_ironblack[3*u];
 		g = colormap_ironblack[3*u+1];
@@ -265,14 +265,27 @@ uint16_t YUV2RGB422(unsigned char u)
 //		g = colormap_ironblack[3*u+1];
 //		b = colormap_ironblack[3*u];
 	}
-	else
+	else if(flir_conf.flir_sys_DisMode == green)
 	{
-//		r = u;
-//		g = u;
-//		b = u;
+//		if(u > 160)
+//		{
+//			r = 0;
+//			b = 0;
+//			g = u;
+//		}
+//		else
+//		{
+//			r = u;
+//			b = u;
+//			g = u;
+//		}
 		r = 0;
 		b = 0;
 		g = u;
+	}
+	else 
+	{
+		r = g = b = u;
 	}
 		rgb=((b&0xF8)<<8)+((g&0xFC)<<3)+((r&0xF8)>>3);
 		temp = (rgb & 0xff00) >> 8;
