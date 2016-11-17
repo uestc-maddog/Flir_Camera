@@ -65,6 +65,7 @@ int main(void)
 	uint8_t  CameraError_timer = 0;
 	uint16_t timer = 0;           // 粗略计时
  	KeyStatus Key_Value = Key_None;
+	uint16_t countdown = 0;    //计算倒计时
 	
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -110,28 +111,51 @@ int main(void)
 		// 扫描按键
 		Key_Value = Key_Scan();                
 		if(Key_Value)
-		{
+		{		
+			if(flir_conf.flir_sys_Sleep != Minutes_NA)
+			{
+				// 计算倒计时  hour  minute
+				switch((int)flir_conf.flir_sys_Sleep)
+				{
+					case (int)Minutes_3:
+						countdown = Time_Minu3 - Time_Sleep;    
+						break;
+					case (int)Minutes_5:
+						countdown = Time_Minu5 - Time_Sleep;
+						break;
+					case (int)Minutes_10:
+						countdown = Time_Minu10 - Time_Sleep;
+						break;
+					case (int)Minutes_15:
+						countdown = Time_Minu15 - Time_Sleep;
+						break;
+					default :
+						break;
+				}
+			}
 			Time_Sleep = 0;                  // Sleep Time counter归零
 			
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
-			
-			if(Key_Value == Key_Short)           // 短按切换display mode
+			if(countdown > 30)              //倒计时小于30秒只更新计数器。
 			{
-				if(flir_conf.flir_sys_DisMode == color) 
+				if(Key_Value == Key_Short)           // 短按切换display mode
 				{
-					flir_conf.flir_sys_DisMode = greyscale;
+					if(flir_conf.flir_sys_DisMode == color) 
+					{
+						flir_conf.flir_sys_DisMode = greyscale;
+					}
+					else                                    
+					{
+						flir_conf.flir_sys_DisMode = color;	
+					}
+					HAL_Delay(80);
 				}
-				else                                    
+				if(Key_Value == Key_Long)            // 长按进入菜单界面
 				{
-					flir_conf.flir_sys_DisMode = color;	
+					Menu_Display();                    // Menu界面
 				}
-				HAL_Delay(80);
-			}
-			if(Key_Value == Key_Long)            // 长按进入菜单界面
-			{
-				Menu_Display();                    // Menu界面
 			}
 		}
   }
