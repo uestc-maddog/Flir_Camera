@@ -78,7 +78,7 @@ typedef enum {
 	Level2,
 	Level3,
 	Level4,
-	BGL_Exit,
+	//BGL_Exit,
 	BGL_empty,
 } BrightnessCont_sta;
 
@@ -121,8 +121,9 @@ typedef enum {
 
 // display mode conditions
 typedef enum {
-	greyscale = 0,
-	color,
+	color = 0,
+	greyscale,
+	green,
 } DisplayMode_sta;
 
 typedef enum {

@@ -47,7 +47,7 @@ typedef enum {
  ********************************************************************************************************/
 extern uint8_t  Key_Up;
 extern uint32_t Time_1ms;
-extern volatile uint16_t Time_Sleep;
+extern volatile int Time_Sleep;
  
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS

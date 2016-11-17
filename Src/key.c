@@ -38,9 +38,9 @@
  ********************************************************************************************************/
 uint8_t  Key_Up = 0;
 uint8_t  Key_Down = 0;
-uint32_t Time_1ms = 0;                // 按键时间捕获
-bool return_mark = false;
-volatile uint16_t Time_Sleep = 0;      // Sleep Time counter
+uint32_t Time_1ms = 0;                 // 按键时间捕获
+bool return_mark = false;              // true: Mode键长按
+volatile int Time_Sleep = 0;           // Sleep Time counter
 
 /********************************************************************************************************
  *                                               EXTERNAL VARIABLES
@@ -139,7 +139,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   static uint8_t CAPTURE_STA = 0;	   // 捕获状态
-      
+	
 	/* Prevent unused argument(s) compilation warning */
 	UNUSED(GPIO_Pin);
 		/* NOTE: This function Should not be modified, when the callback is needed,
@@ -155,14 +155,42 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 #ifdef enable_iwdg
 				HAL_IWDG_Refresh(&hiwdg);
 #endif
-				HAL_Delay(500);HAL_Delay(500);     // 关机长按 
+				HAL_Delay(500);HAL_Delay(500);     
 #ifdef enable_iwdg
 				HAL_IWDG_Refresh(&hiwdg);
 #endif
-				if(!(GPIOB->IDR&0x0001)) 
+				if(!(GPIOB->IDR&0x0001))    // 长按   关机
 				{
 					flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
 					setSandby();                     // 进入低功耗模式
+				}
+				else                        // 短按   切换亮度
+				{
+					Time_Sleep = 0;                  // Sleep Time counter归零
+					BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;  // 当前亮度等级
+					
+					if(++BGL_value >= BGL_empty) BGL_value = Level1;
+					switch((int)BGL_value)         // 菜单栏二级功能
+					{
+						case (int)Level1:
+							SET_BGLight(Level1);
+							flir_conf.flir_sys_Bright = Level1;					
+							break;
+						case (int)Level2:
+							SET_BGLight(Level2);
+							flir_conf.flir_sys_Bright = Level2;
+							break;
+						case (int)Level3:
+							SET_BGLight(Level3);
+							flir_conf.flir_sys_Bright = Level3;
+							break;
+						case (int)Level4:
+							SET_BGLight(Level4);
+							flir_conf.flir_sys_Bright = Level4;
+							break;
+						default:
+							break;
+					}
 				}
 			}
 			else
