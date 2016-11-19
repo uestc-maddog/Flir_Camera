@@ -60,6 +60,7 @@ const uint8_t temp_number[10][10] =
  ************************************ ********************************************************************/
 extern ADC_HandleTypeDef hadc1;
 extern SPI_HandleTypeDef hspi1;
+extern TIM_HandleTypeDef htim3;
 extern DMA_HandleTypeDef LCD_DMA_PORT;
 
 extern uint16_t rowBuf[FLIR_LCD_RAW][FLIR_LCD_COLUMNUM];
@@ -227,6 +228,7 @@ void display_Countdown(void)
 	if(flir_conf.flir_sys_Sleep != Minutes_NA)
 	{
 		// 计算倒计时  hour  minute
+		HAL_TIM_Base_Stop_IT(&htim3);   // 关闭定时器TIM3中断  	防止Time_Sleep在中断中更改出错
 		switch((int)flir_conf.flir_sys_Sleep)
 		{
 			case (int)Minutes_3:
@@ -244,6 +246,7 @@ void display_Countdown(void)
 			default :
 				break;
 		}
+		HAL_TIM_Base_Start_IT(&htim3);  // 开启定时器TIM3中断
 		if(countdown < 21)              // 20~0倒计时，显示在屏幕两侧
 		{
 			Temp_Value = countdown / 10;             // second    十位
