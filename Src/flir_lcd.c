@@ -60,6 +60,7 @@ extern SPI_HandleTypeDef LCD_SPI_PORT;
 extern DMA_HandleTypeDef LCD_DMA_PORT;
 extern bool Compass_Swit;        // 0---compass on   1---compass off
 extern float temprature;                     // 温度值
+PA_sta PAValue = PAValue1;                   // 图像放大系数
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
  ********************************************************************************************************/
@@ -365,7 +366,7 @@ void LCD_Clear(uint16_t color)
  */
 bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 {
-	uint16_t i,j;
+	uint16_t i,j,m,n;
 	static uint16_t Angle = 0;
 	
 	if(lcdTXcpl)
@@ -373,18 +374,47 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 		// set complete flag invalid
 		lcdTXcpl = false;
 		
-		for(i = 0; i < FLIR_LINE; i++)     // 摄像头数据
+		if(PAValue == PAValue2)
 		{
-			for(j = 0; j < FLIR_COLUMNUM; j++)
+				for(i = 0; i < 40; i++)     // 摄像头数据   40
+				{
+					for(j = 0; j < 53; j++)            // 53
+					{
+						for(m = 0; m < 3; m++)  // 1*1 --- > 4*4
+						{
+							for(n = 0; n < 3; n++) rowBuf[3*i+m][3*j+n] = pdata[i][j];
+						}
+					}
+				}
+				rowBuf[119][157] = pdata[39][52];	rowBuf[119][158] = pdata[39][52];		rowBuf[119][159] = pdata[39][52];
+		}
+		else if(PAValue == PAValue3)
+		{
+				for(i = 0; i < 30; i++)     // 摄像头数据   30
+				{
+					for(j = 0; j < 40; j++)            // 40
+					{
+						for(m = 0; m < 4; m++)  // 1*1 --- > 4*4
+						{
+							for(n = 0; n < 4; n++) rowBuf[4*i+m][4*j+n] = pdata[i][j];
+						}
+					}
+				}
+		}
+		else
+		{
+			for(i = 0; i < FLIR_LINE; i++)     // 摄像头数据   60
 			{
-				// get the buffer data correct	
-				rowBuf[2*i][2*j] = pdata[i][j];
-				rowBuf[2*i+1][2*j+1] = pdata[i][j];
-				rowBuf[2*i][2*j+1] = pdata[i][j];
-				rowBuf[2*i+1][2*j] = pdata[i][j];
+				for(j = 0; j < FLIR_COLUMNUM; j++)            // 80
+				{
+					// get the buffer data correct	
+					for(m = 0; m < 2; m++)    // 1*1 --- > 2*2
+					{
+						for(n = 0; n < 2; n++) rowBuf[2*i+m][2*j+n] = pdata[i][j];
+					}
+				}
 			}
 		}
-
 		if(set_reticle_mark==true)                             // 如果这是二级菜单的显示，则显示瞄准调节界面
 			setreticle_display();
 		if(flir_conf.flir_sys_Focus == focus_enable)

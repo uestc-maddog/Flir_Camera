@@ -48,7 +48,7 @@ volatile int Time_Sleep = 0;           // Sleep Time counter
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern IWDG_HandleTypeDef hiwdg;
- 
+extern PA_sta PAValue;                    // 图像放大系数
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
  ********************************************************************************************************/
@@ -155,7 +155,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 #ifdef enable_iwdg
 				HAL_IWDG_Refresh(&hiwdg);
 #endif
-				HAL_Delay(500);HAL_Delay(500);     
+				HAL_Delay(500);HAL_Delay(450);     
 #ifdef enable_iwdg
 				HAL_IWDG_Refresh(&hiwdg);
 #endif
@@ -167,30 +167,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				else                        // 短按   切换亮度
 				{
 					Time_Sleep = 0;                  // Sleep Time counter归零
-					BrightnessCont_sta BGL_value = flir_conf.flir_sys_Bright;  // 当前亮度等级
-					
-					if(++BGL_value >= BGL_empty) BGL_value = Level1;
-					switch((int)BGL_value)         // 菜单栏二级功能
-					{
-						case (int)Level1:
-							SET_BGLight(Level1);
-							flir_conf.flir_sys_Bright = Level1;					
-							break;
-						case (int)Level2:
-							SET_BGLight(Level2);
-							flir_conf.flir_sys_Bright = Level2;
-							break;
-						case (int)Level3:
-							SET_BGLight(Level3);
-							flir_conf.flir_sys_Bright = Level3;
-							break;
-						case (int)Level4:
-							SET_BGLight(Level4);
-							flir_conf.flir_sys_Bright = Level4;
-							break;
-						default:
-							break;
-					}
+					if((++PAValue) > PAValue3) PAValue = PAValue1;
+					HAL_Delay(100);
 				}
 			}
 			else

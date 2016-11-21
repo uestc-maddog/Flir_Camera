@@ -51,7 +51,7 @@
 //#define BGL5_TH   20
 #define SELECT_COLOR	YELLOW
 
-#define MENU_CONTENT	     6
+#define MENU_CONTENT	     7
 #define BRIGHTNESS_CONTENT 5
 #define SLEEP_CONTENT      6
 #define CH_CONTENT         4
@@ -62,7 +62,8 @@
  
 // menu chosen status
 typedef enum {
-	Sleep = 0,
+	Brightness = 0,
+	Sleep,
 	Reticle,
 	Version,
 	Reset,
@@ -72,15 +73,21 @@ typedef enum {
 } menuCont_sta;
 
 // Brightness chosen status
-
 typedef enum {
 	Level1 = 0,
 	Level2,
 	Level3,
 	Level4,
-	//BGL_Exit,
+	BGL_Exit,
 	BGL_empty,
 } BrightnessCont_sta;
+
+// Brightness chosen status
+typedef enum {
+	PAValue1 = 0,
+	PAValue2,
+	PAValue3,
+} PA_sta;
 
 typedef enum {
 	Not_LowPower = 0,

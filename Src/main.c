@@ -53,7 +53,7 @@ static void MX_IWDG_Init(void);
 extern void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 volatile float temprature = 0;                      // 温度值
-volatile uint8_t baterry_timer = 0;                 // 获取电池电量的计数器
+volatile uint16_t baterry_timer = 0;                 // 获取电池电量的计数器
 
 volatile uint8_t res = 0;
 	
@@ -62,9 +62,9 @@ void Menu_Display(void);                           // Menu界面显示程序
 
 int main(void)
 {
-	uint16_t timer = 0;           // 粗略计时
+	uint16_t timer = 0;        // 粗略计时
  	KeyStatus Key_Value = Key_None;
-	uint16_t countdown = 0;    //计算倒计时
+	uint16_t countdown = 0;    // 计算倒计时
 	
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -98,6 +98,7 @@ int main(void)
 
 	LCD_Clear(BLACK);                 // 清除开机界面的边界
 	Time_Sleep = 0;                             // 休眠定时计数器归零
+	flir_conf.flir_sys_Baterry = Get_Elec();
 	while(1)
   {
 		Flir_Display();                 // 显示Flir界面
@@ -112,44 +113,45 @@ int main(void)
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{		
-			if(flir_conf.flir_sys_Sleep != Minutes_NA)
-			{
-				// 计算倒计时  hour  minute
-				switch((int)flir_conf.flir_sys_Sleep)
-				{
-					case (int)Minutes_3:
-						countdown = Time_Minu3 - Time_Sleep;    
-						break;
-					case (int)Minutes_5:
-						countdown = Time_Minu5 - Time_Sleep;
-						break;
-					case (int)Minutes_10:
-						countdown = Time_Minu10 - Time_Sleep;
-						break;
-					case (int)Minutes_15:
-						countdown = Time_Minu15 - Time_Sleep;
-						break;
-					default :
-						break;
-				}
-			}
-			Time_Sleep = 0;                  // Sleep Time counter归零
-			
 #ifdef enable_iwdg
 			HAL_IWDG_Refresh(&hiwdg);
 #endif
-			if(countdown > 20)              //倒计时小于30秒只更新计数器。
+			if(Key_Value == Key_Short)           // 短按切换display mode
 			{
-				if(Key_Value == Key_Short)           // 短按切换display mode
-			{
-				if((++flir_conf.flir_sys_DisMode) > green) flir_conf.flir_sys_DisMode = color;
-				HAL_Delay(100);
-			}
-				if(Key_Value == Key_Long)            // 长按进入菜单界面
+				if(flir_conf.flir_sys_Sleep != Minutes_NA)
 				{
-					Menu_Display();                    // Menu界面
+					// 计算倒计时 
+					HAL_TIM_Base_Stop_IT(&htim3);   // 关闭定时器TIM3中断  	防止Time_Sleep在中断中更改出错
+					switch((int)flir_conf.flir_sys_Sleep)
+					{
+						case (int)Minutes_3:
+							countdown = Time_Minu3 - Time_Sleep;    
+							break;
+						case (int)Minutes_5:
+							countdown = Time_Minu5 - Time_Sleep;
+							break;
+						case (int)Minutes_10:
+							countdown = Time_Minu10 - Time_Sleep;
+							break;
+						case (int)Minutes_15:
+							countdown = Time_Minu15 - Time_Sleep;
+							break;
+						default :
+							break;
+					}
+					HAL_TIM_Base_Start_IT(&htim3);  // 开启定时器TIM3中断
+					if(countdown > 20)              // 只有倒计时大于20秒，才切换显示模式。
+					{
+						if((++flir_conf.flir_sys_DisMode) > green) flir_conf.flir_sys_DisMode = color;
+						HAL_Delay(100);
+					}
+					Time_Sleep = 0;                      // Sleep Time counter归零
 				}
 			}
+			if(Key_Value == Key_Long)            // 长按进入菜单界面
+			{
+				Menu_Display();                    // Menu界面
+			}			
 		}
   }
 }
@@ -547,7 +549,7 @@ void Menu_Display(void)
 {
 	uint8_t timer = 0;                     // 粗略计时
 	KeyStatus Key_Value = Key_None;
-	menuCont_sta Menu_Value = Sleep;  // 当前选中项
+	menuCont_sta Menu_Value = Brightness;  // 当前选中项
 	
 #ifdef enable_iwdg
   HAL_IWDG_Refresh(&hiwdg);
@@ -567,7 +569,7 @@ void Menu_Display(void)
 		if(Key_Value)
 		{
 			timer = 0;
-			Time_Sleep = 0;                  // Sleep Time counter归零
+			Time_Sleep = 0;                      // Sleep Time counter归零
 			
 #ifdef enable_iwdg
       HAL_IWDG_Refresh(&hiwdg);
@@ -575,7 +577,7 @@ void Menu_Display(void)
 			
 			if(Key_Value == Key_Short)        // 短按切换菜单栏
 			{
-				if(++Menu_Value == empty) Menu_Value = Sleep;
+				if(++Menu_Value == empty) Menu_Value = Brightness;
 				if(Menu_Value == Compass) Menu_Value = Exit;
 				display_menu(Menu_Value);
 				
@@ -587,6 +589,11 @@ void Menu_Display(void)
 			{
 				switch((int)Menu_Value)         // 菜单栏二级功能
 				{
+					case (int)Brightness:
+						// 添加用户代码
+						Brightnesschosen();
+						display_menu(Menu_Value);
+						break;
 					case (int)Sleep:
 						// 添加用户代码
 						Sleepchosen();
@@ -667,7 +674,7 @@ void Flir_Display(void)
 		HAL_Delay(1);
 	}	
 	baterry_timer++ ;	
-	if(baterry_timer == 100) 
+	if(baterry_timer == 1000) 
 	{
 		baterry_timer = 0;
 		flir_conf.flir_sys_Baterry = Get_Elec();
