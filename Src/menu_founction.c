@@ -7,12 +7,13 @@
 #include "flir_focusing.h"
 #include "electricity.h"
 #include "key.h"
+#include "temprature.h"
 #include "stmflash.h"
 
 extern TIM_HandleTypeDef htim3;
 extern IWDG_HandleTypeDef hiwdg;
 extern uint8_t SleepTime_Setting;
-
+extern float Sys_temprature;                   
 
 extern void Flir_Display(void);
 bool set_reticle_mark=false;
@@ -229,6 +230,7 @@ void set_reticle(void)
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
+			HAL_Delay(100);
 			timer = 0;
 			Time_Sleep = 0;                  // Sleep Time counter归零
 			
@@ -245,11 +247,11 @@ void set_reticle(void)
 						else                                         flir_conf.flir_sys_Focus = focus_enable;	                     // focus开关状态反转                        						
 						break;
 					case reticle_Hor:
-						if((Hor++) > 18) Hor = 0;
+						if(++Hor > 18) Hor = 0;
 						flir_conf.flir_sys_Reticle[0] = Hor*4-36;
 						break;
 					case reticle_Ver:
-						if((Ver++) > 18) Ver = 0;
+						if(++Ver > 18) Ver = 0;
 						flir_conf.flir_sys_Reticle[1] = Ver*6-54;
 					break;
 					case reticle_back:
@@ -277,6 +279,8 @@ void set_reticle(void)
 #ifdef enable_iwdg
 		HAL_IWDG_Refresh(&hiwdg);
 #endif
+		if(timer % 300 == 0) Sys_temprature = Get_Temprate();             // 刷新温度值
+		
 		if(timer++ >= 4000)                            // 超过10s无按键响应，则退出菜单界面
 		{
 			timer = 0;

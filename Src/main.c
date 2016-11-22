@@ -52,7 +52,7 @@ static void MX_ADC1_Init(void);
 static void MX_IWDG_Init(void);
 extern void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
-volatile float temprature = 0;                      // 温度值
+volatile float Sys_temprature = 0;                       // 温度值
 volatile uint16_t baterry_timer = 0;                 // 获取电池电量的计数器
 
 volatile uint8_t res = 0;
@@ -90,7 +90,7 @@ int main(void)
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
-	temprature = Get_Temprate();	    // 得到温度值 
+	Sys_temprature = Get_Temprate();	    // 得到温度值 
 	
 #ifdef enable_iwdg
 	MX_IWDG_Init();                   // 初始化并启动看门狗     约2s
@@ -105,7 +105,7 @@ int main(void)
 
 		if(++timer == 350)              // 刷新温度值
 		{
-			temprature = Get_Temprate();	    // 得到温度值 
+			Sys_temprature = Get_Temprate();	    // 得到温度值 
 			timer = 0;
 		}
 		
@@ -146,6 +146,11 @@ int main(void)
 						HAL_Delay(100);
 					}
 					Time_Sleep = 0;                      // Sleep Time counter归零
+				}
+				else
+				{
+					if((++flir_conf.flir_sys_DisMode) > green) flir_conf.flir_sys_DisMode = color;
+					HAL_Delay(100);					
 				}
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
