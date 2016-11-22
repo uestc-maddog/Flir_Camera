@@ -41,7 +41,8 @@ uint8_t  Key_Down = 0;
 uint32_t Time_1ms = 0;                 // 按键时间捕获
 bool return_mark = false;              // true: Mode键长按
 volatile int Time_Sleep = 0;           // Sleep Time counter
-
+extern int index_x,index_y; //????
+extern uint8_t Hor,Ver;   //瞄准器水平坐标  0-19  对应-9到9
 /********************************************************************************************************
  *                                               EXTERNAL VARIABLES
  ********************************************************************************************************/
@@ -168,6 +169,71 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				{
 					Time_Sleep = 0;                  // Sleep Time counter归零
 					if((++PAValue) > PAValue3) PAValue = PAValue1;
+					if(PAValue == PAValue1)  //放大1X，计算放大偏移量
+					{
+						flir_conf.flir_sys_Reticle[0] = flir_conf.flir_sys_Reticle[0]+(index_x*2-60);
+						flir_conf.flir_sys_Reticle[1] = flir_conf.flir_sys_Reticle[1]+(index_y*2-80);
+						Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
+						Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;
+					}
+					if(PAValue == PAValue2)  //放大1.5X，计算放大偏移量
+					{
+						index_x=(flir_conf.flir_sys_Reticle[0]+60)/2;
+						index_y=(flir_conf.flir_sys_Reticle[1]+80)/2;
+						flir_conf.flir_sys_Reticle[0] = 0;
+						flir_conf.flir_sys_Reticle[1] = 0;
+						if(index_x > 40) 
+						{
+							index_x = 40;
+							flir_conf.flir_sys_Reticle[0] = (index_x - 40)*3;
+						}
+						if(index_x < 20) 
+						{
+							index_x = 20;
+							flir_conf.flir_sys_Reticle[0] = (index_x - 20)*3;
+						}
+						if(index_y > 53) 
+						{
+							index_y = 53;
+							flir_conf.flir_sys_Reticle[1] = (index_y - 53)*3;
+						}
+						if(index_y < 27) 
+						{
+							index_y = 27;
+							flir_conf.flir_sys_Reticle[1] = (index_y - 27)*3;
+						}
+						Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
+						Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;
+					}
+					if(PAValue == PAValue3)  //放大2X 计算放大偏移量
+					{
+						index_x=index_x + (flir_conf.flir_sys_Reticle[0]/3);
+						index_y=index_y + (flir_conf.flir_sys_Reticle[1]/3);
+						flir_conf.flir_sys_Reticle[0] = 0;
+						flir_conf.flir_sys_Reticle[1] = 0;
+						if(index_x > 45) 
+						{
+							flir_conf.flir_sys_Reticle[0] = (index_x - 45)*4;
+							index_x = 45;
+						}
+						if(index_x < 15) 
+						{
+							index_x = 15;
+							flir_conf.flir_sys_Reticle[0] = (index_x - 15)*4;
+						}
+						if(index_y > 60)
+						{
+							index_y = 60;
+							flir_conf.flir_sys_Reticle[1] = (index_y - 60)*4;
+						}
+						if(index_y < 20) 
+						{
+							index_y = 20;
+							flir_conf.flir_sys_Reticle[1] = (index_y - 20)*4;
+						}
+						Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
+						Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;
+					}
 					HAL_Delay(100);
 				}
 			}

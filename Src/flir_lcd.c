@@ -72,6 +72,7 @@ PA_sta PAValue = PAValue1;                       // 图像放大系数
 
 // buffer used to clear screen
 static uint16_t screenClear[LCD_CLEAR_BUF_SIZ];
+int index_x,index_y; //放大指数
 
 #ifdef FLIR_PROJ
 // row data buffer, save for display
@@ -376,27 +377,36 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 		
 		if(PAValue == PAValue2)
 		{
-				for(i = 0; i < 40; i++)     // 摄像头数据   40
+//			index_x=(flir_conf.flir_sys_Reticle[0]+60);
+//			index_y=(flir_conf.flir_sys_Reticle[1]+80);
+//			flir_conf.flir_sys_Reticle[0] = 0;
+//			flir_conf.flir_sys_Reticle[1] = 0;
+			
+//			if(index_x > 40) index_x = 40;
+//			if(index_x < 20) index_x = 20;
+//			if(index_y > 53) index_y = 53;
+//			if(index_y < 27) index_y = 27;
+				for(i = (index_x - 20); i < (index_x + 20); i++)     // 摄像头数据   40
 				{
-					for(j = 0; j < 53; j++)            // 53
+					for(j = (index_y - 27); j < (index_y + 26); j++)            // 53
 					{
 						for(m = 0; m < 3; m++)  // 1*1 --- > 4*4
 						{
-							for(n = 0; n < 3; n++) rowBuf[3*i+m][3*j+n] = pdata[i][j];
+							for(n = 0; n < 3; n++) rowBuf[3*(i-index_x + 20)+m][3*(j-index_y + 27)+n] = pdata[i][j];
 						}
 					}
 				}
-				rowBuf[119][157] = pdata[39][52];	rowBuf[119][158] = pdata[39][52];		rowBuf[119][159] = pdata[39][52];
+				rowBuf[119][157] = pdata[index_x + 20][index_y + 26];	rowBuf[119][158] = pdata[index_x + 20][index_y + 26];		rowBuf[119][159] = pdata[index_x + 20][index_y + 26];
 		}
 		else if(PAValue == PAValue3)
 		{
-				for(i = 0; i < 30; i++)     // 摄像头数据   30
+				for(i = (index_x - 15); i < (index_x + 15); i++)     // 摄像头数据   30
 				{
-					for(j = 0; j < 40; j++)            // 40
+					for(j = (index_y - 20); j < (index_y + 20); j++)            // 40
 					{
 						for(m = 0; m < 4; m++)  // 1*1 --- > 4*4
 						{
-							for(n = 0; n < 4; n++) rowBuf[4*i+m][4*j+n] = pdata[i][j];
+							for(n = 0; n < 4; n++) rowBuf[4*(i-index_x+15)+m][4*(j-index_y+20)+n] = pdata[i][j];
 						}
 					}
 				}
