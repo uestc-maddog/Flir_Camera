@@ -377,15 +377,6 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 		
 		if(PAValue == PAValue2)
 		{
-//			index_x=(flir_conf.flir_sys_Reticle[0]+60);
-//			index_y=(flir_conf.flir_sys_Reticle[1]+80);
-//			flir_conf.flir_sys_Reticle[0] = 0;
-//			flir_conf.flir_sys_Reticle[1] = 0;
-			
-//			if(index_x > 40) index_x = 40;
-//			if(index_x < 20) index_x = 20;
-//			if(index_y > 53) index_y = 53;
-//			if(index_y < 27) index_y = 27;
 				for(i = (index_x - 20); i < (index_x + 20); i++)     // 摄像头数据   40
 				{
 					for(j = (index_y - 27); j < (index_y + 26); j++)            // 53

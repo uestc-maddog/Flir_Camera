@@ -168,11 +168,15 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				else                        // 短按   切换亮度
 				{
 					Time_Sleep = 0;                  // Sleep Time counter归零
-					if((++PAValue) > PAValue3) PAValue = PAValue1;
+					if((++PAValue) > PAValue2) PAValue = PAValue1;
 					if(PAValue == PAValue1)  //放大1X，计算放大偏移量
 					{
-						flir_conf.flir_sys_Reticle[0] = flir_conf.flir_sys_Reticle[0]+(index_x*2-60);
-						flir_conf.flir_sys_Reticle[1] = flir_conf.flir_sys_Reticle[1]+(index_y*2-80);
+						flir_conf.flir_sys_Reticle[0] = flir_conf.flir_sys_Reticle[0]*2/3+(index_x*2-60);
+						flir_conf.flir_sys_Reticle[1] = flir_conf.flir_sys_Reticle[1]*2/3+(index_y*2-80);
+						if(flir_conf.flir_sys_Reticle[0] > 36) flir_conf.flir_sys_Reticle[0]=36;
+						if(flir_conf.flir_sys_Reticle[0] < -36) flir_conf.flir_sys_Reticle[0]=-36;
+						if(flir_conf.flir_sys_Reticle[1] > 54) flir_conf.flir_sys_Reticle[1]=54;
+						if(flir_conf.flir_sys_Reticle[1] < -54) flir_conf.flir_sys_Reticle[1]=-54;
 						Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
 						Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;
 					}
@@ -184,23 +188,23 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 						flir_conf.flir_sys_Reticle[1] = 0;
 						if(index_x > 40) 
 						{
-							index_x = 40;
 							flir_conf.flir_sys_Reticle[0] = (index_x - 40)*3;
+							index_x = 40;
 						}
 						if(index_x < 20) 
 						{
-							index_x = 20;
 							flir_conf.flir_sys_Reticle[0] = (index_x - 20)*3;
+							index_x = 20;
 						}
 						if(index_y > 53) 
 						{
-							index_y = 53;
 							flir_conf.flir_sys_Reticle[1] = (index_y - 53)*3;
+							index_y = 53;
 						}
 						if(index_y < 27) 
 						{
-							index_y = 27;
 							flir_conf.flir_sys_Reticle[1] = (index_y - 27)*3;
+							index_y = 27;
 						}
 						Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
 						Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;
@@ -218,18 +222,18 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 						}
 						if(index_x < 15) 
 						{
-							index_x = 15;
 							flir_conf.flir_sys_Reticle[0] = (index_x - 15)*4;
+							index_x = 15;
 						}
 						if(index_y > 60)
 						{
-							index_y = 60;
 							flir_conf.flir_sys_Reticle[1] = (index_y - 60)*4;
+							index_y = 60;
 						}
 						if(index_y < 20) 
 						{
-							index_y = 20;
 							flir_conf.flir_sys_Reticle[1] = (index_y - 20)*4;
+							index_y = 20;
 						}
 						Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
 						Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;

@@ -156,7 +156,7 @@
           <Type>0</Type>
           <LineNumber>146</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134249770</Address>
+          <Address>134250004</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -172,7 +172,7 @@
           <Type>0</Type>
           <LineNumber>1807</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244670</Address>
+          <Address>134244914</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -188,7 +188,7 @@
           <Type>0</Type>
           <LineNumber>1781</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244612</Address>
+          <Address>134244856</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -204,7 +204,7 @@
           <Type>0</Type>
           <LineNumber>1778</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244604</Address>
+          <Address>134244848</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -220,7 +220,7 @@
           <Type>0</Type>
           <LineNumber>1780</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244608</Address>
+          <Address>134244852</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -236,7 +236,7 @@
           <Type>0</Type>
           <LineNumber>1783</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244628</Address>
+          <Address>134244872</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -252,7 +252,7 @@
           <Type>0</Type>
           <LineNumber>1809</LineNumber>
           <EnabledFlag>0</EnabledFlag>
-          <Address>134244678</Address>
+          <Address>134244922</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -295,6 +295,31 @@
           <count>2</count>
           <WinNumber>1</WinNumber>
           <ItemText>res</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Hor</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Ver</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>flir_conf</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>index_x</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>index_y</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
