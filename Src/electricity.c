@@ -55,6 +55,9 @@ uint8_t baterrychackcounter=0;    // 电量检测计数器。
 bool low_power = false;
 extern const float Vref;                 // 新版  ADC参考电压
 //extern const float Vref;               // 旧版  ADC参考电压
+extern PA_sta PAValue;                   //放大倍数参数
+extern uint8_t Hor,Ver;   //瞄准器水平坐标  0-19  对应-9到9
+extern int index_x,index_y; //????
 /********************************************************************************************************
  *                                               EXTERNAL FUNCTIONS
  ********************************************************************************************************/
@@ -204,6 +207,18 @@ void setSandby( void )
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
+	if(PAValue == PAValue2)  //放大1.5X，恢复成1X 保存参数
+	{
+		PAValue = PAValue1;
+		flir_conf.flir_sys_Reticle[0] = flir_conf.flir_sys_Reticle[0]*2/3+(index_x*2-60);
+		flir_conf.flir_sys_Reticle[1] = flir_conf.flir_sys_Reticle[1]*2/3+(index_y*2-80);
+		if(flir_conf.flir_sys_Reticle[0] > 36) flir_conf.flir_sys_Reticle[0]=36;
+		if(flir_conf.flir_sys_Reticle[0] < -36) flir_conf.flir_sys_Reticle[0]=-36;
+		if(flir_conf.flir_sys_Reticle[1] > 54) flir_conf.flir_sys_Reticle[1]=54;
+		if(flir_conf.flir_sys_Reticle[1] < -54) flir_conf.flir_sys_Reticle[1]=-54;
+		Hor = (flir_conf.flir_sys_Reticle[0] + 36)/4;
+		Ver = (flir_conf.flir_sys_Reticle[1] + 54)/6;
+	}
 	
 	Save_Parameter();                           // 保存重要系统参数到FLASH
 	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
