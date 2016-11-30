@@ -230,7 +230,7 @@ void set_reticle(void)
 		Key_Value = Key_Scan();                
 		if(Key_Value)
 		{
-			HAL_Delay(100);
+			HAL_Delay(150);
 			timer = 0;
 			Time_Sleep = 0;                  // Sleep Time counterπÈ¡„
 			

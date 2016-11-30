@@ -6,15 +6,16 @@ ver 1.0
 ## Contents
 * [1 INTRODUCTION](#id-section1)
 * [2 USER MANUAL](#id-section2)
-	* [2.1 POWER ON/OFF](#id-section21)
-	* [2.2 CHARGING](#id-section22)
-	* [2.3 COLOR MODE](#id-section23)
+	* [2.1 RESTORATION](#id-section21)
+	* [2.2 POWER ON/OFF](#id-section22)
+	* [2.3 CHARGING](#id-section23)
 	* [2.4 CONFIGURE DEVICE](#id-section24)
-		* [2.4.1 Brightness](#id-section241)
-		* [2.4.2 Sleep Mode](#id-section242)
-		* [2.4.3 Reticle](#id-section243)
-		* [2.4.4 Version](#id-section244)
-		* [2.4.5 Reset](#id-section245)
+		* [2.4.1 Change Mode](#id-section241)
+		* [2.4.2 Brightness](#id-section242)
+		* [2.4.3 Sleep Mode](#id-section243)
+		* [2.4.4 Reticle](#id-section244)
+		* [2.4.5 Version](#id-section245)
+		* [2.4.6 Reset](#id-section246)
 	* [2.5 STORAGE](#id-section25)
 * [3 SPECIFICATIONS](#id-section3)
 	* [3.1 CAMERA SPECIFICATIONS](#id-section31)
@@ -28,7 +29,7 @@ ver 1.0
 
 <div id='id-section1'/>
 ## 1 INTRODUCTION
-(BACKGROUND INFO)
+This equipment is the interaction of the interface includes two buttons and a LCD display. One of the keys for the on/off key, another key to mode function keys, the user through the long press or short press button to realize all the work. LCD display auxiliary display corresponding, the upper left corner shows Fahrenheit temperature information, and the upper right corner of the display power information
 
 
 <div id='id-section2'/>
@@ -38,46 +39,56 @@ The Viper Camera is designed to be easy to use and friendly to user. Connect the
 All the configurations is saved and will remain after power cycle. 
 
 <div id='id-section21'/>
-### 2.1 POWER ON/OFF
+### 2.1 RESTORATION
+
+In the design of this equipment in the software opens the watchdog, when something goes wrong when they tested the program is run by the system will be reset to restart.
+
+<div id='id-section22'/> 
+### 2.2 POWER ON/OFF
 **Power on**
-When device power is off, simply press ON button for at least 4 second to power on the device. Booting animation will display while system initialize and then everything is ready to go.
+When device power is off, simply press ON button for at least 3 second to power on the device. Booting animation will display while system initialize and then everything is ready to go.
+Plug-in the micro-USB charging cable with power adaptor to charge the device, and charging status will display on screen.Users in the 40 s automatic shutdown time, long press mode key equipment to boot. 
 
 **Power off**
-User can easily power off device by press ON button for 4 second. And the device can be automatically power down under following conditions:
+User can easily power off device by press ON button for 3 second. And the device can be automatically power down under following conditions:
 * Battery is below critical level
 * Sleep is enabled and power on configuring sleep time achieved
 
-<div id='id-section22'/>
-### 2.2 CHARGING
-Plug-in the micro-USB charging cable with power adaptor to charge the device, and charging status will display on screen. Charging takes 2-3 hours and the battery can supprot up to 9 hours work.
-
-To keep the battery under best performance, un-plug charging cable after charging, do not charge for a long time. Do not power up device when it's battery level is too low and automatically power off.
-
-
 <div id='id-section23'/>
-### 2.3 COLOR MODE
-Viper Camera supports two color mode. Gray Scale mode and Colored mode. User can toggle between two display mode under image view by press MODE button. Pictures below demostrate two different color modes.
+### 2.3 CHARGING
+Link micro - USB charger for charging device, interface of red, green, double color LED will light up.If the light become green,the device is full charging.
 
-Gray scale mode
+Plug-in the micro-USB charging cable with power adaptor to charge the device when the device is ON state,the charging status will display on the screen. 
 
-![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/scale.bmp)
+Charge the device when it's OFF state,the device will boot immediately and the full screen display the charging status.Then you can long press the mode key to exit the status and use the device . If you want close the device,just  pull out the charger or wait 40s.
 
-Color mode
+This device is a built-in overcharge protection circuit, charging is completed, will automatically cut off the charging current of lithium-ion batteries
 
-![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/color.bmp)
 
 
 <div id='id-section24'/>
 ### 2.4 CONFIGURE DEVICE
-Press MODE button under image view to enter configuration menu. User can use MODE button to navigate through different configurations. Use short press to switch options and long press to select. Viper will exist to image view 30s after user's last operation on MODE button.
-
-![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content.bmp)
 
 <div id='id-section241'/>
-#### 2.4.1 Brightness
-Viper provides 4 brightness level. User can easily switch from different level by short press MODE button to move cursor and long press MODE button to select.
+#### 2.4.1 Change Mode
+***Color Mode***
+In the normal use of device,short press the mode key can make LCD display mode switch in color grey and green three color modes. 
 
-![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content_brightness.bmp)
+***Size Mode***
+In the normal use of device,short press the ON/OFF key can make LCD display mode switch in 1.0X and 1.5X two size modes.
+
+***Main Menu***
+In the normal use of device, long press mode key for 2 seconds, the device will enter the main menu .As picture:
+
+![content.bmp](.\picture\content.bmp)
+
+The mode button uses short press to switch options and long press to select. Viper will exist to image view 30s after user's last operation on MODE button.
+
+<div id='id-section242'/>
+#### 2.4.2 Brightness
+Viper provides 4 brightness level. User can easily switch from different level by short press MODE button to move cursor and long press MODE button to select. After the success of the change option will appear  a red color of hook behind.The screen will back to main menu 10s after user's last operation on MODE button.
+
+![content_brightness.bmp](.\picture\content_brightness.bmp)
 
 |Options|Desc|
 |---|---|
@@ -87,11 +98,22 @@ Viper provides 4 brightness level. User can easily switch from different level b
 |Level-4|full brightness|
 |back|back to previous menu|
 
-<div id='id-section242'/>
-#### 2.4.2 Sleep Mode
-User can enable Sleep features to allow device sleep after inactivate for a period of time. Sleep is disabled by default. User can select different sleep count down time under this menu. By selecting N/A, this feature is disabled.
+<div id='id-section243'/>
+#### 2.4.3 Sleep Mode
+There are 5 levels in the Sleep Mode, 3 min to 15 min on behalf of the system in the corresponding period of time without any key operation, automatic shutdown. N/A representative system in the condition of electricity will not automatically power off. 
 
-![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/content_sleep.bmp)
+
+If the sleep mode is N/A, it'll not countdown.
+
+**If the sleep mode is the others:**
+
+When the countdown is greater than 20 seconds, the countdown display at the top of the screen, in addition to the shutdown of any button operation, can make the countdown time back to the set time.
+
+When the countdown is equal to or less than 20 seconds, on both sides of the countdown display on the screen, short press mode key only make the countdown time back to set the time, and won't switch color mode. 
+
+User can easily switch from different level by short press MODE button to move cursor and long press MODE button to select. After the success of the change option will appear  a red color of hook behind.The screen will back to main menu 10s after user's last operation on MODE button.
+
+![content_sleep.bmp](.\picture\content_sleep.bmp)
 
 |Options|Desc|
 |---|---|
@@ -102,11 +124,16 @@ User can enable Sleep features to allow device sleep after inactivate for a peri
 |N/A|disabled|
 |back|back to previous menu|
 
-<div id='id-section243'/>
-#### 2.4.3 Reticle
-Reticle can be configured under this sub-menu. Four options was listed in this menu, which is Enable/Disable, Hor, Ver, back. To navigate through this menu, user need to use long press MODE button to move cursor and short press MODE button to select. Be aware that this operation is different from other menus.
+<div id='id-section244'/>
+#### 2.4.4 Reticle
+Reticle can be configured under this sub-menu. Four options was listed in this menu, which is Enable/Disable, Hor, Ver, back. **Be aware that this operation is different from other menus.**To navigate through this menu, user need to use long press MODE button to move cursor and short press MODE button to select.The screen will back to main menu 10s after user's last operation on MODE button.
 
-![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/oumu.jpg)
+
+If Hor is the modify option,modify the crosshair horizontal position, short press the coordinates, add 1, and + 9 again after a short press for - 9. 
+
+IF Ver is the modify option,modify the crosshair vertical position.
+
+![oumu.jpg](.\picture\oumu.jpg)
 
 |Options|Desc|
 |---|---|
@@ -115,16 +142,17 @@ Reticle can be configured under this sub-menu. Four options was listed in this m
 |Ver|Adjust the vertical location of the reticle|
 |back|back to previous menu|
 
-<div id='id-section244'/>
-#### 2.4.4 Version
-Version information will displayed by selecting this options. 
-
-![](https://github.com/uestc-maddog/Flir_Camera/blob/master/Flir%20Doc/picture/version.png)
-
 <div id='id-section245'/>
-#### 2.4.5 Reset
+#### 2.4.5 Version
+Version information will displayed by selecting this options. The screen will back to main menu after 4s.
+
+![version.png](.\picture\version.png)
+
+<div id='id-section246'/>
+#### 2.4.6 Reset
 User can reset all configurations to factory mode by selecting this option.
 
+Factory Settings of the sleep time of N/A, reticle open position in the center of the epicenter, brightness Level - 3, color display mode. 
 
 <div id='id-section25'/>
 ### 2.5 STORAGE
@@ -223,8 +251,4 @@ To keep battery in best performance, Viper needs to be full charge bofore storag
 ||ON putton broken |ON press button cannot trigger low-voltage level|Replace ON button|
 |No image comes out after booting|Broken flir sensor/socket||Replace Flir Lepton camera|
 |Screen flashing|Screen cable broken|Flex cable contact problem|Replace screen|
-|||||
-|||||
-|||||
-|||||
 
