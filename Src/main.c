@@ -150,7 +150,14 @@ int main(void)
 				else
 				{
 					if((++flir_conf.flir_sys_DisMode) > green) flir_conf.flir_sys_DisMode = color;
-					HAL_Delay(100);					
+					HAL_Delay(300);
+#ifdef enable_iwdg
+					HAL_IWDG_Refresh(&hiwdg);
+#endif
+					HAL_Delay(250);		
+#ifdef enable_iwdg
+					HAL_IWDG_Refresh(&hiwdg);
+#endif					
 				}
 			}
 			if(Key_Value == Key_Long)            // 长按进入菜单界面
