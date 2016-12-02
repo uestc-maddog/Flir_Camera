@@ -282,6 +282,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	}
 	else if(GPIO_Pin == GPIO_PIN_15)     // 充电中断
 	{
+		HAL_Delay(500);
+
 		if(!(GPIOA->IDR&0x8000))           // 下降沿，进入充电
 		{
 			if(flir_conf.file_sys_LowPower == Not_LowPower)  // 非Stop模式，进入充电模式
