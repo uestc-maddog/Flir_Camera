@@ -29,11 +29,11 @@
  *                                                 MACROS
  ********************************************************************************************************/
 
-#define focus_x1    40  
-#define focus_x2    70
-#define focus_y1    60
-#define focus_y2   100
-#define focus_lenth 10        // 对焦线的长度	
+#define focus_x1    46  
+#define focus_x2    64
+#define focus_y1    70
+#define focus_y2    90
+#define focus_lenth 5        // 对焦线的长度	
 
 /********************************************************************************************************
  *                                               CONSTANTS
