@@ -86,7 +86,7 @@ int main(void)
 	LCD_Init();
 	MX_TIM9_Init();               // 按照系统参数开启LCD背光
 	display_Animation();          // 显示开机界面
-
+	//while(1);
   init_lepton_command_interface();
   HAL_Delay(500);
   enable_lepton_agc();
