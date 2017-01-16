@@ -416,6 +416,13 @@ bool LCD_WR_Frame(volatile uint16_t pdata[][80])
 				}
 			}
 		}
+//		for(i = 0; i < 120; i++)     // 坏摄像头数据    
+//		{
+//			for(j = 0; j < 4; j++)            
+//			{
+//				rowBuf[i][j] = 0;
+//			}
+//		}
 		if(set_reticle_mark==true)                             // 如果这是二级菜单的显示，则显示瞄准调节界面
 			setreticle_display();
 		if(flir_conf.flir_sys_Focus == focus_enable)
