@@ -66,16 +66,16 @@ int main(void)
  	KeyStatus Key_Value = Key_None;
 	uint16_t countdown = 0;    // 计算倒计时
 	
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
-  /* Configure the system clock */ 
-  SystemClock_Config();         // 外部+PLL  26MHz
-	
-  MX_GPIO_Init();
-  MX_DMA_Init();
+	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+	HAL_Init();
+	/* Configure the system clock */ 
+	SystemClock_Config();         // 外部+PLL  26MHz
+
+	MX_GPIO_Init();
+	MX_DMA_Init();
 	MX_ADC1_Init();
-  MX_SPI2_Init();
-  MX_SPI1_Init();
+	MX_SPI2_Init();
+	MX_SPI1_Init();
 	MX_TIM2_Init();               // 按键时间捕获
 	MX_TIM3_Init();               // Sleep Time      定时器TIM3已开启
 	
@@ -87,9 +87,9 @@ int main(void)
 	MX_TIM9_Init();               // 按照系统参数开启LCD背光
 	display_Animation();          // 显示开机界面
 
-  init_lepton_command_interface();
-  HAL_Delay(500);
-  enable_lepton_agc();
+	init_lepton_command_interface();
+	HAL_Delay(500);
+	enable_lepton_agc();
 	Sys_temprature = Get_Temprate();	    // 得到温度值 
 	
 #ifdef enable_iwdg
@@ -100,7 +100,7 @@ int main(void)
 	Time_Sleep = 0;                             // 休眠定时计数器归零
 	flir_conf.flir_sys_Baterry = Get_Elec();
 	while(1)
-  {
+	{
 		Flir_Display();                 // 显示Flir界面
 
 		if(++timer == 350)              // 刷新温度值
@@ -165,7 +165,7 @@ int main(void)
 				Menu_Display();                    // Menu界面
 			}			
 		}
-  }
+	}
 }
 
 /** System Clock Configuration
