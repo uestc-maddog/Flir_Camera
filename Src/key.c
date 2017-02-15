@@ -165,7 +165,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 					flir_conf.file_sys_LowPower = Is_LowPower;        // 状态切换
 					setSandby();                     // 进入低功耗模式
 				}
-				else                        // 短按   切换亮度
+				else                        // 短按   数码变焦
 				{
 					Time_Sleep = 0;                  // Sleep Time counter归零
 					if((++PAValue) > PAValue2) PAValue = PAValue1;
@@ -241,7 +241,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 					HAL_Delay(100);
 				}
 			}
-			else
+			else    // 开机信号   软件复位后，再判断按键是否为长按，长按则开机
 			{			
 				flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
 				flir_conf.file_sys_PBWakeup = PBWakeup_Down;      // 标记PBSTA开机唤醒键按下
