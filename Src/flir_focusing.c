@@ -307,10 +307,21 @@ void Add_focusing(int *Offset)
 	int Offset_Y2 = focus_y2 + Offset[1];
 	
 	
+	for(i = 0; i < 12; i++)          // 分别围绕4个顶点画对焦线（2像素）   
+	{
+		rowBuf[Offset_X1+8][Offset_Y1+i+5] = WHITE;
+	}
+	
+	for(i = 0; i < 6; i++)          // 分别围绕4个顶点画对焦线（2像素）   
+	{
+		rowBuf[Offset_X1+9+i][Offset_Y1+10] = WHITE;
+		rowBuf[Offset_X1+9+i][Offset_Y1+11] = WHITE;
+	}
+	
 	for(i = 0; i < focus_lenth; i++)          // 分别围绕4个顶点画对焦线（2像素）   
 	{
-		rowBuf[Offset_X1][Offset_Y1+i] = ~rowBuf[Offset_X1][Offset_Y1+i];
-		rowBuf[Offset_X1+1][Offset_Y1+i] = ~rowBuf[Offset_X1+1][Offset_Y1+i];  
+		rowBuf[Offset_X1][Offset_Y1+i+2] = ~rowBuf[Offset_X1][Offset_Y1+i+2];
+		rowBuf[Offset_X1+1][Offset_Y1+i+2] = ~rowBuf[Offset_X1+1][Offset_Y1+i+2];  
 		
 		rowBuf[Offset_X1+i][Offset_Y1] = ~rowBuf[Offset_X1+i][Offset_Y1];
 		rowBuf[Offset_X1+i][Offset_Y1+1] = ~rowBuf[Offset_X1+i][Offset_Y1+1];
@@ -318,24 +329,24 @@ void Add_focusing(int *Offset)
 	
 	for(i = 0; i < focus_lenth; i++)
 	{
-		rowBuf[Offset_X1][Offset_Y2-i] = ~rowBuf[Offset_X1][Offset_Y2-i];
-		rowBuf[Offset_X1+1][Offset_Y2-i] = ~rowBuf[Offset_X1+1][Offset_Y2-i];
+		rowBuf[Offset_X1][Offset_Y2-i-1] = ~rowBuf[Offset_X1][Offset_Y2-i-1];
+		rowBuf[Offset_X1+1][Offset_Y2-i-1] = ~rowBuf[Offset_X1+1][Offset_Y2-i-1];
 		rowBuf[Offset_X1+i][Offset_Y2] = ~rowBuf[Offset_X1+i][Offset_Y2];
 		rowBuf[Offset_X1+i][Offset_Y2+1] = ~rowBuf[Offset_X1+i][Offset_Y2+1];
 	}
 	
 	for(i = 0; i < focus_lenth; i++)
 	{
-		rowBuf[Offset_X2][Offset_Y1+i] = ~rowBuf[Offset_X2][Offset_Y1+i];
-		rowBuf[Offset_X2+1][Offset_Y1+i] = ~rowBuf[Offset_X2+1][Offset_Y1+i];
+		rowBuf[Offset_X2][Offset_Y1+i+2] = ~rowBuf[Offset_X2][Offset_Y1+i+2];
+		rowBuf[Offset_X2-1][Offset_Y1+i+2] = ~rowBuf[Offset_X2-1][Offset_Y1+i+2];
 		rowBuf[Offset_X2-i][Offset_Y1] = ~rowBuf[Offset_X2-i][Offset_Y1];
 		rowBuf[Offset_X2-i][Offset_Y1+1] = ~rowBuf[Offset_X2-i][Offset_Y1+1];
 	}
 	
 	for(i = 0; i < focus_lenth; i++)
 	{
-		rowBuf[Offset_X2][Offset_Y2-i] = ~rowBuf[Offset_X2][Offset_Y2-i];
-		rowBuf[Offset_X2+1][Offset_Y2-i] = ~rowBuf[Offset_X2+1][Offset_Y2-i];
+		rowBuf[Offset_X2][Offset_Y2-i-1] = ~rowBuf[Offset_X2][Offset_Y2-i-1];
+		rowBuf[Offset_X2-1][Offset_Y2-i-1] = ~rowBuf[Offset_X2-1][Offset_Y2-i-1];
 		rowBuf[Offset_X2-i][Offset_Y2] = ~rowBuf[Offset_X2-i][Offset_Y2];
 		rowBuf[Offset_X2-i][Offset_Y2+1] = ~rowBuf[Offset_X2-i][Offset_Y2+1];
 	}

@@ -59,9 +59,11 @@ volatile uint8_t res = 0;
 	
 void Flir_Display(void);                           // Flir界面显示程序
 void Menu_Display(void);                           // Menu界面显示程序
+void SYS_set_readprotect(void);                    //设置读保护
 
 int main(void)
 {
+
 	uint16_t timer = 0;        // 粗略计时
  	KeyStatus Key_Value = Key_None;
 	uint16_t countdown = 0;    // 计算倒计时
@@ -70,7 +72,7 @@ int main(void)
 	HAL_Init();
 	/* Configure the system clock */ 
 	SystemClock_Config();         // 外部+PLL  26MHz
-
+	SYS_set_readprotect();
 	MX_GPIO_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
@@ -166,6 +168,14 @@ int main(void)
 			}			
 		}
 	}
+}
+
+void SYS_set_readprotect(void)
+{
+	FLASH_OBProgramInitTypeDef level1;
+	level1.OptionType = OPTIONBYTE_RDP;
+	level1.BORLevel = OB_RDP_LEVEL_1;
+	HAL_FLASHEx_OBProgram(&level1);
 }
 
 /** System Clock Configuration

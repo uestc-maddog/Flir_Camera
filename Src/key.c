@@ -168,7 +168,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				else                        // 短按   切换亮度
 				{
 					Time_Sleep = 0;                  // Sleep Time counter归零
-					if((++PAValue) > PAValue2) PAValue = PAValue1;
+					if((++PAValue) > PAValue3) PAValue = PAValue1;
 					if(PAValue == PAValue1)  //放大1X，计算放大偏移量
 					{
 						flir_conf.flir_sys_Reticle[0] = flir_conf.flir_sys_Reticle[0]*2/3+(index_x*2-60);
@@ -242,7 +242,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 				}
 			}
 			else
-			{			
+			{		
+				SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+												 SysTick_CTRL_TICKINT_Msk   |
+												 SysTick_CTRL_ENABLE_Msk;  			
 				flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
 				flir_conf.file_sys_PBWakeup = PBWakeup_Down;      // 标记PBSTA开机唤醒键按下
 				Save_Parameter();                                 // 保存9个系统参数到FLASH
@@ -282,6 +285,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	}
 	else if(GPIO_Pin == GPIO_PIN_15)     // 充电中断
 	{
+		SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+										 SysTick_CTRL_TICKINT_Msk   |
+										 SysTick_CTRL_ENABLE_Msk;  
 		HAL_Delay(500);
 
 		if(!(GPIOA->IDR&0x8000))           // 下降沿，进入充电
