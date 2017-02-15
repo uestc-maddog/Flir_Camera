@@ -75,7 +75,7 @@ This device is a built-in overcharge protection circuit, charging is completed, 
 In the normal use of device,short press the mode key can make LCD display mode switch in color grey and green three color modes. 
 
 ***Size Mode***
-In the normal use of device,short press the ON/OFF key can make LCD display mode switch in 1.0X and 1.5X two size modes.
+In the normal use of device,short press the ON/OFF key can make LCD display mode switch in 1.0X、1.5X and 2X three size modes.
 
 ***Main Menu***
 In the normal use of device, long press mode key for 2 seconds, the device will enter the main menu .As picture:

@@ -18,13 +18,16 @@
  #define MENUFOUNCTING_H_
  
 /********************************************************************************************************
- *                                               INCLUDES
+ *                                     
+
+INCLUDES
  ********************************************************************************************************/
 /* System ralted */
 #include "stm32f4xx_hal.h"
 #include "flir_lcd.h"
 
 #define enable_iwdg 1             // 开启IWDG看门狗
+//#define enable_iwdg 0             // 关闭IWDG看门狗
 
 void Brightnesschosen(void);
 void Sleepchosen(void);

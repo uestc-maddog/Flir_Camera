@@ -254,6 +254,9 @@ void setSandby( void )
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
+
+	EXTI->PR=0x7ffff;
+	SysTick->CTRL = 0;
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 
@@ -281,6 +284,8 @@ void PBsetSandby(void)
 	HAL_PWREx_EnableFlashPowerDown();
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+	EXTI->PR=0x7ffff;
+	SysTick->CTRL = 0;
 	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 
