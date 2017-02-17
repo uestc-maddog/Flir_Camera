@@ -1858,7 +1858,7 @@ void display_Animation(void)
 			{
 				flir_conf.file_sys_chargingMode = normal;
 				flir_conf.file_sys_LowPower = Is_LowPower;        // ×´Ì¬ÇÐ»»				
-				setSandby();
+				outsetSandby();
 				break; 
 			}
 			HAL_Delay(10);
@@ -1866,7 +1866,7 @@ void display_Animation(void)
 			{
 				flir_conf.file_sys_chargingMode = normal;
 				flir_conf.file_sys_LowPower = Is_LowPower;        // ×´Ì¬ÇÐ»»				
-				setSandby();
+				outsetSandby();
 				break; 
 			}
 		}	
@@ -1884,7 +1884,6 @@ void display_Animation(void)
 		flir_conf.file_sys_chargingMode = normal;
 	}
 	
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 }
 /*********************************************************************
  * @fn      display_Boot_UI

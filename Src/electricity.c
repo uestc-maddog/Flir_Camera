@@ -152,7 +152,7 @@ void CLOCK_OFF(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | SYSTEM_LED_Pin | GPIO_PIN_11, GPIO_PIN_SET);   
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2 | SYSTEM_LED_Pin | GPIO_PIN_11 , GPIO_PIN_SET);   
 
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7| GPIO_PIN_8| GPIO_PIN_9, GPIO_PIN_RESET);
 	
@@ -187,6 +187,53 @@ void CLOCK_OFF(void)
 	__HAL_RCC_TIM2_CLK_DISABLE();
 	__HAL_RCC_TIM3_CLK_DISABLE();
 	__HAL_RCC_TIM9_CLK_DISABLE();
+	
+	EXTI->IMR&=~(1<<12);  //屏蔽mode key中断。
+}
+
+
+/*********************************************************************
+ * @fn        outsetSandby()
+ *
+ * @brief     configure system to standby mode when out the power line,
+ *						disable LCD and flir camera.
+ *						call this function before sleep.
+ *
+ * @param     none
+ * 
+ * @return    none
+ */
+void outsetSandby( void )
+{
+	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+	EXTI->IMR&=~(1<<12);  //屏蔽mode key中断。
+	//sleep state changge to enable.
+	
+	Save_Parameter();                           // 保存重要系统参数到FLASH
+	if(low_power == false) display_Byebye();
+	else                   display_PowerOff();	
+	
+	
+	HAL_Delay(500);HAL_Delay(500);
+	
+	
+	HAL_Delay(500);HAL_Delay(500);
+	HAL_Delay(500);
+	HAL_Delay(500);
+	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
+	
+	/*To minimize the consumption In Stop mode, FLASH can be powered off before 
+      entering the Stop mode using the HAL_PWREx_EnableFlashPowerDown() function.
+      It can be switched on again by software after exiting the Stop mode using
+      the HAL_PWREx_DisableFlashPowerDown() function. */
+	HAL_PWREx_EnableFlashPowerDown();
+	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+	EXTI->PR=0x7ffff;
+	SysTick->CTRL = 0;
+	HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 }
 
 
@@ -203,6 +250,9 @@ void CLOCK_OFF(void)
  */
 void setSandby( void )
 {
+	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+	EXTI->IMR&=~(1<<12);  //屏蔽mode key中断。
 	//sleep state changge to enable.
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
@@ -221,8 +271,6 @@ void setSandby( void )
 	}
 	
 	Save_Parameter();                           // 保存重要系统参数到FLASH
-	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 	if(low_power == false) display_Byebye();
 	else                   display_PowerOff();	
 	
@@ -236,12 +284,12 @@ void setSandby( void )
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
 	
-	HAL_Delay(500);HAL_Delay(500);HAL_Delay(500);
+	HAL_Delay(500);HAL_Delay(500);
 #ifdef enable_iwdg
 	HAL_IWDG_Refresh(&hiwdg);
 #endif
 	HAL_Delay(500);
-	
+	HAL_Delay(500);
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	
 	/*To minimize the consumption In Stop mode, FLASH can be powered off before 
@@ -249,11 +297,8 @@ void setSandby( void )
       It can be switched on again by software after exiting the Stop mode using
       the HAL_PWREx_DisableFlashPowerDown() function. */
 	HAL_PWREx_EnableFlashPowerDown();
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-#ifdef enable_iwdg
-	HAL_IWDG_Refresh(&hiwdg);
-#endif
+//	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+//	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
 	EXTI->PR=0x7ffff;
 	SysTick->CTRL = 0;
@@ -274,6 +319,7 @@ void setSandby( void )
 void PBsetSandby(void)
 {
 	//sleep state changge to enable.
+	EXTI->IMR&=~(1<<12);  //屏蔽mode key中断。
 	Save_Parameter();                            // 保存9个系统参数到FLASH
 	CLOCK_OFF();                                 // 关闭除外部唤醒中断的外设时钟
 	

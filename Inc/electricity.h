@@ -74,7 +74,7 @@ Quan_baterry Get_Elec(void);
 void Baterrycheck(void);
 
 /*********************************************************************
- * @fn        standbyPower()
+ * @fn        setSandby()
  *
  * @brief     configure LTC3553-2 to standby mode,
  *						disable LCD and flir camera.
@@ -85,6 +85,23 @@ void Baterrycheck(void);
  * @return    none
  */
 void setSandby(void);
+
+
+/*********************************************************************
+ * @fn        outsetSandby()
+ *
+ * @brief     configure LTC3553-2 to standby mode when out the power line,
+ *						disable LCD and flir camera.
+ *						call this function before sleep.
+ *
+ * @param     none
+ *
+ * @return    none
+ */
+void outsetSandby(void);
+ 
+ 
+ 
 
 /*********************************************************************
  * @fn        PBsetSandby()
@@ -97,6 +114,7 @@ void setSandby(void);
  * 
  * @return    none
  */
+
 void PBsetSandby(void);
 
 /*********************************************************************

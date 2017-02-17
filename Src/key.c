@@ -263,6 +263,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		GPIO_InitStruct.Pin = GPIO_PIN_12;
 		GPIO_InitStruct.Pull = GPIO_NOPULL;
 		
+#ifdef enable_iwdg
+				HAL_IWDG_Refresh(&hiwdg);
+#endif
+		
 		if(CAPTURE_STA == 1)               // 已经捕获到按键按下
 		{
 			GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
@@ -288,6 +292,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
 										 SysTick_CTRL_TICKINT_Msk   |
 										 SysTick_CTRL_ENABLE_Msk;  
+#ifdef enable_iwdg
+				HAL_IWDG_Refresh(&hiwdg);
+#endif
 		HAL_Delay(500);
 
 		if(!(GPIOA->IDR&0x8000))           // 下降沿，进入充电
@@ -309,6 +316,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		else                                // 上降沿，退出充电
 		{
 			flir_conf.file_sys_chargingMode = normal; 
+			if(flir_conf.file_sys_LowPower != Not_LowPower)  // 如果是Stop模式，就休眠
+			{
+				PBsetSandby();
+			}
 		}
 	}
 }

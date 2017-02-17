@@ -101,6 +101,7 @@ int main(void)
 	LCD_Clear(BLACK);                 // 清除开机界面的边界
 	Time_Sleep = 0;                             // 休眠定时计数器归零
 	flir_conf.flir_sys_Baterry = Get_Elec();
+	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	while(1)
 	{
 		Flir_Display();                 // 显示Flir界面
@@ -175,7 +176,9 @@ void SYS_set_readprotect(void)
 	FLASH_OBProgramInitTypeDef level1;
 	level1.OptionType = OPTIONBYTE_RDP;
 	level1.BORLevel = OB_RDP_LEVEL_1;
+	HAL_FLASH_Unlock();             //解锁	
 	HAL_FLASHEx_OBProgram(&level1);
+	HAL_FLASH_Lock();           //上锁
 }
 
 /** System Clock Configuration
