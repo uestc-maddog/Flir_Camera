@@ -281,20 +281,20 @@ HAL_StatusTypeDef init_lepton_command_interface(void)
   if (print_sdk_version() != HAL_OK)
     return HAL_ERROR;
 
-  if (print_cust_serial_number() != HAL_OK)
-    return HAL_ERROR;
+//  if (print_cust_serial_number() != HAL_OK)
+//    return HAL_ERROR;
 
-  if (print_flir_serial_number() != HAL_OK)
-    return HAL_ERROR;
+//  if (print_flir_serial_number() != HAL_OK)
+//    return HAL_ERROR;
 
-  if (print_camera_uptime() != HAL_OK)
-    return HAL_ERROR;
+//  if (print_camera_uptime() != HAL_OK)
+//    return HAL_ERROR;
 
-  if (print_fpa_temp_celcius() != HAL_OK)
-    return HAL_ERROR;
+//  if (print_fpa_temp_celcius() != HAL_OK)
+//    return HAL_ERROR;
 
-  if (print_aux_temp_celcius() != HAL_OK)
-    return HAL_ERROR;
+//  if (print_aux_temp_celcius() != HAL_OK)
+//    return HAL_ERROR;
 	
 //  if (print_radiometry() != HAL_OK)
  //   return HAL_ERROR;

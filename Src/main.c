@@ -89,19 +89,27 @@ int main(void)
 	MX_TIM9_Init();               // 按照系统参数开启LCD背光
 	display_Animation();          // 显示开机界面
 
-	init_lepton_command_interface();
-	HAL_Delay(500);
-	enable_lepton_agc();
-	Sys_temprature = Get_Temprate();	    // 得到温度值 
-	
 #ifdef enable_iwdg
 	MX_IWDG_Init();                   // 初始化并启动看门狗     约2s
 #endif
+
+	init_lepton_command_interface();
+	#ifdef enable_iwdg
+			HAL_IWDG_Refresh(&hiwdg);
+#endif
+	HAL_Delay(500);
+	#ifdef enable_iwdg
+			HAL_IWDG_Refresh(&hiwdg);
+#endif
+	enable_lepton_agc();
+	Sys_temprature = Get_Temprate();	    // 得到温度值 
+	
 
 	LCD_Clear(BLACK);                 // 清除开机界面的边界
 	Time_Sleep = 0;                             // 休眠定时计数器归零
 	flir_conf.flir_sys_Baterry = Get_Elec();
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 	while(1)
 	{
 		Flir_Display();                 // 显示Flir界面

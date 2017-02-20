@@ -24,7 +24,7 @@
 #include "stdint.h"
 #include <stdbool.h>
 
-
+#include "lepton.h"
 #include "flir_lcd.h"
 #include "flir_menu.h"
 #include "key.h"
@@ -1873,6 +1873,7 @@ void display_Animation(void)
 	}
 
 	// 显示开机画面3s
+	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
 	display_Boot_Animation();
 	Save_Parameter();                            // 保存9个系统参数到FLASH	
 	HAL_Delay(1000);
