@@ -318,7 +318,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 			flir_conf.file_sys_chargingMode = normal; 
 			if(flir_conf.file_sys_LowPower != Not_LowPower)  // 如果是Stop模式，就休眠
 			{
-				PBsetSandby();
+				SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+												 SysTick_CTRL_TICKINT_Msk   |
+												 SysTick_CTRL_ENABLE_Msk;  			
+				flir_conf.file_sys_LowPower = Not_LowPower;       // 状态切换
+				flir_conf.file_sys_PBWakeup = PBWakeup_Down;      // 标记PBSTA开机唤醒键按下
+				Save_Parameter();                                 // 保存9个系统参数到FLASH
+				/*  SoftReset  */
+				HAL_PWREx_DisableFlashPowerDown();
+				__set_FAULTMASK(1);                               // 关闭所有中断
+				NVIC_SystemReset();                               // 软件复位
 			}
 		}
 	}

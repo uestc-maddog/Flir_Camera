@@ -216,8 +216,6 @@ void outsetSandby( void )
 	
 	
 	HAL_Delay(500);HAL_Delay(500);
-	
-	
 	HAL_Delay(500);HAL_Delay(500);
 	HAL_Delay(500);
 	HAL_Delay(500);
