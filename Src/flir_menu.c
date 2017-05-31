@@ -1789,7 +1789,8 @@ void display_Animation(void)
 
 	// 显示开机画面3s
 	HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
-	display_Boot_Animation();
+	//display_Boot_Animation();                  // 3ae
+	display_Byebye();                            // MD
 	Save_Parameter();                            // 保存9个系统参数到FLASH	
 	HAL_Delay(1000);
 	HAL_Delay(1000);

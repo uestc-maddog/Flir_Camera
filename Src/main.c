@@ -52,14 +52,14 @@ static void MX_ADC1_Init(void);
 static void MX_IWDG_Init(void);
 extern void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
-volatile float Sys_temprature = 0;                       // 温度值
+volatile float Sys_temprature = 0;                   // 温度值
 volatile uint16_t baterry_timer = 0;                 // 获取电池电量的计数器
 
 volatile uint8_t res = 0;
 	
 void Flir_Display(void);                           // Flir界面显示程序
 void Menu_Display(void);                           // Menu界面显示程序
-void SYS_set_readprotect(void);                    //设置读保护
+void SYS_set_readprotect(void);                    // 设置读保护
 
 int main(void)
 {
@@ -94,12 +94,12 @@ int main(void)
 #endif
 
 	init_lepton_command_interface();
-	#ifdef enable_iwdg
-			HAL_IWDG_Refresh(&hiwdg);
+#ifdef enable_iwdg
+	HAL_IWDG_Refresh(&hiwdg);
 #endif
 	HAL_Delay(500);
-	#ifdef enable_iwdg
-			HAL_IWDG_Refresh(&hiwdg);
+#ifdef enable_iwdg
+	HAL_IWDG_Refresh(&hiwdg);
 #endif
 	enable_lepton_agc();
 	Sys_temprature = Get_Temprate();	    // 得到温度值 
@@ -205,10 +205,16 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 104;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+	
+  RCC_OscInitStruct.PLL.PLLM = 15;             // 40MHz
+  RCC_OscInitStruct.PLL.PLLN = 96;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
   RCC_OscInitStruct.PLL.PLLQ = 4;
+	
+//  RCC_OscInitStruct.PLL.PLLM = 25;              // 26MHz
+//  RCC_OscInitStruct.PLL.PLLN = 104;
+//  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+//  RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -217,7 +223,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
@@ -277,9 +283,8 @@ static void MX_SPI1_Init(void)
 }
 
 /* SPI2 init function */
-static void MX_SPI2_Init(void)
+static void MX_SPI2_Init(void)             // 80MHz  8分频。无屏幕撕裂！！！
 {
-
   hspi2.Instance = SPI2;
   hspi2.Init.Mode = SPI_MODE_MASTER;
   hspi2.Init.Direction = SPI_DIRECTION_2LINES;
@@ -287,7 +292,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi2.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi2.Init.NSS = SPI_NSS_HARD_OUTPUT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;  // 40MHz
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -451,10 +456,9 @@ static void MX_TIM2_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 259;
+  htim2.Init.Prescaler = 399;               
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 9;
-	//htim2.Init.Period = 4999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
   {
@@ -483,7 +487,7 @@ static void MX_TIM3_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 25999;                   // 1s中断
+  htim3.Init.Prescaler = 39999;                   // 1s中断
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
