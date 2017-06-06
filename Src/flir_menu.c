@@ -1561,20 +1561,20 @@ void sysConf_init(void)
 	}
 	else
 	{
-		STMFLASH_Read(PARA_SAVE_ADDR+1,(uint32_t*)datatemp,PARA_NUMS-1);   // 读出9个系统参数
+		STMFLASH_Read(PARA_SAVE_ADDR+4,(uint32_t*)datatemp,PARA_NUMS-1);   // 读出9个系统参数   偏移4字节
 
 		// init system configuration
-		flir_conf.flir_sys_Bright = (BrightnessCont_sta)(datatemp[0]>>24);    // 亮度等级   
-		flir_conf.flir_sys_Sleep  = (SleepCont_sta)(datatemp[1]>>24);         // Sleep Time 
+		flir_conf.flir_sys_Bright = (BrightnessCont_sta)(datatemp[0]&0xff);    // 亮度等级   
+		flir_conf.flir_sys_Sleep  = (SleepCont_sta)(datatemp[1]&0xff);         // Sleep Time 
 		
-		flir_conf.flir_sys_Focus = (FocusCont_sta)(datatemp[2]>>24);          // 对焦准心是否开启
-		flir_conf.flir_sys_Reticle[0] = (int)((int)((datatemp[3])>>24)-50);   // Reticle X轴偏移    短轴  对焦准心在屏幕上的位置
-		flir_conf.flir_sys_Reticle[1] = (int)((int)((datatemp[4])>>24)-50);   // Reticle Y轴偏移    长轴
+		flir_conf.flir_sys_Focus = (FocusCont_sta)(datatemp[2]&0xff);          // 对焦准心是否开启
+		flir_conf.flir_sys_Reticle[0] = (int)((int)((datatemp[3])&0xff)-50);   // Reticle X轴偏移    短轴  对焦准心在屏幕上的位置
+		flir_conf.flir_sys_Reticle[1] = (int)((int)((datatemp[4])&0xff)-50);   // Reticle Y轴偏移    长轴
 		
-		flir_conf.flir_sys_DisMode = (DisplayMode_sta)(datatemp[5]>>24);      // 摄像头数据显示模式（彩色/黑白）
-		flir_conf.flir_sys_ComMode = (CompassMode_sta)(datatemp[6]>>24);      // 指南针功能是否开启
-		flir_conf.file_sys_PBWakeup= (PBWakeup_sta)(datatemp[7]>>24);         // 是否为PBSTA开机唤醒
-		flir_conf.file_sys_LowPower= (LowPower_sta)(datatemp[8]>>24);         // 标记系统当前状态：Stop Mode / Running
+		flir_conf.flir_sys_DisMode = (DisplayMode_sta)(datatemp[5]&0xff);      // 摄像头数据显示模式（彩色/黑白）
+		flir_conf.flir_sys_ComMode = (CompassMode_sta)(datatemp[6]&0xff);      // 指南针功能是否开启
+		flir_conf.file_sys_PBWakeup= (PBWakeup_sta)(datatemp[7]&0xff);         // 是否为PBSTA开机唤醒
+		flir_conf.file_sys_LowPower= (LowPower_sta)(datatemp[8]&0xff);         // 标记系统当前状态：Stop Mode / Running
 	}  
 	
 	if( (RCC->CSR & (0x01 << 29)) )                  // 看门狗复位（程序运行出错）

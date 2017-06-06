@@ -301,3 +301,23 @@ HAL_StatusTypeDef init_lepton_command_interface(void)
 	
   return HAL_OK;
 }
+
+HAL_StatusTypeDef enable_FFC(void)
+{
+	LEP_RESULT result;
+	LEP_SYS_FFC_SHUTTER_MODE_OBJ_T_PTR fmt;
+
+	
+	LEP_GetSysFfcShutterModeObj(&hport_desc,fmt);
+	HAL_Delay(100);
+	fmt->shutterMode=LEP_SYS_FFC_SHUTTER_MODE_AUTO;
+	result=LEP_SetSysFfcShutterModeObj(&hport_desc,*fmt);
+	if(result != LEP_OK) 
+	{
+		printf("Could not set FFC: %d\r\n", result);
+		DEBUG_PRINTF("Could not set FFC: %d\r\n", result);
+		return HAL_ERROR;
+	}
+
+	return HAL_OK;
+}
